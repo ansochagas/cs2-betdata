@@ -1,0 +1,3891 @@
+{
+  "status": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "sports": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "events": {
+    "success": true,
+    "data": {
+      "success": 1,
+      "pager": {
+        "page": 1,
+        "per_page": 50,
+        "total": 1135
+      },
+      "results": [
+        {
+          "id": "185430091",
+          "sport_id": "1",
+          "time": "1764202620",
+          "time_status": "0",
+          "league": {
+            "id": "10083563",
+            "name": "Esoccer Battle Volta - 6 mins play"
+          },
+          "home": {
+            "id": "11225666",
+            "name": "PSG (fantazer)"
+          },
+          "away": {
+            "id": "11228726",
+            "name": "Man City (Koss)"
+          },
+          "ss": null,
+          "our_event_id": "11048389",
+          "r_id": null,
+          "updated_at": "1764202546",
+          "odds_updated_at": "1764202545"
+        },
+        {
+          "id": "185430093",
+          "sport_id": "1",
+          "time": "1764202620",
+          "time_status": "0",
+          "league": {
+            "id": "10083563",
+            "name": "Esoccer Battle Volta - 6 mins play"
+          },
+          "home": {
+            "id": "11225270",
+            "name": "Boca Juniors (pimchik)"
+          },
+          "away": {
+            "id": "11223797",
+            "name": "River Plate (Sheva)"
+          },
+          "ss": null,
+          "our_event_id": "11048390",
+          "r_id": null,
+          "updated_at": "1764202546",
+          "odds_updated_at": "1764202545"
+        },
+        {
+          "id": "185429020",
+          "sport_id": "1",
+          "time": "1764202680",
+          "time_status": "0",
+          "league": {
+            "id": "10047781",
+            "name": "Esoccer Battle - 8 mins play"
+          },
+          "home": {
+            "id": "11274987",
+            "name": "Juventus (tohi4)"
+          },
+          "away": {
+            "id": "11277686",
+            "name": "Roma (nekishka)"
+          },
+          "ss": null,
+          "our_event_id": "11048385",
+          "r_id": null,
+          "updated_at": "1764202546",
+          "odds_updated_at": "1764202545"
+        },
+        {
+          "id": "185429026",
+          "sport_id": "1",
+          "time": "1764202680",
+          "time_status": "0",
+          "league": {
+            "id": "10047781",
+            "name": "Esoccer Battle - 8 mins play"
+          },
+          "home": {
+            "id": "11358685",
+            "name": "Bologna (Nightxx)"
+          },
+          "away": {
+            "id": "11357783",
+            "name": "Napoli (deroll)"
+          },
+          "ss": null,
+          "our_event_id": "11048386",
+          "r_id": null,
+          "updated_at": "1764202546",
+          "odds_updated_at": "1764202545"
+        },
+        {
+          "id": "185426143",
+          "sport_id": "1",
+          "time": "1764203220",
+          "time_status": "0",
+          "league": {
+            "id": "10082427",
+            "name": "Esoccer H2H GG League - 8 mins play"
+          },
+          "home": {
+            "id": "11226646",
+            "name": "Arsenal (ZEUS)"
+          },
+          "away": {
+            "id": "11224942",
+            "name": "Tottenham (JAEGER)"
+          },
+          "ss": null,
+          "our_event_id": "11048383",
+          "r_id": null,
+          "updated_at": "1764202546",
+          "odds_updated_at": "1764202545"
+        },
+        {
+          "id": "185424019",
+          "sport_id": "1",
+          "time": "1764203400",
+          "time_status": "0",
+          "league": {
+            "id": "10048705",
+            "name": "Esoccer GT Leagues - 12 mins play"
+          },
+          "home": {
+            "id": "11278816",
+            "name": "A.Bilbao (Lio)"
+          },
+          "away": {
+            "id": "11235955",
+            "name": "Barcelona (Jack)"
+          },
+          "ss": null,
+          "our_event_id": "11037012",
+          "r_id": null,
+          "updated_at": "1764202546",
+          "odds_updated_at": "1764202557"
+        },
+        {
+          "id": "185318319",
+          "sport_id": "1",
+          "time": "1764205200",
+          "time_status": "0",
+          "league": {
+            "id": "10077222",
+            "name": "Mexico Liga MX"
+          },
+          "home": {
+            "id": "10359636",
+            "name": "Juarez FC"
+          },
+          "away": {
+            "id": "10418032",
+            "name": "Toluca"
+          },
+          "ss": null,
+          "our_event_id": "11035437",
+          "r_id": null,
+          "updated_at": "1764202263",
+          "odds_updated_at": "1764202538"
+        },
+        {
+          "id": "184629566",
+          "sport_id": "1",
+          "time": "1764207000",
+          "time_status": "0",
+          "league": {
+            "id": "10041406",
+            "name": "Guatemala Liga Nacional"
+          },
+          "home": {
+            "id": "10415752",
+            "name": "CSD Municipal"
+          },
+          "away": {
+            "id": "10415759",
+            "name": "Guastatoya"
+          },
+          "ss": null,
+          "our_event_id": "10916645",
+          "r_id": null,
+          "updated_at": "1764202122",
+          "odds_updated_at": "1764202543"
+        },
+        {
+          "id": "185013095",
+          "sport_id": "1",
+          "time": "1764207000",
+          "time_status": "0",
+          "league": {
+            "id": "10040619",
+            "name": "Honduras Liga Nacional"
+          },
+          "home": {
+            "id": "10406297",
+            "name": "Real Espana"
+          },
+          "away": {
+            "id": "11087096",
+            "name": "Genesis de Comayagua"
+          },
+          "ss": null,
+          "our_event_id": "10979404",
+          "r_id": null,
+          "updated_at": "1764202284",
+          "odds_updated_at": "1764202546"
+        },
+        {
+          "id": "185269474",
+          "sport_id": "1",
+          "time": "1764207000",
+          "time_status": "0",
+          "league": {
+            "id": "10037438",
+            "name": "Colombia Primera A"
+          },
+          "home": {
+            "id": "11302317",
+            "name": "Atletico Nacional"
+          },
+          "away": {
+            "id": "10402952",
+            "name": "Junior"
+          },
+          "ss": null,
+          "our_event_id": "11018070",
+          "r_id": null,
+          "updated_at": "1764201545",
+          "odds_updated_at": "1764202562"
+        },
+        {
+          "id": "185324517",
+          "sport_id": "1",
+          "time": "1764208800",
+          "time_status": "0",
+          "league": {
+            "id": "10079113",
+            "name": "CONCACAF Central American Cup"
+          },
+          "home": {
+            "id": "10406138",
+            "name": "Alajuelense"
+          },
+          "away": {
+            "id": "10415747",
+            "name": "Xelaju"
+          },
+          "ss": null,
+          "our_event_id": "10921829",
+          "r_id": null,
+          "updated_at": "1764202144",
+          "odds_updated_at": "1764202568"
+        },
+        {
+          "id": "184538995",
+          "sport_id": "1",
+          "time": "1764212700",
+          "time_status": "0",
+          "league": {
+            "id": "10077222",
+            "name": "Mexico Liga MX"
+          },
+          "home": {
+            "id": "10359643",
+            "name": "Monterrey"
+          },
+          "away": {
+            "id": "10359638",
+            "name": "Club America"
+          },
+          "ss": null,
+          "our_event_id": "10968891",
+          "r_id": null,
+          "updated_at": "1764202263",
+          "odds_updated_at": "1764202561"
+        },
+        {
+          "id": "185162574",
+          "sport_id": "1",
+          "time": "1764219600",
+          "time_status": "0",
+          "league": {
+            "id": "10077222",
+            "name": "Mexico Liga MX"
+          },
+          "home": {
+            "id": "10359632",
+            "name": "Tijuana"
+          },
+          "away": {
+            "id": "10359630",
+            "name": "Tigres UANL"
+          },
+          "ss": null,
+          "our_event_id": "11023250",
+          "r_id": null,
+          "updated_at": "1764202263",
+          "odds_updated_at": "1764202563"
+        },
+        {
+          "id": "183567497",
+          "sport_id": "1",
+          "time": "1764229500",
+          "time_status": "0",
+          "league": {
+            "id": "10083407",
+            "name": "AFC Champions League Two"
+          },
+          "home": {
+            "id": "10515633",
+            "name": "Macarthur FC"
+          },
+          "away": {
+            "id": "11051654",
+            "name": "Tai Po"
+          },
+          "ss": null,
+          "our_event_id": "10500108",
+          "r_id": null,
+          "updated_at": "1764202488",
+          "odds_updated_at": "1764202486"
+        },
+        {
+          "id": "185380834",
+          "sport_id": "1",
+          "time": "1764230400",
+          "time_status": "0",
+          "league": {
+            "id": "10046900",
+            "name": "Thailand League Cup"
+          },
+          "home": {
+            "id": "11295148",
+            "name": "Udon Banjan United"
+          },
+          "away": {
+            "id": "10462025",
+            "name": "Bankhai United"
+          },
+          "ss": null,
+          "our_event_id": "11043242",
+          "r_id": null,
+          "updated_at": "1764202535",
+          "odds_updated_at": "1764202533"
+        },
+        {
+          "id": "185014702",
+          "sport_id": "1",
+          "time": "1764232200",
+          "time_status": "0",
+          "league": {
+            "id": "10086934",
+            "name": "Indonesia Super League"
+          },
+          "home": {
+            "id": "10417239",
+            "name": "PSBS Biak"
+          },
+          "away": {
+            "id": "10428403",
+            "name": "Persijap Jepara"
+          },
+          "ss": null,
+          "our_event_id": "11025145",
+          "r_id": null,
+          "updated_at": "1764202516",
+          "odds_updated_at": "1764202565"
+        },
+        {
+          "id": "185382068",
+          "sport_id": "1",
+          "time": "1764234000",
+          "time_status": "0",
+          "league": {
+            "id": "10045851",
+            "name": "Myanmar League 2"
+          },
+          "home": {
+            "id": "10453890",
+            "name": "Myawady FC"
+          },
+          "away": {
+            "id": "11013223",
+            "name": "Glory Goal FC"
+          },
+          "ss": null,
+          "our_event_id": "11045277",
+          "r_id": null,
+          "updated_at": "1764201925",
+          "odds_updated_at": "1764202565"
+        },
+        {
+          "id": "183567499",
+          "sport_id": "1",
+          "time": "1764237600",
+          "time_status": "0",
+          "league": {
+            "id": "10083407",
+            "name": "AFC Champions League Two"
+          },
+          "home": {
+            "id": "11077979",
+            "name": "Eastern Football Team"
+          },
+          "away": {
+            "id": "10359576",
+            "name": "Gamba Osaka"
+          },
+          "ss": null,
+          "our_event_id": "10500106",
+          "r_id": null,
+          "updated_at": "1764202488",
+          "odds_updated_at": "1764202519"
+        },
+        {
+          "id": "183567501",
+          "sport_id": "1",
+          "time": "1764237600",
+          "time_status": "0",
+          "league": {
+            "id": "10083407",
+            "name": "AFC Champions League Two"
+          },
+          "home": {
+            "id": "10360506",
+            "name": "Pohang Steelers"
+          },
+          "away": {
+            "id": "10423066",
+            "name": "BG Pathum United"
+          },
+          "ss": null,
+          "our_event_id": "10500625",
+          "r_id": null,
+          "updated_at": "1764202488",
+          "odds_updated_at": "1764202486"
+        },
+        {
+          "id": "183567503",
+          "sport_id": "1",
+          "time": "1764237600",
+          "time_status": "0",
+          "league": {
+            "id": "10083407",
+            "name": "AFC Champions League Two"
+          },
+          "home": {
+            "id": "10414634",
+            "name": "Ratchaburi FC"
+          },
+          "away": {
+            "id": "10414380",
+            "name": "Nam Dinh"
+          },
+          "ss": null,
+          "our_event_id": "10498359",
+          "r_id": null,
+          "updated_at": "1764202488",
+          "odds_updated_at": "1764202559"
+        },
+        {
+          "id": "185324490",
+          "sport_id": "1",
+          "time": "1764237600",
+          "time_status": "0",
+          "league": {
+            "id": "10043932",
+            "name": "Andorra Premier Division"
+          },
+          "home": {
+            "id": "10445646",
+            "name": "FC Ordino"
+          },
+          "away": {
+            "id": "10518127",
+            "name": "AC d'Escaldes"
+          },
+          "ss": null,
+          "our_event_id": "10987730",
+          "r_id": null,
+          "updated_at": "1764202422",
+          "odds_updated_at": "1764202464"
+        },
+        {
+          "id": "185324503",
+          "sport_id": "1",
+          "time": "1764237600",
+          "time_status": "0",
+          "league": {
+            "id": "10044469",
+            "name": "Ethiopia Premier League"
+          },
+          "home": {
+            "id": "10451184",
+            "name": "Dire Dawa"
+          },
+          "away": {
+            "id": "10443401",
+            "name": "Shire Endaselassie FC"
+          },
+          "ss": null,
+          "our_event_id": "10833664",
+          "r_id": null,
+          "updated_at": "1764202427",
+          "odds_updated_at": "1764202561"
+        },
+        {
+          "id": "185326370",
+          "sport_id": "1",
+          "time": "1764237600",
+          "time_status": "0",
+          "league": {
+            "id": "10041168",
+            "name": "South Korea K League 2"
+          },
+          "home": {
+            "id": "10414683",
+            "name": "Seoul E-Land FC"
+          },
+          "away": {
+            "id": "10360511",
+            "name": "Seongnam FC"
+          },
+          "ss": null,
+          "our_event_id": "11032606",
+          "r_id": null,
+          "updated_at": "1764202091",
+          "odds_updated_at": "1764202507"
+        },
+        {
+          "id": "185382079",
+          "sport_id": "1",
+          "time": "1764237600",
+          "time_status": "0",
+          "league": {
+            "id": "10046900",
+            "name": "Thailand League Cup"
+          },
+          "home": {
+            "id": "10423067",
+            "name": "Customs United"
+          },
+          "away": {
+            "id": "10754750",
+            "name": "Chattrakan City FC"
+          },
+          "ss": null,
+          "our_event_id": "11043243",
+          "r_id": null,
+          "updated_at": "1764202535",
+          "odds_updated_at": "1764202533"
+        },
+        {
+          "id": "184958287",
+          "sport_id": "1",
+          "time": "1764239400",
+          "time_status": "0",
+          "league": {
+            "id": "10040935",
+            "name": "Azerbaijan Division 1"
+          },
+          "home": {
+            "id": "11065372",
+            "name": "Difai FK"
+          },
+          "away": {
+            "id": "10411406",
+            "name": "Moik Baku"
+          },
+          "ss": null,
+          "our_event_id": "10636990",
+          "r_id": null,
+          "updated_at": "1764202564",
+          "odds_updated_at": "1764202562"
+        },
+        {
+          "id": "184958290",
+          "sport_id": "1",
+          "time": "1764239400",
+          "time_status": "0",
+          "league": {
+            "id": "10040935",
+            "name": "Azerbaijan Division 1"
+          },
+          "home": {
+            "id": "11330579",
+            "name": "FK Sahdag Qusar"
+          },
+          "away": {
+            "id": "11330398",
+            "name": "Safa Baku"
+          },
+          "ss": null,
+          "our_event_id": "10636989",
+          "r_id": null,
+          "updated_at": "1764202564",
+          "odds_updated_at": "1764202562"
+        },
+        {
+          "id": "185381949",
+          "sport_id": "1",
+          "time": "1764239400",
+          "time_status": "0",
+          "league": {
+            "id": "10040256",
+            "name": "Iran Div 2"
+          },
+          "home": {
+            "id": "10787783",
+            "name": "Foolad Khuzestan B"
+          },
+          "away": {
+            "id": "11079264",
+            "name": "KIA Football Academy"
+          },
+          "ss": null,
+          "our_event_id": "11046408",
+          "r_id": null,
+          "updated_at": "1764202544",
+          "odds_updated_at": "1764202542"
+        },
+        {
+          "id": "185436706",
+          "sport_id": "1",
+          "time": "1764239400",
+          "time_status": "0",
+          "league": {
+            "id": "10082861",
+            "name": "Paraguay Reserve League"
+          },
+          "home": {
+            "id": "11174049",
+            "name": "Libertad Asuncion Reserves"
+          },
+          "away": {
+            "id": "11174046",
+            "name": "General Caballero Reserves"
+          },
+          "ss": null,
+          "our_event_id": "11047739",
+          "r_id": null,
+          "updated_at": "1764202443",
+          "odds_updated_at": "1764202563"
+        },
+        {
+          "id": "185436709",
+          "sport_id": "1",
+          "time": "1764239400",
+          "time_status": "0",
+          "league": {
+            "id": "10082861",
+            "name": "Paraguay Reserve League"
+          },
+          "home": {
+            "id": "11245687",
+            "name": "Deportivo Recoleta Reserves"
+          },
+          "away": {
+            "id": "11173423",
+            "name": "Nacional Asuncion Reserves"
+          },
+          "ss": null,
+          "our_event_id": "11047740",
+          "r_id": null,
+          "updated_at": "1764202443",
+          "odds_updated_at": "1764202491"
+        },
+        {
+          "id": "185436715",
+          "sport_id": "1",
+          "time": "1764239400",
+          "time_status": "0",
+          "league": {
+            "id": "10082861",
+            "name": "Paraguay Reserve League"
+          },
+          "home": {
+            "id": "11172656",
+            "name": "Sportivo Ameliano Reserves"
+          },
+          "away": {
+            "id": "11173424",
+            "name": "Sportivo Trinidense Reserves"
+          },
+          "ss": null,
+          "our_event_id": "11047741",
+          "r_id": null,
+          "updated_at": "1764202443",
+          "odds_updated_at": "1764202534"
+        },
+        {
+          "id": "184958301",
+          "sport_id": "1",
+          "time": "1764241200",
+          "time_status": "0",
+          "league": {
+            "id": "10040935",
+            "name": "Azerbaijan Division 1"
+          },
+          "home": {
+            "id": "10411331",
+            "name": "Sabail FC"
+          },
+          "away": {
+            "id": "11195109",
+            "name": "Cebrayil FK"
+          },
+          "ss": null,
+          "our_event_id": "10636992",
+          "r_id": null,
+          "updated_at": "1764202564",
+          "odds_updated_at": "1764202562"
+        },
+        {
+          "id": "185384422",
+          "sport_id": "1",
+          "time": "1764243000",
+          "time_status": "0",
+          "league": {
+            "id": "10041757",
+            "name": "Iran Div 1"
+          },
+          "home": {
+            "id": "10921642",
+            "name": "Ario Eslamshahr"
+          },
+          "away": {
+            "id": "10401156",
+            "name": "Saipa Karadj"
+          },
+          "ss": null,
+          "our_event_id": "10944346",
+          "r_id": null,
+          "updated_at": "1764202389",
+          "odds_updated_at": "1764202546"
+        },
+        {
+          "id": "185014704",
+          "sport_id": "1",
+          "time": "1764244800",
+          "time_status": "0",
+          "league": {
+            "id": "10086934",
+            "name": "Indonesia Super League"
+          },
+          "home": {
+            "id": "10431983",
+            "name": "Persik Kediri"
+          },
+          "away": {
+            "id": "10401146",
+            "name": "Semen Padang"
+          },
+          "ss": null,
+          "our_event_id": "11025146",
+          "r_id": null,
+          "updated_at": "1764202516",
+          "odds_updated_at": "1764202523"
+        },
+        {
+          "id": "185382066",
+          "sport_id": "1",
+          "time": "1764244800",
+          "time_status": "0",
+          "league": {
+            "id": "10040485",
+            "name": "Kenya Super League"
+          },
+          "home": {
+            "id": "11351547",
+            "name": "Gucha Stars FC"
+          },
+          "away": {
+            "id": "10410063",
+            "name": "Kisumu All Stars"
+          },
+          "ss": null,
+          "our_event_id": "11034958",
+          "r_id": null,
+          "updated_at": "1764202552",
+          "odds_updated_at": "1764202551"
+        },
+        {
+          "id": "183567505",
+          "sport_id": "1",
+          "time": "1764245700",
+          "time_status": "0",
+          "league": {
+            "id": "10083407",
+            "name": "AFC Champions League Two"
+          },
+          "home": {
+            "id": "10994266",
+            "name": "Cong An Ha Noi"
+          },
+          "away": {
+            "id": "10364171",
+            "name": "Beijing Guoan"
+          },
+          "ss": null,
+          "our_event_id": "10500632",
+          "r_id": null,
+          "updated_at": "1764202488",
+          "odds_updated_at": "1764202568"
+        },
+        {
+          "id": "183567507",
+          "sport_id": "1",
+          "time": "1764245700",
+          "time_status": "0",
+          "league": {
+            "id": "10083407",
+            "name": "AFC Champions League Two"
+          },
+          "home": {
+            "id": "10410919",
+            "name": "Tampines Rovers FC"
+          },
+          "away": {
+            "id": "10400939",
+            "name": "Kaya FC"
+          },
+          "ss": null,
+          "our_event_id": "10499909",
+          "r_id": null,
+          "updated_at": "1764202488",
+          "odds_updated_at": "1764202486"
+        },
+        {
+          "id": "185020482",
+          "sport_id": "1",
+          "time": "1764246600",
+          "time_status": "0",
+          "league": {
+            "id": "10040307",
+            "name": "Saudi Arabia Division 1"
+          },
+          "home": {
+            "id": "10414578",
+            "name": "Abha"
+          },
+          "away": {
+            "id": "10403103",
+            "name": "Al-Bukayriyah FC"
+          },
+          "ss": null,
+          "our_event_id": "10476969",
+          "r_id": null,
+          "updated_at": "1764202023",
+          "odds_updated_at": "1764202548"
+        },
+        {
+          "id": "185336764",
+          "sport_id": "1",
+          "time": "1764246600",
+          "time_status": "0",
+          "league": {
+            "id": "10041643",
+            "name": "Egypt Division 2"
+          },
+          "home": {
+            "id": "10404159",
+            "name": "El Entag El Harby"
+          },
+          "away": {
+            "id": "10423983",
+            "name": "Dayrout"
+          },
+          "ss": null,
+          "our_event_id": "10387844",
+          "r_id": null,
+          "updated_at": "1764202265",
+          "odds_updated_at": "1764202307"
+        },
+        {
+          "id": "185336768",
+          "sport_id": "1",
+          "time": "1764246600",
+          "time_status": "0",
+          "league": {
+            "id": "10041643",
+            "name": "Egypt Division 2"
+          },
+          "home": {
+            "id": "11206184",
+            "name": "FC Masar"
+          },
+          "away": {
+            "id": "10417822",
+            "name": "Aswan FC"
+          },
+          "ss": null,
+          "our_event_id": "10388627",
+          "r_id": null,
+          "updated_at": "1764202265",
+          "odds_updated_at": "1764202518"
+        },
+        {
+          "id": "185336772",
+          "sport_id": "1",
+          "time": "1764246600",
+          "time_status": "0",
+          "league": {
+            "id": "10041643",
+            "name": "Egypt Division 2"
+          },
+          "home": {
+            "id": "10417072",
+            "name": "Al Qanah"
+          },
+          "away": {
+            "id": "10417890",
+            "name": "Maleyet El Zayiat"
+          },
+          "ss": null,
+          "our_event_id": "10388041",
+          "r_id": null,
+          "updated_at": "1764202265",
+          "odds_updated_at": "1764202563"
+        },
+        {
+          "id": "185336776",
+          "sport_id": "1",
+          "time": "1764246600",
+          "time_status": "0",
+          "league": {
+            "id": "10080129",
+            "name": "Egypt Second Division B"
+          },
+          "home": {
+            "id": "10736524",
+            "name": "El Zarqa"
+          },
+          "away": {
+            "id": "11363876",
+            "name": "Ra SC"
+          },
+          "ss": null,
+          "our_event_id": "11043654",
+          "r_id": null,
+          "updated_at": "1764202419",
+          "odds_updated_at": "1764202541"
+        },
+        {
+          "id": "184958526",
+          "sport_id": "1",
+          "time": "1764248400",
+          "time_status": "0",
+          "league": {
+            "id": "10040910",
+            "name": "Israel Liga Alef South"
+          },
+          "home": {
+            "id": "10400064",
+            "name": "Shimshon Tel Aviv"
+          },
+          "away": {
+            "id": "10518315",
+            "name": "MS Jerusalem"
+          },
+          "ss": null,
+          "our_event_id": "11044206",
+          "r_id": null,
+          "updated_at": "1764202235",
+          "odds_updated_at": "1764202569"
+        },
+        {
+          "id": "185324497",
+          "sport_id": "1",
+          "time": "1764248400",
+          "time_status": "0",
+          "league": {
+            "id": "10044469",
+            "name": "Ethiopia Premier League"
+          },
+          "home": {
+            "id": "10449108",
+            "name": "Hadiya Hossana"
+          },
+          "away": {
+            "id": "11200071",
+            "name": "Arba Minch Kenema"
+          },
+          "ss": null,
+          "our_event_id": "10833662",
+          "r_id": null,
+          "updated_at": "1764202427",
+          "odds_updated_at": "1764202426"
+        },
+        {
+          "id": "185327742",
+          "sport_id": "1",
+          "time": "1764248400",
+          "time_status": "0",
+          "league": {
+            "id": "10043521",
+            "name": "Qatar Stars Cup"
+          },
+          "home": {
+            "id": "10418287",
+            "name": "Al Markhiya"
+          },
+          "away": {
+            "id": "10410152",
+            "name": "Qatar SC Doha"
+          },
+          "ss": null,
+          "our_event_id": "11044120",
+          "r_id": null,
+          "updated_at": "1764202538",
+          "odds_updated_at": "1764202535"
+        },
+        {
+          "id": "185327760",
+          "sport_id": "1",
+          "time": "1764248400",
+          "time_status": "0",
+          "league": {
+            "id": "10037195",
+            "name": "Rwanda National League"
+          },
+          "home": {
+            "id": "10417726",
+            "name": "Bugesera"
+          },
+          "away": {
+            "id": "10447698",
+            "name": "Al Merreikh"
+          },
+          "ss": null,
+          "our_event_id": "11018875",
+          "r_id": null,
+          "updated_at": "1764202116",
+          "odds_updated_at": "1764202458"
+        },
+        {
+          "id": "185327779",
+          "sport_id": "1",
+          "time": "1764248400",
+          "time_status": "0",
+          "league": {
+            "id": "10037213",
+            "name": "Uganda Premier League"
+          },
+          "home": {
+            "id": "10417739",
+            "name": "BUL FC"
+          },
+          "away": {
+            "id": "11338721",
+            "name": "Entebbe UPPC"
+          },
+          "ss": null,
+          "our_event_id": "10680393",
+          "r_id": null,
+          "updated_at": "1764202443",
+          "odds_updated_at": "1764202545"
+        },
+        {
+          "id": "185327782",
+          "sport_id": "1",
+          "time": "1764248400",
+          "time_status": "0",
+          "league": {
+            "id": "10037213",
+            "name": "Uganda Premier League"
+          },
+          "home": {
+            "id": "10364956",
+            "name": "Uganda Police FC"
+          },
+          "away": {
+            "id": "10403112",
+            "name": "Kitara FC"
+          },
+          "ss": null,
+          "our_event_id": "10680392",
+          "r_id": null,
+          "updated_at": "1764202443",
+          "odds_updated_at": "1764202562"
+        },
+        {
+          "id": "185327784",
+          "sport_id": "1",
+          "time": "1764248400",
+          "time_status": "0",
+          "league": {
+            "id": "10040761",
+            "name": "Uganda Division 2"
+          },
+          "home": {
+            "id": "11350280",
+            "name": "Iganga United"
+          },
+          "away": {
+            "id": "11203927",
+            "name": "Ntugasaze FC"
+          },
+          "ss": null,
+          "our_event_id": "11040651",
+          "r_id": null,
+          "updated_at": "1764202570",
+          "odds_updated_at": "1764202557"
+        },
+        {
+          "id": "185327786",
+          "sport_id": "1",
+          "time": "1764248400",
+          "time_status": "0",
+          "league": {
+            "id": "10040761",
+            "name": "Uganda Division 2"
+          },
+          "home": {
+            "id": "10420176",
+            "name": "Mbale Heroes"
+          },
+          "away": {
+            "id": "11213123",
+            "name": "Kigezi Homeboyz FC"
+          },
+          "ss": null,
+          "our_event_id": "11040652",
+          "r_id": null,
+          "updated_at": "1764202570",
+          "odds_updated_at": "1764202557"
+        },
+        {
+          "id": "185407144",
+          "sport_id": "1",
+          "time": "1764248400",
+          "time_status": "0",
+          "league": {
+            "id": "10044469",
+            "name": "Ethiopia Premier League"
+          },
+          "home": {
+            "id": "11197645",
+            "name": "Mekelle 70 Enderta FC"
+          },
+          "away": {
+            "id": "11066305",
+            "name": "Ethiopia Nigd Bank"
+          },
+          "ss": null,
+          "our_event_id": "10833663",
+          "r_id": null,
+          "updated_at": "1764202427",
+          "odds_updated_at": "1764202426"
+        }
+      ]
+    }
+  },
+  "esports": {
+    "success": true,
+    "data": {
+      "success": 0,
+      "error": "PARAM_REQUIRED",
+      "error_detail": "sport_id"
+    }
+  },
+  "sport_78": {
+    "success": true,
+    "data": {
+      "success": 1,
+      "pager": {
+        "page": 1,
+        "per_page": 50,
+        "total": 76
+      },
+      "results": [
+        {
+          "id": "185087703",
+          "sport_id": "78",
+          "time": "1764262800",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11344798",
+            "name": "Switzerland (W)"
+          },
+          "away": {
+            "id": "11358855",
+            "name": "Iran (W)"
+          },
+          "ss": null,
+          "our_event_id": "10005257",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764202480"
+        },
+        {
+          "id": "185087704",
+          "sport_id": "78",
+          "time": "1764262800",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11361632",
+            "name": "Angola (W)"
+          },
+          "away": {
+            "id": "11359826",
+            "name": "Kazakhstan (W)"
+          },
+          "ss": null,
+          "our_event_id": "10006159",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764202272"
+        },
+        {
+          "id": "185087706",
+          "sport_id": "78",
+          "time": "1764262800",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11333547",
+            "name": "Romania (W)"
+          },
+          "away": {
+            "id": "11333869",
+            "name": "Croatia (W)"
+          },
+          "ss": null,
+          "our_event_id": "10004765",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764202511"
+        },
+        {
+          "id": "185087707",
+          "sport_id": "78",
+          "time": "1764262800",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11334003",
+            "name": "Brazil (W)"
+          },
+          "away": {
+            "id": "11362166",
+            "name": "Cuba (W)"
+          },
+          "ss": null,
+          "our_event_id": "11026098",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764202494"
+        },
+        {
+          "id": "184918601",
+          "sport_id": "78",
+          "time": "1764265500",
+          "time_status": "0",
+          "league": {
+            "id": "10037164",
+            "name": "Champions League"
+          },
+          "home": {
+            "id": "10361791",
+            "name": "GOG"
+          },
+          "away": {
+            "id": "10365136",
+            "name": "FC Barcelona"
+          },
+          "ss": null,
+          "our_event_id": "10271597",
+          "r_id": null,
+          "updated_at": "1764202363",
+          "odds_updated_at": "1764202371"
+        },
+        {
+          "id": "184918602",
+          "sport_id": "78",
+          "time": "1764265500",
+          "time_status": "0",
+          "league": {
+            "id": "10037164",
+            "name": "Champions League"
+          },
+          "home": {
+            "id": "10361794",
+            "name": "Pick Szeged"
+          },
+          "away": {
+            "id": "10407569",
+            "name": "RK Zagreb"
+          },
+          "ss": null,
+          "our_event_id": "10272396",
+          "r_id": null,
+          "updated_at": "1764202363",
+          "odds_updated_at": "1764202428"
+        },
+        {
+          "id": "184923273",
+          "sport_id": "78",
+          "time": "1764266400",
+          "time_status": "0",
+          "league": {
+            "id": "10036637",
+            "name": "Germany Bundesliga"
+          },
+          "home": {
+            "id": "10361924",
+            "name": "HSG Wetzlar"
+          },
+          "away": {
+            "id": "10359437",
+            "name": "Rhein Neckar Lowen"
+          },
+          "ss": null,
+          "our_event_id": "10310136",
+          "r_id": null,
+          "updated_at": "1764202232",
+          "odds_updated_at": "1764202369"
+        },
+        {
+          "id": "184930196",
+          "sport_id": "78",
+          "time": "1764266400",
+          "time_status": "0",
+          "league": {
+            "id": "10037267",
+            "name": "Sweden Handbollsligan"
+          },
+          "home": {
+            "id": "10362051",
+            "name": "IFK Skovde HK"
+          },
+          "away": {
+            "id": "10361831",
+            "name": "Alingsas HK"
+          },
+          "ss": null,
+          "our_event_id": "10230370",
+          "r_id": null,
+          "updated_at": "1764202135",
+          "odds_updated_at": "1764202134"
+        },
+        {
+          "id": "184925135",
+          "sport_id": "78",
+          "time": "1764268200",
+          "time_status": "0",
+          "league": {
+            "id": "10040089",
+            "name": "Iceland Úrvalsdeild"
+          },
+          "home": {
+            "id": "10424965",
+            "name": "Valur"
+          },
+          "away": {
+            "id": "10424963",
+            "name": "UMF Stjarnan"
+          },
+          "ss": null,
+          "our_event_id": "10310752",
+          "r_id": null,
+          "updated_at": "1764202083",
+          "odds_updated_at": "1764202524"
+        },
+        {
+          "id": "185373414",
+          "sport_id": "78",
+          "time": "1764268200",
+          "time_status": "0",
+          "league": {
+            "id": "10041959",
+            "name": "Israel National League Women"
+          },
+          "home": {
+            "id": "11345492",
+            "name": "AC Ness Ziona (W)"
+          },
+          "away": {
+            "id": "11336335",
+            "name": "Hapoel Ashdod (W)"
+          },
+          "ss": null,
+          "our_event_id": "10642005",
+          "r_id": null,
+          "updated_at": "1764194388",
+          "odds_updated_at": "1764195310"
+        },
+        {
+          "id": "185373416",
+          "sport_id": "78",
+          "time": "1764268200",
+          "time_status": "0",
+          "league": {
+            "id": "10041959",
+            "name": "Israel National League Women"
+          },
+          "home": {
+            "id": "11337850",
+            "name": "AS Ramash (W)"
+          },
+          "away": {
+            "id": "11351962",
+            "name": "Maccabi Petah Tikva (W)"
+          },
+          "ss": null,
+          "our_event_id": "10648809",
+          "r_id": null,
+          "updated_at": "1764194388",
+          "odds_updated_at": "1764197454"
+        },
+        {
+          "id": "185373417",
+          "sport_id": "78",
+          "time": "1764268200",
+          "time_status": "0",
+          "league": {
+            "id": "10041959",
+            "name": "Israel National League Women"
+          },
+          "home": {
+            "id": "11340887",
+            "name": "HC Holon (W)"
+          },
+          "away": {
+            "id": "11337851",
+            "name": "Maccabi Arazim (W)"
+          },
+          "ss": null,
+          "our_event_id": "10959290",
+          "r_id": null,
+          "updated_at": "1764194388",
+          "odds_updated_at": "1764197189"
+        },
+        {
+          "id": "185373418",
+          "sport_id": "78",
+          "time": "1764268200",
+          "time_status": "0",
+          "league": {
+            "id": "10041959",
+            "name": "Israel National League Women"
+          },
+          "home": {
+            "id": "11345570",
+            "name": "Hapoel Kiryat Ono (W)"
+          },
+          "away": {
+            "id": "11348553",
+            "name": "Bnei Herzliya (W)"
+          },
+          "ss": null,
+          "our_event_id": "10642004",
+          "r_id": null,
+          "updated_at": "1764202447",
+          "odds_updated_at": "1764202445"
+        },
+        {
+          "id": "184925136",
+          "sport_id": "78",
+          "time": "1764270000",
+          "time_status": "0",
+          "league": {
+            "id": "10040089",
+            "name": "Iceland Úrvalsdeild"
+          },
+          "home": {
+            "id": "10400334",
+            "name": "Knattspyrnufelag Akureyrar"
+          },
+          "away": {
+            "id": "10400333",
+            "name": "UMF Selfoss"
+          },
+          "ss": null,
+          "our_event_id": "10310751",
+          "r_id": null,
+          "updated_at": "1764202083",
+          "odds_updated_at": "1764202563"
+        },
+        {
+          "id": "184925137",
+          "sport_id": "78",
+          "time": "1764271800",
+          "time_status": "0",
+          "league": {
+            "id": "10040089",
+            "name": "Iceland Úrvalsdeild"
+          },
+          "home": {
+            "id": "10400332",
+            "name": "UMF Afturelding"
+          },
+          "away": {
+            "id": "10424962",
+            "name": "Haukar Hafnarfjordur"
+          },
+          "ss": null,
+          "our_event_id": "10310750",
+          "r_id": null,
+          "updated_at": "1764202083",
+          "odds_updated_at": "1764202080"
+        },
+        {
+          "id": "185087708",
+          "sport_id": "78",
+          "time": "1764271800",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11333942",
+            "name": "Denmark (W)"
+          },
+          "away": {
+            "id": "11362175",
+            "name": "Japan (W)"
+          },
+          "ss": null,
+          "our_event_id": "11026122",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764202560"
+        },
+        {
+          "id": "185087710",
+          "sport_id": "78",
+          "time": "1764271800",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11333934",
+            "name": "Sweden (W)"
+          },
+          "away": {
+            "id": "11333868",
+            "name": "Czechia (W)"
+          },
+          "ss": null,
+          "our_event_id": "10005245",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764202250"
+        },
+        {
+          "id": "185087711",
+          "sport_id": "78",
+          "time": "1764271800",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11333935",
+            "name": "Hungary (W)"
+          },
+          "away": {
+            "id": "11362988",
+            "name": "Senegal (W)"
+          },
+          "ss": null,
+          "our_event_id": "10005802",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764202508"
+        },
+        {
+          "id": "185087712",
+          "sport_id": "78",
+          "time": "1764271800",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11333866",
+            "name": "Norway (W)"
+          },
+          "away": {
+            "id": "11362164",
+            "name": "South Korea (W)"
+          },
+          "ss": null,
+          "our_event_id": "11026095",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764202561"
+        },
+        {
+          "id": "184918603",
+          "sport_id": "78",
+          "time": "1764272700",
+          "time_status": "0",
+          "league": {
+            "id": "10037164",
+            "name": "Champions League"
+          },
+          "home": {
+            "id": "10361922",
+            "name": "Fuchse Berlin"
+          },
+          "away": {
+            "id": "10361789",
+            "name": "Veszprem"
+          },
+          "ss": null,
+          "our_event_id": "10272426",
+          "r_id": null,
+          "updated_at": "1764202363",
+          "odds_updated_at": "1764202480"
+        },
+        {
+          "id": "184918604",
+          "sport_id": "78",
+          "time": "1764272700",
+          "time_status": "0",
+          "league": {
+            "id": "10037164",
+            "name": "Champions League"
+          },
+          "home": {
+            "id": "10361797",
+            "name": "PSG Handball"
+          },
+          "away": {
+            "id": "10361792",
+            "name": "Wisla Plock"
+          },
+          "ss": null,
+          "our_event_id": "10272023",
+          "r_id": null,
+          "updated_at": "1764202363",
+          "odds_updated_at": "1764202405"
+        },
+        {
+          "id": "184918605",
+          "sport_id": "78",
+          "time": "1764272700",
+          "time_status": "0",
+          "league": {
+            "id": "10037164",
+            "name": "Champions League"
+          },
+          "home": {
+            "id": "10401932",
+            "name": "Sporting CP"
+          },
+          "away": {
+            "id": "10411670",
+            "name": "Kolstad"
+          },
+          "ss": null,
+          "our_event_id": "10272427",
+          "r_id": null,
+          "updated_at": "1764202363",
+          "odds_updated_at": "1764202548"
+        },
+        {
+          "id": "184926864",
+          "sport_id": "78",
+          "time": "1764276300",
+          "time_status": "0",
+          "league": {
+            "id": "10040607",
+            "name": "Portugal Liga Andebol"
+          },
+          "home": {
+            "id": "10361790",
+            "name": "FC Porto"
+          },
+          "away": {
+            "id": "10435769",
+            "name": "Arsenal Andebol"
+          },
+          "ss": null,
+          "our_event_id": "10342220",
+          "r_id": null,
+          "updated_at": "1764202526",
+          "odds_updated_at": "1764202525"
+        },
+        {
+          "id": "185088808",
+          "sport_id": "78",
+          "time": "1764349200",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11334002",
+            "name": "Austria (W)"
+          },
+          "away": {
+            "id": "11333456",
+            "name": "Egypt (W)"
+          },
+          "ss": null,
+          "our_event_id": "10005262",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764201840"
+        },
+        {
+          "id": "185088810",
+          "sport_id": "78",
+          "time": "1764349200",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11333982",
+            "name": "Poland (W)"
+          },
+          "away": {
+            "id": "11362165",
+            "name": "China (W)"
+          },
+          "ss": null,
+          "our_event_id": "11026096",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764201619"
+        },
+        {
+          "id": "184923274",
+          "sport_id": "78",
+          "time": "1764352800",
+          "time_status": "0",
+          "league": {
+            "id": "10036637",
+            "name": "Germany Bundesliga"
+          },
+          "home": {
+            "id": "10359436",
+            "name": "HC Erlangen"
+          },
+          "away": {
+            "id": "10401575",
+            "name": "TVB Stuttgart"
+          },
+          "ss": null,
+          "our_event_id": "10309996",
+          "r_id": null,
+          "updated_at": "1764202232",
+          "odds_updated_at": "1764202562"
+        },
+        {
+          "id": "184930197",
+          "sport_id": "78",
+          "time": "1764352800",
+          "time_status": "0",
+          "league": {
+            "id": "10037267",
+            "name": "Sweden Handbollsligan"
+          },
+          "home": {
+            "id": "10362001",
+            "name": "HIF Karlskrona"
+          },
+          "away": {
+            "id": "10362065",
+            "name": "IK Savehof"
+          },
+          "ss": null,
+          "our_event_id": "10230351",
+          "r_id": null,
+          "updated_at": "1764202135",
+          "odds_updated_at": "1764202134"
+        },
+        {
+          "id": "184930198",
+          "sport_id": "78",
+          "time": "1764352800",
+          "time_status": "0",
+          "league": {
+            "id": "10037267",
+            "name": "Sweden Handbollsligan"
+          },
+          "home": {
+            "id": "10406355",
+            "name": "Onnereds HK"
+          },
+          "away": {
+            "id": "10362047",
+            "name": "Ystads IF HF"
+          },
+          "ss": null,
+          "our_event_id": "10839302",
+          "r_id": null,
+          "updated_at": "1764202135",
+          "odds_updated_at": "1764202154"
+        },
+        {
+          "id": "184925138",
+          "sport_id": "78",
+          "time": "1764354600",
+          "time_status": "0",
+          "league": {
+            "id": "10040089",
+            "name": "Iceland Úrvalsdeild"
+          },
+          "home": {
+            "id": "10424964",
+            "name": "HK Kopavogs"
+          },
+          "away": {
+            "id": "10400331",
+            "name": "IBV Vestmannaeyjar"
+          },
+          "ss": null,
+          "our_event_id": "10310749",
+          "r_id": null,
+          "updated_at": "1764202083",
+          "odds_updated_at": "1764202080"
+        },
+        {
+          "id": "184922635",
+          "sport_id": "78",
+          "time": "1764356400",
+          "time_status": "0",
+          "league": {
+            "id": "10040603",
+            "name": "France Starligue"
+          },
+          "home": {
+            "id": "10401788",
+            "name": "Chartres"
+          },
+          "away": {
+            "id": "10401797",
+            "name": "Saint Raphael"
+          },
+          "ss": null,
+          "our_event_id": "10263989",
+          "r_id": null,
+          "updated_at": "1764202486",
+          "odds_updated_at": "1764202484"
+        },
+        {
+          "id": "184922636",
+          "sport_id": "78",
+          "time": "1764356400",
+          "time_status": "0",
+          "league": {
+            "id": "10040603",
+            "name": "France Starligue"
+          },
+          "home": {
+            "id": "10410405",
+            "name": "Limoges 87"
+          },
+          "away": {
+            "id": "10401795",
+            "name": "Toulouse"
+          },
+          "ss": null,
+          "our_event_id": "10263986",
+          "r_id": null,
+          "updated_at": "1764202486",
+          "odds_updated_at": "1764202535"
+        },
+        {
+          "id": "184922638",
+          "sport_id": "78",
+          "time": "1764356400",
+          "time_status": "0",
+          "league": {
+            "id": "10040603",
+            "name": "France Starligue"
+          },
+          "home": {
+            "id": "10401790",
+            "name": "Montpellier"
+          },
+          "away": {
+            "id": "10401791",
+            "name": "Tremblay"
+          },
+          "ss": null,
+          "our_event_id": "10263985",
+          "r_id": null,
+          "updated_at": "1764202486",
+          "odds_updated_at": "1764202484"
+        },
+        {
+          "id": "184922639",
+          "sport_id": "78",
+          "time": "1764356400",
+          "time_status": "0",
+          "league": {
+            "id": "10040603",
+            "name": "France Starligue"
+          },
+          "home": {
+            "id": "10401799",
+            "name": "USAM Nimes"
+          },
+          "away": {
+            "id": "10410403",
+            "name": "Dijon"
+          },
+          "ss": null,
+          "our_event_id": "10263984",
+          "r_id": null,
+          "updated_at": "1764202486",
+          "odds_updated_at": "1764202493"
+        },
+        {
+          "id": "184923276",
+          "sport_id": "78",
+          "time": "1764356400",
+          "time_status": "0",
+          "league": {
+            "id": "10036637",
+            "name": "Germany Bundesliga"
+          },
+          "home": {
+            "id": "10408130",
+            "name": "ThSV Eisenach"
+          },
+          "away": {
+            "id": "10401572",
+            "name": "THW Kiel"
+          },
+          "ss": null,
+          "our_event_id": "10310137",
+          "r_id": null,
+          "updated_at": "1764202232",
+          "odds_updated_at": "1764202512"
+        },
+        {
+          "id": "185436645",
+          "sport_id": "78",
+          "time": "1764356400",
+          "time_status": "0",
+          "league": {
+            "id": "10040089",
+            "name": "Iceland Úrvalsdeild"
+          },
+          "home": {
+            "id": "10361966",
+            "name": "Fram Reykjavik"
+          },
+          "away": {
+            "id": "10400335",
+            "name": "FH Hafnarfjordur"
+          },
+          "ss": null,
+          "our_event_id": "10310748",
+          "r_id": null,
+          "updated_at": "1764202083",
+          "odds_updated_at": "1764202080"
+        },
+        {
+          "id": "184929117",
+          "sport_id": "78",
+          "time": "1764358200",
+          "time_status": "0",
+          "league": {
+            "id": "10040390",
+            "name": "Spain Liga Asobal"
+          },
+          "home": {
+            "id": "10365095",
+            "name": "BM Nava"
+          },
+          "away": {
+            "id": "10407505",
+            "name": "BM Guadalajara"
+          },
+          "ss": null,
+          "our_event_id": "10338464",
+          "r_id": null,
+          "updated_at": "1764202358",
+          "odds_updated_at": "1764202475"
+        },
+        {
+          "id": "185088811",
+          "sport_id": "78",
+          "time": "1764358200",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11333983",
+            "name": "Serbia (W)"
+          },
+          "away": {
+            "id": "11333943",
+            "name": "Iceland (W)"
+          },
+          "ss": null,
+          "our_event_id": "10005249",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764202290"
+        },
+        {
+          "id": "185088812",
+          "sport_id": "78",
+          "time": "1764358200",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11345179",
+            "name": "Netherlands (W)"
+          },
+          "away": {
+            "id": "11362167",
+            "name": "Argentina (W)"
+          },
+          "ss": null,
+          "our_event_id": "11026105",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764202302"
+        },
+        {
+          "id": "185088813",
+          "sport_id": "78",
+          "time": "1764358200",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11344695",
+            "name": "Spain (W)"
+          },
+          "away": {
+            "id": "11345115",
+            "name": "Faroe Islands (W)"
+          },
+          "ss": null,
+          "our_event_id": "10005239",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764202392"
+        },
+        {
+          "id": "185088814",
+          "sport_id": "78",
+          "time": "1764358200",
+          "time_status": "0",
+          "league": {
+            "id": "10044158",
+            "name": "World Championships Women"
+          },
+          "home": {
+            "id": "11333548",
+            "name": "France (W)"
+          },
+          "away": {
+            "id": "11333458",
+            "name": "Tunisia (W)"
+          },
+          "ss": null,
+          "our_event_id": "10005254",
+          "r_id": null,
+          "updated_at": "1764201620",
+          "odds_updated_at": "1764202225"
+        },
+        {
+          "id": "184924383",
+          "sport_id": "78",
+          "time": "1764417600",
+          "time_status": "0",
+          "league": {
+            "id": "10040541",
+            "name": "Greece A1"
+          },
+          "home": {
+            "id": "10427186",
+            "name": "ASE Douka"
+          },
+          "away": {
+            "id": "10402430",
+            "name": "AEK Athens"
+          },
+          "ss": null,
+          "our_event_id": "11041523",
+          "r_id": null,
+          "updated_at": "1764185067",
+          "odds_updated_at": "1764202533"
+        },
+        {
+          "id": "184924119",
+          "sport_id": "78",
+          "time": "1764422100",
+          "time_status": "0",
+          "league": {
+            "id": "10040541",
+            "name": "Greece A1"
+          },
+          "home": {
+            "id": "10441600",
+            "name": "Vrilissia"
+          },
+          "away": {
+            "id": "11337329",
+            "name": "Feronas"
+          },
+          "ss": null,
+          "our_event_id": "10471641",
+          "r_id": null,
+          "updated_at": "1764185067",
+          "odds_updated_at": "1764202264"
+        },
+        {
+          "id": "184919466",
+          "sport_id": "78",
+          "time": "1764424800",
+          "time_status": "0",
+          "league": {
+            "id": "10040049",
+            "name": "Denmark Handboldligaen"
+          },
+          "home": {
+            "id": "11051604",
+            "name": "SonderjyskE"
+          },
+          "away": {
+            "id": "10407262",
+            "name": "Ribe Esbjerg HH"
+          },
+          "ss": null,
+          "our_event_id": "10163236",
+          "r_id": null,
+          "updated_at": "1764202235",
+          "odds_updated_at": "1764202233"
+        },
+        {
+          "id": "184919467",
+          "sport_id": "78",
+          "time": "1764428400",
+          "time_status": "0",
+          "league": {
+            "id": "10040049",
+            "name": "Denmark Handboldligaen"
+          },
+          "home": {
+            "id": "10407306",
+            "name": "TMS Ringsted"
+          },
+          "away": {
+            "id": "10500265",
+            "name": "Grindsted GIF"
+          },
+          "ss": null,
+          "our_event_id": "10163238",
+          "r_id": null,
+          "updated_at": "1764202235",
+          "odds_updated_at": "1764202401"
+        },
+        {
+          "id": "184919468",
+          "sport_id": "78",
+          "time": "1764428400",
+          "time_status": "0",
+          "league": {
+            "id": "10040049",
+            "name": "Denmark Handboldligaen"
+          },
+          "home": {
+            "id": "10407260",
+            "name": "Skanderborg Handbold"
+          },
+          "away": {
+            "id": "10361793",
+            "name": "Aalborg Handbold"
+          },
+          "ss": null,
+          "our_event_id": "10163235",
+          "r_id": null,
+          "updated_at": "1764202235",
+          "odds_updated_at": "1764202233"
+        },
+        {
+          "id": "184926865",
+          "sport_id": "78",
+          "time": "1764428400",
+          "time_status": "0",
+          "league": {
+            "id": "10040607",
+            "name": "Portugal Liga Andebol"
+          },
+          "home": {
+            "id": "10411412",
+            "name": "ABC Braga"
+          },
+          "away": {
+            "id": "10401933",
+            "name": "Belenenses"
+          },
+          "ss": null,
+          "our_event_id": "10342217",
+          "r_id": null,
+          "updated_at": "1764202526",
+          "odds_updated_at": "1764202525"
+        },
+        {
+          "id": "184929160",
+          "sport_id": "78",
+          "time": "1764430200",
+          "time_status": "0",
+          "league": {
+            "id": "10040390",
+            "name": "Spain Liga Asobal"
+          },
+          "home": {
+            "id": "10500494",
+            "name": "Caserio Ciudad Real"
+          },
+          "away": {
+            "id": "10516101",
+            "name": "CBM Sporting Alicante"
+          },
+          "ss": null,
+          "our_event_id": "10338461",
+          "r_id": null,
+          "updated_at": "1764202358",
+          "odds_updated_at": "1764202507"
+        },
+        {
+          "id": "184929184",
+          "sport_id": "78",
+          "time": "1764430200",
+          "time_status": "0",
+          "league": {
+            "id": "10040390",
+            "name": "Spain Liga Asobal"
+          },
+          "home": {
+            "id": "10407508",
+            "name": "BM Granollers"
+          },
+          "away": {
+            "id": "10410929",
+            "name": "Villa De Aranda"
+          },
+          "ss": null,
+          "our_event_id": "10338459",
+          "r_id": null,
+          "updated_at": "1764202358",
+          "odds_updated_at": "1764202354"
+        },
+        {
+          "id": "184924387",
+          "sport_id": "78",
+          "time": "1764432000",
+          "time_status": "0",
+          "league": {
+            "id": "10040541",
+            "name": "Greece A1"
+          },
+          "home": {
+            "id": "10459291",
+            "name": "Zafeirakis"
+          },
+          "away": {
+            "id": "11063044",
+            "name": "GAS Kilkis"
+          },
+          "ss": null,
+          "our_event_id": "10470851",
+          "r_id": null,
+          "updated_at": "1764185067",
+          "odds_updated_at": "1764202411"
+        },
+        {
+          "id": "184926945",
+          "sport_id": "78",
+          "time": "1764432000",
+          "time_status": "0",
+          "league": {
+            "id": "10040607",
+            "name": "Portugal Liga Andebol"
+          },
+          "home": {
+            "id": "10591095",
+            "name": "Vitoria SC"
+          },
+          "away": {
+            "id": "10411414",
+            "name": "AA Avanca"
+          },
+          "ss": null,
+          "our_event_id": "10342219",
+          "r_id": null,
+          "updated_at": "1764202526",
+          "odds_updated_at": "1764202525"
+        }
+      ]
+    }
+  },
+  "sport_90": {
+    "success": true,
+    "data": {
+      "success": 1,
+      "pager": {
+        "page": 1,
+        "per_page": 50,
+        "total": 15
+      },
+      "results": [
+        {
+          "id": "184989570",
+          "sport_id": "90",
+          "time": "1764262800",
+          "time_status": "0",
+          "league": {
+            "id": "10084444",
+            "name": "Czechia Extraliga"
+          },
+          "home": {
+            "id": "10427379",
+            "name": "FBC Ostrava"
+          },
+          "away": {
+            "id": "10455412",
+            "name": "Hattrick Brno"
+          },
+          "ss": null,
+          "our_event_id": "11047331",
+          "r_id": null,
+          "updated_at": "1764202559",
+          "odds_updated_at": "1764202558"
+        },
+        {
+          "id": "185444616",
+          "sport_id": "90",
+          "time": "1764266400",
+          "time_status": "0",
+          "league": {
+            "id": "10084306",
+            "name": "Czechia Cup"
+          },
+          "home": {
+            "id": "10427372",
+            "name": "AC Sparta Praha"
+          },
+          "away": {
+            "id": "10427371",
+            "name": "FBC Ceska Lipa"
+          },
+          "ss": null,
+          "our_event_id": "11047457",
+          "r_id": null,
+          "updated_at": "1764202455",
+          "odds_updated_at": "1764202452"
+        },
+        {
+          "id": "184988521",
+          "sport_id": "90",
+          "time": "1764351000",
+          "time_status": "0",
+          "league": {
+            "id": "10036790",
+            "name": "Sweden Super League"
+          },
+          "home": {
+            "id": "11195972",
+            "name": "Hovslatt"
+          },
+          "away": {
+            "id": "10400595",
+            "name": "Jonkopings IK"
+          },
+          "ss": null,
+          "our_event_id": "10296376",
+          "r_id": null,
+          "updated_at": "1764202209",
+          "odds_updated_at": "1764202207"
+        },
+        {
+          "id": "184989788",
+          "sport_id": "90",
+          "time": "1764417600",
+          "time_status": "0",
+          "league": {
+            "id": "10068809",
+            "name": "Sweden Allsvenskan"
+          },
+          "home": {
+            "id": "10427347",
+            "name": "Sundsvall FBC"
+          },
+          "away": {
+            "id": "10361198",
+            "name": "IK Sirius IBK"
+          },
+          "ss": null,
+          "our_event_id": "10267148",
+          "r_id": null,
+          "updated_at": "1764202102",
+          "odds_updated_at": "1764202214"
+        },
+        {
+          "id": "184989789",
+          "sport_id": "90",
+          "time": "1764421200",
+          "time_status": "0",
+          "league": {
+            "id": "10068809",
+            "name": "Sweden Allsvenskan"
+          },
+          "home": {
+            "id": "10427357",
+            "name": "Lindas IBK"
+          },
+          "away": {
+            "id": "10914369",
+            "name": "IBK Lund Elit"
+          },
+          "ss": null,
+          "our_event_id": "10267004",
+          "r_id": null,
+          "updated_at": "1764202102",
+          "odds_updated_at": "1764202100"
+        },
+        {
+          "id": "184989790",
+          "sport_id": "90",
+          "time": "1764423000",
+          "time_status": "0",
+          "league": {
+            "id": "10068809",
+            "name": "Sweden Allsvenskan"
+          },
+          "home": {
+            "id": "10506589",
+            "name": "FBC Lerum"
+          },
+          "away": {
+            "id": "10506584",
+            "name": "Hagunda IF"
+          },
+          "ss": null,
+          "our_event_id": "10267003",
+          "r_id": null,
+          "updated_at": "1764202102",
+          "odds_updated_at": "1764202398"
+        },
+        {
+          "id": "184988522",
+          "sport_id": "90",
+          "time": "1764428400",
+          "time_status": "0",
+          "league": {
+            "id": "10036790",
+            "name": "Sweden Super League"
+          },
+          "home": {
+            "id": "11059592",
+            "name": "Pixbo IBK"
+          },
+          "away": {
+            "id": "10427361",
+            "name": "Nykvarns IBF"
+          },
+          "ss": null,
+          "our_event_id": "10290177",
+          "r_id": null,
+          "updated_at": "1764202209",
+          "odds_updated_at": "1764202207"
+        },
+        {
+          "id": "184989791",
+          "sport_id": "90",
+          "time": "1764428400",
+          "time_status": "0",
+          "league": {
+            "id": "10068809",
+            "name": "Sweden Allsvenskan"
+          },
+          "home": {
+            "id": "11333880",
+            "name": "Vetlanda IBF"
+          },
+          "away": {
+            "id": "11065764",
+            "name": "Jarfalla Bele IBF"
+          },
+          "ss": null,
+          "our_event_id": "10271085",
+          "r_id": null,
+          "updated_at": "1764202102",
+          "odds_updated_at": "1764202327"
+        },
+        {
+          "id": "184988523",
+          "sport_id": "90",
+          "time": "1764432000",
+          "time_status": "0",
+          "league": {
+            "id": "10036790",
+            "name": "Sweden Super League"
+          },
+          "home": {
+            "id": "10400611",
+            "name": "Visby IBK"
+          },
+          "away": {
+            "id": "11085409",
+            "name": "AIK IBF"
+          },
+          "ss": null,
+          "our_event_id": "10290176",
+          "r_id": null,
+          "updated_at": "1764202209",
+          "odds_updated_at": "1764202483"
+        },
+        {
+          "id": "184988524",
+          "sport_id": "90",
+          "time": "1764435600",
+          "time_status": "0",
+          "league": {
+            "id": "10036790",
+            "name": "Sweden Super League"
+          },
+          "home": {
+            "id": "10400594",
+            "name": "FBC Kalmarsund"
+          },
+          "away": {
+            "id": "10400612",
+            "name": "Vaxjo IBK"
+          },
+          "ss": null,
+          "our_event_id": "10290175",
+          "r_id": null,
+          "updated_at": "1764202209",
+          "odds_updated_at": "1764202334"
+        },
+        {
+          "id": "184989792",
+          "sport_id": "90",
+          "time": "1764502200",
+          "time_status": "0",
+          "league": {
+            "id": "10068809",
+            "name": "Sweden Allsvenskan"
+          },
+          "home": {
+            "id": "11337327",
+            "name": "RIG Umea IBF"
+          },
+          "away": {
+            "id": "11334480",
+            "name": "Vasteras IBF"
+          },
+          "ss": null,
+          "our_event_id": "10271084",
+          "r_id": null,
+          "updated_at": "1764202102",
+          "odds_updated_at": "1764202100"
+        },
+        {
+          "id": "184989793",
+          "sport_id": "90",
+          "time": "1764511200",
+          "time_status": "0",
+          "league": {
+            "id": "10068809",
+            "name": "Sweden Allsvenskan"
+          },
+          "home": {
+            "id": "10361201",
+            "name": "IBK Dalen"
+          },
+          "away": {
+            "id": "10427365",
+            "name": "Karlstad IBF"
+          },
+          "ss": null,
+          "our_event_id": "10267147",
+          "r_id": null,
+          "updated_at": "1764202102",
+          "odds_updated_at": "1764202486"
+        },
+        {
+          "id": "184988525",
+          "sport_id": "90",
+          "time": "1764514800",
+          "time_status": "0",
+          "league": {
+            "id": "10036790",
+            "name": "Sweden Super League"
+          },
+          "home": {
+            "id": "10400614",
+            "name": "Linkoping IBK"
+          },
+          "away": {
+            "id": "10400613",
+            "name": "Storvreta IBK"
+          },
+          "ss": null,
+          "our_event_id": "10290174",
+          "r_id": null,
+          "updated_at": "1764202209",
+          "odds_updated_at": "1764202461"
+        },
+        {
+          "id": "184988526",
+          "sport_id": "90",
+          "time": "1764514800",
+          "time_status": "0",
+          "league": {
+            "id": "10036790",
+            "name": "Sweden Super League"
+          },
+          "home": {
+            "id": "11077459",
+            "name": "Mullsjo AIS"
+          },
+          "away": {
+            "id": "10361196",
+            "name": "Warberg IC"
+          },
+          "ss": null,
+          "our_event_id": "10290173",
+          "r_id": null,
+          "updated_at": "1764202209",
+          "odds_updated_at": "1764202207"
+        },
+        {
+          "id": "184988527",
+          "sport_id": "90",
+          "time": "1764518820",
+          "time_status": "0",
+          "league": {
+            "id": "10036790",
+            "name": "Sweden Super League"
+          },
+          "home": {
+            "id": "10361199",
+            "name": "IBF Falun"
+          },
+          "away": {
+            "id": "10506585",
+            "name": "Strangnas IBK"
+          },
+          "ss": null,
+          "our_event_id": "10290172",
+          "r_id": null,
+          "updated_at": "1764202209",
+          "odds_updated_at": "1764202371"
+        }
+      ]
+    }
+  },
+  "sport_150": {
+    "success": true,
+    "data": {
+      "success": 1,
+      "pager": {
+        "page": 1,
+        "per_page": 50,
+        "total": 0
+      },
+      "results": []
+    }
+  },
+  "sport_151": {
+    "success": true,
+    "data": {
+      "success": 1,
+      "pager": {
+        "page": 1,
+        "per_page": 50,
+        "total": 48
+      },
+      "results": [
+        {
+          "id": "185433342",
+          "sport_id": "151",
+          "time": "1764226800",
+          "time_status": "0",
+          "league": {
+            "id": "10080232",
+            "name": "CS2 - CCT Oceania"
+          },
+          "home": {
+            "id": "11359581",
+            "name": "THUNDERdOWNUNDER"
+          },
+          "away": {
+            "id": "10364689",
+            "name": "Ground Zero"
+          },
+          "ss": null,
+          "our_event_id": "11046445",
+          "r_id": null,
+          "updated_at": "1764202566",
+          "odds_updated_at": "1764202564"
+        },
+        {
+          "id": "185458996",
+          "sport_id": "151",
+          "time": "1764226800",
+          "time_status": "0",
+          "league": {
+            "id": "10086171",
+            "name": "CS2 - Rushzone"
+          },
+          "home": {
+            "id": "11306948",
+            "name": "Shots Fired"
+          },
+          "away": {
+            "id": "11306613",
+            "name": "Unstoppable"
+          },
+          "ss": null,
+          "our_event_id": "11048324",
+          "r_id": null,
+          "updated_at": "1764201921",
+          "odds_updated_at": "1764202500"
+        },
+        {
+          "id": "185427233",
+          "sport_id": "151",
+          "time": "1764230400",
+          "time_status": "0",
+          "league": {
+            "id": "10076453",
+            "name": "VALORANT - VCT Game Changers - Championship"
+          },
+          "home": {
+            "id": "10755604",
+            "name": "G2 Gozen"
+          },
+          "away": {
+            "id": "11182906",
+            "name": "MIBR GC"
+          },
+          "ss": null,
+          "our_event_id": "11047826",
+          "r_id": null,
+          "updated_at": "1764202571",
+          "odds_updated_at": "1764202569"
+        },
+        {
+          "id": "185304554",
+          "sport_id": "151",
+          "time": "1764234000",
+          "time_status": "0",
+          "league": {
+            "id": "10080146",
+            "name": "CS2 - European Pro League"
+          },
+          "home": {
+            "id": "10704868",
+            "name": "Eternal Fire"
+          },
+          "away": {
+            "id": "10361268",
+            "name": "HAVU"
+          },
+          "ss": null,
+          "our_event_id": "11034210",
+          "r_id": null,
+          "updated_at": "1764202543",
+          "odds_updated_at": "1764202542"
+        },
+        {
+          "id": "185418263",
+          "sport_id": "151",
+          "time": "1764234000",
+          "time_status": "0",
+          "league": {
+            "id": "10080943",
+            "name": "CS2 - United21"
+          },
+          "home": {
+            "id": "10440430",
+            "name": "BIG Academy"
+          },
+          "away": {
+            "id": "11202780",
+            "name": "megoshort"
+          },
+          "ss": null,
+          "our_event_id": "11044876",
+          "r_id": null,
+          "updated_at": "1764202179",
+          "odds_updated_at": "1764202569"
+        },
+        {
+          "id": "185458997",
+          "sport_id": "151",
+          "time": "1764234000",
+          "time_status": "0",
+          "league": {
+            "id": "10086171",
+            "name": "CS2 - Rushzone"
+          },
+          "home": {
+            "id": "11306613",
+            "name": "Unstoppable"
+          },
+          "away": {
+            "id": "11306948",
+            "name": "Shots Fired"
+          },
+          "ss": null,
+          "our_event_id": "11048326",
+          "r_id": null,
+          "updated_at": "1764201921",
+          "odds_updated_at": "1764202422"
+        },
+        {
+          "id": "185432785",
+          "sport_id": "151",
+          "time": "1764241200",
+          "time_status": "0",
+          "league": {
+            "id": "10076453",
+            "name": "VALORANT - VCT Game Changers - Championship"
+          },
+          "home": {
+            "id": "11362391",
+            "name": "KC GC"
+          },
+          "away": {
+            "id": "11024322",
+            "name": "KRU Blaze"
+          },
+          "ss": null,
+          "our_event_id": "11047818",
+          "r_id": null,
+          "updated_at": "1764202571",
+          "odds_updated_at": "1764202569"
+        },
+        {
+          "id": "185458998",
+          "sport_id": "151",
+          "time": "1764241200",
+          "time_status": "0",
+          "league": {
+            "id": "10086171",
+            "name": "CS2 - Rushzone"
+          },
+          "home": {
+            "id": "10460215",
+            "name": "SpeedRunners"
+          },
+          "away": {
+            "id": "11341131",
+            "name": "Rapid Reflexes"
+          },
+          "ss": null,
+          "our_event_id": "11048330",
+          "r_id": null,
+          "updated_at": "1764201921",
+          "odds_updated_at": "1764202573"
+        },
+        {
+          "id": "185458999",
+          "sport_id": "151",
+          "time": "1764248400",
+          "time_status": "0",
+          "league": {
+            "id": "10086171",
+            "name": "CS2 - Rushzone"
+          },
+          "home": {
+            "id": "11341131",
+            "name": "Rapid Reflexes"
+          },
+          "away": {
+            "id": "10460215",
+            "name": "SpeedRunners"
+          },
+          "ss": null,
+          "our_event_id": "11048325",
+          "r_id": null,
+          "updated_at": "1764201921",
+          "odds_updated_at": "1764202433"
+        },
+        {
+          "id": "185433267",
+          "sport_id": "151",
+          "time": "1764252000",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "10522296",
+            "name": "Tundra Esports"
+          },
+          "away": {
+            "id": "10361256",
+            "name": "HEROIC"
+          },
+          "ss": null,
+          "our_event_id": "11041627",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202530"
+        },
+        {
+          "id": "185433268",
+          "sport_id": "151",
+          "time": "1764252000",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "10532049",
+            "name": "Xtreme Gaming"
+          },
+          "away": {
+            "id": "10361300",
+            "name": "Natus Vincere"
+          },
+          "ss": null,
+          "our_event_id": "11041223",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202501"
+        },
+        {
+          "id": "185453990",
+          "sport_id": "151",
+          "time": "1764252000",
+          "time_status": "0",
+          "league": {
+            "id": "10087392",
+            "name": "CS2 - StarLadder Budapest Major Stage 1"
+          },
+          "home": {
+            "id": "10897329",
+            "name": "Fluxo"
+          },
+          "away": {
+            "id": "10488843",
+            "name": "FaZe Clan"
+          },
+          "ss": null,
+          "our_event_id": "11048217",
+          "r_id": null,
+          "updated_at": "1764202378",
+          "odds_updated_at": "1764202503"
+        },
+        {
+          "id": "185379418",
+          "sport_id": "151",
+          "time": "1764253800",
+          "time_status": "0",
+          "league": {
+            "id": "10087572",
+            "name": "LOL - GAMEON Revival"
+          },
+          "home": {
+            "id": "10515909",
+            "name": "Besiktas Esports"
+          },
+          "away": {
+            "id": "11363759",
+            "name": "BASTON5"
+          },
+          "ss": null,
+          "our_event_id": "11041787",
+          "r_id": null,
+          "updated_at": "1764202204",
+          "odds_updated_at": "1764202222"
+        },
+        {
+          "id": "185433269",
+          "sport_id": "151",
+          "time": "1764255600",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "11301146",
+            "name": "Team Yandex"
+          },
+          "away": {
+            "id": "11234456",
+            "name": "Yakult Brothers"
+          },
+          "ss": null,
+          "our_event_id": "11041129",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202319"
+        },
+        {
+          "id": "185433270",
+          "sport_id": "151",
+          "time": "1764255600",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "10748676",
+            "name": "MOUZ"
+          },
+          "away": {
+            "id": "11240222",
+            "name": "Team Tidebound"
+          },
+          "ss": null,
+          "our_event_id": "11041978",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202458"
+        },
+        {
+          "id": "185433271",
+          "sport_id": "151",
+          "time": "1764259200",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "10532049",
+            "name": "Xtreme Gaming"
+          },
+          "away": {
+            "id": "11276313",
+            "name": "Tearlaments"
+          },
+          "ss": null,
+          "our_event_id": "11041626",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202319"
+        },
+        {
+          "id": "185433272",
+          "sport_id": "151",
+          "time": "1764259200",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "10361256",
+            "name": "HEROIC"
+          },
+          "away": {
+            "id": "10458165",
+            "name": "Execration"
+          },
+          "ss": null,
+          "our_event_id": "11041624",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202526"
+        },
+        {
+          "id": "185453991",
+          "sport_id": "151",
+          "time": "1764261000",
+          "time_status": "0",
+          "league": {
+            "id": "10087392",
+            "name": "CS2 - StarLadder Budapest Major Stage 1"
+          },
+          "home": {
+            "id": "10405144",
+            "name": "NRG"
+          },
+          "away": {
+            "id": "10410569",
+            "name": "Imperial"
+          },
+          "ss": null,
+          "our_event_id": "11048223",
+          "r_id": null,
+          "updated_at": "1764202378",
+          "odds_updated_at": "1764202539"
+        },
+        {
+          "id": "185377278",
+          "sport_id": "151",
+          "time": "1764262800",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "11301146",
+            "name": "Team Yandex"
+          },
+          "away": {
+            "id": "11240222",
+            "name": "Team Tidebound"
+          },
+          "ss": null,
+          "our_event_id": "11041222",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202427"
+        },
+        {
+          "id": "185433087",
+          "sport_id": "151",
+          "time": "1764262800",
+          "time_status": "0",
+          "league": {
+            "id": "10087555",
+            "name": "LOL - Prime League Div 2 Fall Playoffs"
+          },
+          "home": {
+            "id": "10756391",
+            "name": "CGN Esports"
+          },
+          "away": {
+            "id": "11304701",
+            "name": "VfB eSports"
+          },
+          "ss": null,
+          "our_event_id": "11046452",
+          "r_id": null,
+          "updated_at": "1764202457",
+          "odds_updated_at": "1764202465"
+        },
+        {
+          "id": "185433088",
+          "sport_id": "151",
+          "time": "1764262800",
+          "time_status": "0",
+          "league": {
+            "id": "10087555",
+            "name": "LOL - Prime League Div 2 Fall Playoffs"
+          },
+          "home": {
+            "id": "11203435",
+            "name": "DKB XPERION NXT"
+          },
+          "away": {
+            "id": "11302967",
+            "name": "6GPA"
+          },
+          "ss": null,
+          "our_event_id": "11046449",
+          "r_id": null,
+          "updated_at": "1764202457",
+          "odds_updated_at": "1764202455"
+        },
+        {
+          "id": "185433273",
+          "sport_id": "151",
+          "time": "1764262800",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "10835843",
+            "name": "Team Falcons"
+          },
+          "away": {
+            "id": "10522296",
+            "name": "Tundra Esports"
+          },
+          "ss": null,
+          "our_event_id": "11041128",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202569"
+        },
+        {
+          "id": "185379413",
+          "sport_id": "151",
+          "time": "1764264600",
+          "time_status": "0",
+          "league": {
+            "id": "10087572",
+            "name": "LOL - GAMEON Revival"
+          },
+          "home": {
+            "id": "11307641",
+            "name": "The Forbidden Five"
+          },
+          "away": {
+            "id": "10453699",
+            "name": "Dark Passage"
+          },
+          "ss": null,
+          "our_event_id": "11041786",
+          "r_id": null,
+          "updated_at": "1764202204",
+          "odds_updated_at": "1764202490"
+        },
+        {
+          "id": "185433274",
+          "sport_id": "151",
+          "time": "1764266400",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "10532049",
+            "name": "Xtreme Gaming"
+          },
+          "away": {
+            "id": "10444842",
+            "name": "OG"
+          },
+          "ss": null,
+          "our_event_id": "11041625",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202319"
+        },
+        {
+          "id": "185433275",
+          "sport_id": "151",
+          "time": "1764266400",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "10361256",
+            "name": "HEROIC"
+          },
+          "away": {
+            "id": "11234456",
+            "name": "Yakult Brothers"
+          },
+          "ss": null,
+          "our_event_id": "11041125",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202570"
+        },
+        {
+          "id": "185433276",
+          "sport_id": "151",
+          "time": "1764270000",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "10522296",
+            "name": "Tundra Esports"
+          },
+          "away": {
+            "id": "10748676",
+            "name": "MOUZ"
+          },
+          "ss": null,
+          "our_event_id": "11041698",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202558"
+        },
+        {
+          "id": "185433277",
+          "sport_id": "151",
+          "time": "1764270000",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "10835843",
+            "name": "Team Falcons"
+          },
+          "away": {
+            "id": "10361300",
+            "name": "Natus Vincere"
+          },
+          "ss": null,
+          "our_event_id": "11041124",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202359"
+        },
+        {
+          "id": "185453992",
+          "sport_id": "151",
+          "time": "1764270000",
+          "time_status": "0",
+          "league": {
+            "id": "10087392",
+            "name": "CS2 - StarLadder Budapest Major Stage 1"
+          },
+          "home": {
+            "id": "11067603",
+            "name": "PARIVISION"
+          },
+          "away": {
+            "id": "10455182",
+            "name": "Legacy"
+          },
+          "ss": null,
+          "our_event_id": "11048222",
+          "r_id": null,
+          "updated_at": "1764202378",
+          "odds_updated_at": "1764202506"
+        },
+        {
+          "id": "185433279",
+          "sport_id": "151",
+          "time": "1764273600",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "10444842",
+            "name": "OG"
+          },
+          "away": {
+            "id": "11276313",
+            "name": "Tearlaments"
+          },
+          "ss": null,
+          "our_event_id": "11042019",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202459"
+        },
+        {
+          "id": "185433282",
+          "sport_id": "151",
+          "time": "1764273600",
+          "time_status": "0",
+          "league": {
+            "id": "10084173",
+            "name": "DOTA2 - BLAST Slam"
+          },
+          "home": {
+            "id": "11234456",
+            "name": "Yakult Brothers"
+          },
+          "away": {
+            "id": "10458165",
+            "name": "Execration"
+          },
+          "ss": null,
+          "our_event_id": "11041123",
+          "r_id": null,
+          "updated_at": "1764202323",
+          "odds_updated_at": "1764202434"
+        },
+        {
+          "id": "185432786",
+          "sport_id": "151",
+          "time": "1764316800",
+          "time_status": "0",
+          "league": {
+            "id": "10076453",
+            "name": "VALORANT - VCT Game Changers - Championship"
+          },
+          "home": {
+            "id": "10878511",
+            "name": "Team Liquid Brazil"
+          },
+          "away": {
+            "id": "11342196",
+            "name": "SR Gold"
+          },
+          "ss": null,
+          "our_event_id": "11047820",
+          "r_id": null,
+          "updated_at": "1764202571",
+          "odds_updated_at": "1764202569"
+        },
+        {
+          "id": "184942222",
+          "sport_id": "151",
+          "time": "1764320400",
+          "time_status": "0",
+          "league": {
+            "id": "10080698",
+            "name": "CS2 - ESL Impact Finals"
+          },
+          "home": {
+            "id": "11016743",
+            "name": "FlyQuest RED"
+          },
+          "away": {
+            "id": "11059792",
+            "name": "Let Her Cook"
+          },
+          "ss": null,
+          "our_event_id": "11008989",
+          "r_id": null,
+          "updated_at": "1764202571",
+          "odds_updated_at": "1764202570"
+        },
+        {
+          "id": "185362260",
+          "sport_id": "151",
+          "time": "1764320400",
+          "time_status": "0",
+          "league": {
+            "id": "10080146",
+            "name": "CS2 - European Pro League"
+          },
+          "home": {
+            "id": "10464563",
+            "name": "JiJieHao"
+          },
+          "away": {
+            "id": "11350514",
+            "name": "QWENTRY"
+          },
+          "ss": null,
+          "our_event_id": "11039852",
+          "r_id": null,
+          "updated_at": "1764202543",
+          "odds_updated_at": "1764202542"
+        },
+        {
+          "id": "185418264",
+          "sport_id": "151",
+          "time": "1764320400",
+          "time_status": "0",
+          "league": {
+            "id": "10080943",
+            "name": "CS2 - United21"
+          },
+          "home": {
+            "id": "10436507",
+            "name": "MANA"
+          },
+          "away": {
+            "id": "11277043",
+            "name": "Mousquetaires"
+          },
+          "ss": null,
+          "our_event_id": "11044882",
+          "r_id": null,
+          "updated_at": "1764202179",
+          "odds_updated_at": "1764202328"
+        },
+        {
+          "id": "184942223",
+          "sport_id": "151",
+          "time": "1764324900",
+          "time_status": "0",
+          "league": {
+            "id": "10080698",
+            "name": "CS2 - ESL Impact Finals"
+          },
+          "home": {
+            "id": "11246512",
+            "name": "Sakura Esports"
+          },
+          "away": {
+            "id": "10865142",
+            "name": "BIG EQUIPA"
+          },
+          "ss": null,
+          "our_event_id": "11008990",
+          "r_id": null,
+          "updated_at": "1764202571",
+          "odds_updated_at": "1764202570"
+        },
+        {
+          "id": "185362293",
+          "sport_id": "151",
+          "time": "1764327600",
+          "time_status": "0",
+          "league": {
+            "id": "10084158",
+            "name": "CS2 - Tipsport MCR"
+          },
+          "home": {
+            "id": "10456678",
+            "name": "SINNERS"
+          },
+          "away": {
+            "id": "10513690",
+            "name": "UNiTY"
+          },
+          "ss": null,
+          "our_event_id": "11044750",
+          "r_id": null,
+          "updated_at": "1764201999",
+          "odds_updated_at": "1764202430"
+        },
+        {
+          "id": "184942224",
+          "sport_id": "151",
+          "time": "1764329400",
+          "time_status": "0",
+          "league": {
+            "id": "10080698",
+            "name": "CS2 - ESL Impact Finals"
+          },
+          "home": {
+            "id": "11152723",
+            "name": "Imperial Valkyries"
+          },
+          "away": {
+            "id": "11041603",
+            "name": "NIP Impact"
+          },
+          "ss": null,
+          "our_event_id": "11008991",
+          "r_id": null,
+          "updated_at": "1764202571",
+          "odds_updated_at": "1764202570"
+        },
+        {
+          "id": "185362261",
+          "sport_id": "151",
+          "time": "1764329400",
+          "time_status": "0",
+          "league": {
+            "id": "10080146",
+            "name": "CS2 - European Pro League"
+          },
+          "home": {
+            "id": "11267694",
+            "name": "SPARTA"
+          },
+          "away": {
+            "id": "11265132",
+            "name": "Novaq"
+          },
+          "ss": null,
+          "our_event_id": "11039868",
+          "r_id": null,
+          "updated_at": "1764202543",
+          "odds_updated_at": "1764202542"
+        },
+        {
+          "id": "184942225",
+          "sport_id": "151",
+          "time": "1764333900",
+          "time_status": "0",
+          "league": {
+            "id": "10080698",
+            "name": "CS2 - ESL Impact Finals"
+          },
+          "home": {
+            "id": "11124264",
+            "name": "MIBR fe"
+          },
+          "away": {
+            "id": "11188081",
+            "name": "Atrix"
+          },
+          "ss": null,
+          "our_event_id": "11008992",
+          "r_id": null,
+          "updated_at": "1764202571",
+          "odds_updated_at": "1764202570"
+        },
+        {
+          "id": "185362294",
+          "sport_id": "151",
+          "time": "1764338400",
+          "time_status": "0",
+          "league": {
+            "id": "10084158",
+            "name": "CS2 - Tipsport MCR"
+          },
+          "home": {
+            "id": "10410635",
+            "name": "ECLOT"
+          },
+          "away": {
+            "id": "10432176",
+            "name": "BRUTE"
+          },
+          "ss": null,
+          "our_event_id": "11044744",
+          "r_id": null,
+          "updated_at": "1764201999",
+          "odds_updated_at": "1764202446"
+        },
+        {
+          "id": "185322975",
+          "sport_id": "151",
+          "time": "1764340200",
+          "time_status": "0",
+          "league": {
+            "id": "10080146",
+            "name": "CS2 - European Pro League"
+          },
+          "home": {
+            "id": "11008373",
+            "name": "RUBY"
+          },
+          "away": {
+            "id": "11347982",
+            "name": "9BOOMPRO"
+          },
+          "ss": null,
+          "our_event_id": "11039869",
+          "r_id": null,
+          "updated_at": "1764180156",
+          "odds_updated_at": "1764180992"
+        },
+        {
+          "id": "185365519",
+          "sport_id": "151",
+          "time": "1764342000",
+          "time_status": "0",
+          "league": {
+            "id": "10083330",
+            "name": "CS2 - CCT Europe Series 12 Play-In"
+          },
+          "home": {
+            "id": "11008373",
+            "name": "RUBY"
+          },
+          "away": {
+            "id": "11185085",
+            "name": "HyperSpirit"
+          },
+          "ss": null,
+          "our_event_id": "11040138",
+          "r_id": null,
+          "updated_at": "1764202466",
+          "odds_updated_at": "1764202542"
+        },
+        {
+          "id": "185433089",
+          "sport_id": "151",
+          "time": "1764349200",
+          "time_status": "0",
+          "league": {
+            "id": "10087555",
+            "name": "LOL - Prime League Div 2 Fall Playoffs"
+          },
+          "home": {
+            "id": "11363103",
+            "name": "TOG Academy"
+          },
+          "away": {
+            "id": "11071646",
+            "name": "All for One Gaming"
+          },
+          "ss": null,
+          "our_event_id": "11046453",
+          "r_id": null,
+          "updated_at": "1764202457",
+          "odds_updated_at": "1764202455"
+        },
+        {
+          "id": "185433159",
+          "sport_id": "151",
+          "time": "1764349200",
+          "time_status": "0",
+          "league": {
+            "id": "10087555",
+            "name": "LOL - Prime League Div 2 Fall Playoffs"
+          },
+          "home": {
+            "id": "11364098",
+            "name": "Footprint"
+          },
+          "away": {
+            "id": "11304199",
+            "name": "spongecord prime"
+          },
+          "ss": null,
+          "our_event_id": "11046451",
+          "r_id": null,
+          "updated_at": "1764202457",
+          "odds_updated_at": "1764202455"
+        },
+        {
+          "id": "185365520",
+          "sport_id": "151",
+          "time": "1764352800",
+          "time_status": "0",
+          "league": {
+            "id": "10083330",
+            "name": "CS2 - CCT Europe Series 12 Play-In"
+          },
+          "home": {
+            "id": "10704868",
+            "name": "Eternal Fire"
+          },
+          "away": {
+            "id": "11267694",
+            "name": "SPARTA"
+          },
+          "ss": null,
+          "our_event_id": "11040145",
+          "r_id": null,
+          "updated_at": "1764202466",
+          "odds_updated_at": "1764202464"
+        },
+        {
+          "id": "185162468",
+          "sport_id": "151",
+          "time": "1764662400",
+          "time_status": "0",
+          "league": {
+            "id": "10084228",
+            "name": "VALORANT - SOOP Valorant League"
+          },
+          "home": {
+            "id": "10361260",
+            "name": "Fnatic"
+          },
+          "away": {
+            "id": "10734927",
+            "name": "FULL SENSE"
+          },
+          "ss": null,
+          "our_event_id": "11026288",
+          "r_id": null,
+          "updated_at": "1764202571",
+          "odds_updated_at": "1764202569"
+        },
+        {
+          "id": "185162469",
+          "sport_id": "151",
+          "time": "1764669600",
+          "time_status": "0",
+          "league": {
+            "id": "10084228",
+            "name": "VALORANT - SOOP Valorant League"
+          },
+          "home": {
+            "id": "10427107",
+            "name": "T1"
+          },
+          "away": {
+            "id": "10689183",
+            "name": "ZETA DIVISION"
+          },
+          "ss": null,
+          "our_event_id": "11026334",
+          "r_id": null,
+          "updated_at": "1764202571",
+          "odds_updated_at": "1764202569"
+        },
+        {
+          "id": "185162470",
+          "sport_id": "151",
+          "time": "1764669600",
+          "time_status": "0",
+          "league": {
+            "id": "10084228",
+            "name": "VALORANT - SOOP Valorant League"
+          },
+          "home": {
+            "id": "10359420",
+            "name": "DRX"
+          },
+          "away": {
+            "id": "11221163",
+            "name": "SLT Seongnam"
+          },
+          "ss": null,
+          "our_event_id": "11026292",
+          "r_id": null,
+          "updated_at": "1764202571",
+          "odds_updated_at": "1764202569"
+        }
+      ]
+    }
+  },
+  "sport_152": {
+    "success": true,
+    "data": {
+      "success": 1,
+      "pager": {
+        "page": 1,
+        "per_page": 50,
+        "total": 0
+      },
+      "results": []
+    }
+  },
+  "sport_153": {
+    "success": true,
+    "data": {
+      "success": 1,
+      "pager": {
+        "page": 1,
+        "per_page": 50,
+        "total": 0
+      },
+      "results": []
+    }
+  },
+  "sport_154": {
+    "success": true,
+    "data": {
+      "success": 1,
+      "pager": {
+        "page": 1,
+        "per_page": 50,
+        "total": 0
+      },
+      "results": []
+    }
+  },
+  "sport_200": {
+    "success": true,
+    "data": {
+      "success": 1,
+      "pager": {
+        "page": 1,
+        "per_page": 50,
+        "total": 0
+      },
+      "results": []
+    }
+  },
+  "sport_300": {
+    "success": true,
+    "data": {
+      "success": 1,
+      "pager": {
+        "page": 1,
+        "per_page": 50,
+        "total": 0
+      },
+      "results": []
+    }
+  }
+}

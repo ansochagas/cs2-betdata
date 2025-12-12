@@ -1,0 +1,136 @@
+# PROMPT PARA GERAÇÃO DE BANNER COMERCIAL - CS:GO INTEL
+
+## 🎯 OBJETIVO DO BANNER
+Criar um banner comercial impactante para o LANÇAMENTO OFICIAL da plataforma CS:GO Intel, convidando apostadores profissionais a conhecerem mais detalhes através de um grupo exclusivo no Telegram.
+
+## 🏢 SOBRE A EMPRESA - CS:GO INTEL
+A CS:GO Intel é uma plataforma de inteligência artificial especializada em dados e previsões para apostadores profissionais de Counter-Strike: Global Offensive (CS:GO/CS2). Oferecemos ferramentas avançadas que transformam dados brutos em vantagem competitiva no mercado de apostas esportivas.
+
+### MISSÃO
+"Transformar dados em vantagem competitiva para apostadores profissionais de CS:GO"
+
+### VALOR PROPOSTO
+- Dados estatísticos em tempo real
+- Análises preditivas com IA
+- Alertas automáticos de jogos
+- Odds otimizadas
+- Interface profissional gamer
+
+### PÚBLICO-ALVO
+Apostadores profissionais que buscam vantagem competitiva, não apostadores casuais. Pessoas que entendem de CS:GO, estatísticas e mercado de apostas.
+
+## 🎨 IDENTIDADE VISUAL - SEJA EXTREMAMENTE PERFECCIONISTA
+
+### PALETA DE CORES (OBRIGATÓRIA)
+- **Preto (#000000)**: Fundo principal - representa o universo gamer/dark
+- **Laranja (#FF6B35 ou #FF4500)**: Cor principal - energia, ação, destaque
+- **Ciano/Turquesa (#00FFFF ou #00CED1)**: Cor secundária - tecnologia, futuro, dados
+- **Cinza escuro (#1F1F1F)**: Textos e elementos secundários
+- **Branco (#FFFFFF)**: Destaques e contrastes
+
+### ESTILO VISUAL
+- **Gamer/Profissional**: Interface de jogos profissionais (como HUD de CS:GO)
+- **Tecnológico**: Elementos de dados, gráficos, algoritmos visuais
+- **Dark Theme**: Predominância de preto com toques vibrantes
+- **Minimalista**: Não poluir com elementos desnecessários
+- **Impactante**: Elementos que chamam atenção imediatamente
+
+### ELEMENTOS VISUAIS CARACTERÍSTICOS
+- **Logo CS:GO Intel**: "CSGO - BETDATA" em fonte moderna, tech
+- **Ícones de dados**: Gráficos, algoritmos, estatísticas visuais
+- **Elementos CS:GO**: Armas, mapas, jogadores (estilizados, não reais)
+- **Grid/Partículas**: Fundo com grid sutil como em interfaces tech
+- **Glow Effects**: Brilho sutil em elementos importantes
+
+## 📐 ESPECIFICAÇÕES TÉCNICAS DO BANNER
+
+### FORMATO
+- **Dimensões**: 1200x628 pixels (formato ideal para redes sociais)
+- **Resolução**: Ultra alta (300+ DPI)
+- **Formato**: PNG com transparência se necessário
+
+### LAYOUT (HIERARQUIA VISUAL)
+1. **Cabeçalho**: Logo e identificação da empresa
+2. **Título Principal**: "LANÇAMENTO OFICIAL"
+3. **Subtítulo**: Descrição do valor
+4. **Call-to-Action**: Convite para o grupo do Telegram
+5. **Elementos Visuais**: Ícones, gráficos, elementos CS:GO
+6. **Footer**: Informações de contato/detalhes
+
+## 📝 CONTEÚDO EXATO DO BANNER
+
+### TÍTULO PRINCIPAL
+**LANÇAMENTO OFICIAL**
+*(Fonte grande, impactante, com glow effect)*
+
+### SUBTÍTULO
+**CS:GO Intel - A Vantagem Competitiva que Você Procurava**
+*(Fonte média, clara, profissional)*
+
+### DESCRIÇÃO PRINCIPAL
+Transforme dados em lucro! Análises preditivas, alertas em tempo real e estatísticas profissionais para apostadores de CS:GO.
+*(Texto conciso, objetivo, destacando benefícios)*
+
+### CALL-TO-ACTION PRINCIPAL
+**🚀 JUNTE-SE AO GRUPO EXCLUSIVO NO TELEGRAM**
+**Saiba mais detalhes e seja um dos primeiros!**
+*(Botão destacado, cor laranja, com ícone do Telegram)*
+
+### INFORMAÇÕES ADICIONAIS
+- ✅ Dados em tempo real
+- ✅ IA preditiva
+- ✅ Alertas automáticos
+- ✅ Odds otimizadas
+- ✅ Interface profissional
+
+## 🎨 DIRETRIZES DE DESIGN - SEJA EXTREMAMENTE DETALHISTA
+
+### COMPOSIÇÃO VISUAL
+- **Regra dos Terços**: Elementos principais nas interseções
+- **Hierarquia Visual**: Tamanho e cor definem importância
+- **Equilíbrio**: Elementos distribuídos harmoniosamente
+- **Contraste**: Texto legível em fundo dark
+- **Foco**: Call-to-action deve ser o ponto mais destacado
+
+### ELEMENTOS GRÁFICOS DETALHADOS
+1. **Fundo**: Grid sutil em ciano sobre preto, com partículas flutuantes
+2. **Logo**: "CSGO - BETDATA" em fonte tech moderna, laranja com brilho
+3. **Ícones**: Gráficos de barras, algoritmos visuais, ícones de CS:GO estilizados
+4. **Botão CTA**: Retangular com bordas arredondadas, gradiente laranja, sombra
+5. **Elementos CS:GO**: Silhuetas de armas, mapa estilizado, elementos HUD
+
+### TIPOGRAFIA
+- **Títulos**: Fonte sans-serif moderna, bold, com tracking aumentado
+- **Corpo**: Fonte legível, peso médio, espaçamento adequado
+- **Hierarquia**: Pelo menos 3 tamanhos diferentes
+- **Cores**: Branco para títulos, cinza claro para corpo, laranja para destaques
+
+### EFEITOS VISUAIS
+- **Glow**: Brilho sutil em elementos importantes (não excessivo)
+- **Sombras**: Profundidade sutil para elementos flutuantes
+- **Gradientes**: Suaves, principalmente laranja para vermelho
+- **Animação**: Considere movimento sutil se for GIF
+
+## 🚫 O QUE EVITAR
+- ❌ Cores fora da paleta (verde, azul escuro, etc.)
+- ❌ Elementos reais de CS:GO (copyright)
+- ❌ Texto excessivo ou confuso
+- ❌ Design amador ou datado
+- ❌ Elementos desnecessários que poluem o visual
+
+## 🎯 RESULTADO ESPERADO
+Um banner profissional, impactante e conversor que:
+- ✅ Transmite confiança e profissionalismo
+- ✅ Destaca o valor único da plataforma
+- ✅ Gera curiosidade sobre o lançamento
+- ✅ Converte visitantes em membros do grupo do Telegram
+- ✅ Mantém a identidade visual consistente
+
+## 📏 MÉTRICAS DE SUCESSO
+- **Impacto Visual**: Deve chamar atenção imediatamente
+- **Legibilidade**: Todo texto deve ser perfeitamente legível
+- **Conversão**: CTA deve ser irresistível
+- **Consistência**: Seguir identidade visual à risca
+- **Qualidade**: Aparência profissional de alta qualidade
+
+**SEJA O MAIS PERFECCIONISTA POSSÍVEL! Cada pixel, cada sombra, cada fonte deve contribuir para o objetivo final de converter visitantes em leads qualificados.**

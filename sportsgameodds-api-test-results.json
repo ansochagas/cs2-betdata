@@ -1,0 +1,42 @@
+{
+  "status": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "sports": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "sportsCSGO": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "sportsEsports": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "leagues": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "leaguesCSGO": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "games": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "gamesCSGO": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "odds": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "oddsCSGO": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  }
+}

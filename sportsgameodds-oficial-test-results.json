@@ -1,0 +1,1367 @@
+{
+  "sports": {
+    "success": true,
+    "data": {
+      "success": true,
+      "data": [
+        {
+          "sportID": "BASKETBALL",
+          "enabled": true,
+          "name": "Basketball",
+          "shortName": "Basketball",
+          "hasMeaningfulHomeAway": true,
+          "pointWord": {
+            "short": {
+              "singular": "pt",
+              "plural": "pts"
+            },
+            "long": {
+              "singular": "point",
+              "plural": "points"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "defaultPopularityScore": 5,
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1q",
+            "2q",
+            "3q",
+            "4q"
+          ],
+          "extraPeriods": [
+            "ot"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "HOCKEY",
+          "enabled": true,
+          "hasMeaningfulHomeAway": true,
+          "name": "Hockey",
+          "shortName": "Hockey",
+          "pointWord": {
+            "short": {
+              "singular": "goal",
+              "plural": "goals"
+            },
+            "long": {
+              "singular": "goal",
+              "plural": "goals"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "defaultPopularityScore": 5,
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1p",
+            "2p",
+            "3p"
+          ],
+          "extraPeriods": [
+            "ot",
+            "so"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "FOOTBALL",
+          "enabled": true,
+          "hasMeaningfulHomeAway": true,
+          "name": "Football",
+          "shortName": "Football",
+          "pointWord": {
+            "short": {
+              "singular": "pt",
+              "plural": "pts"
+            },
+            "long": {
+              "singular": "point",
+              "plural": "points"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "defaultPopularityScore": 7,
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1q",
+            "2q",
+            "3q",
+            "4q"
+          ],
+          "extraPeriods": [
+            "ot"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "BASEBALL",
+          "enabled": true,
+          "hasMeaningfulHomeAway": true,
+          "name": "Baseball",
+          "shortName": "Baseball",
+          "pointWord": {
+            "short": {
+              "singular": "run",
+              "plural": "runs"
+            },
+            "long": {
+              "singular": "run",
+              "plural": "runs"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "defaultPopularityScore": 7,
+          "clockType": "NO_CLOCK",
+          "basePeriods": [
+            "1i",
+            "2i",
+            "3i",
+            "4i",
+            "5i",
+            "6i",
+            "7i",
+            "8i",
+            "9i"
+          ],
+          "extraPeriods": [
+            "ot"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "SOCCER",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "prefers3WayMoneyline": true,
+          "name": "Soccer",
+          "shortName": "Soccer",
+          "pointWord": {
+            "short": {
+              "singular": "goal",
+              "plural": "goals"
+            },
+            "long": {
+              "singular": "goal",
+              "plural": "goals"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "match",
+              "plural": "matches"
+            },
+            "long": {
+              "singular": "match",
+              "plural": "matches"
+            }
+          },
+          "defaultPopularityScore": 8,
+          "clockType": "COUNTS_UP",
+          "basePeriods": [
+            "1h",
+            "2h"
+          ],
+          "extraPeriods": [
+            "ot",
+            "so"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "TENNIS",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "Tennis",
+          "shortName": "Tennis",
+          "pointWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "match",
+              "plural": "matches"
+            },
+            "long": {
+              "singular": "match",
+              "plural": "matches"
+            }
+          },
+          "defaultPopularityScore": 5,
+          "clockType": "NO_CLOCK",
+          "basePeriods": [
+            "1s",
+            "2s",
+            "3s",
+            "4s",
+            "5s"
+          ],
+          "defaultTeamType": null
+        },
+        {
+          "sportID": "HANDBALL",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "prefers3WayMoneyline": true,
+          "name": "Handball",
+          "shortName": "Handball",
+          "pointWord": {
+            "short": {
+              "singular": "goal",
+              "plural": "goals"
+            },
+            "long": {
+              "singular": "goal",
+              "plural": "goals"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1h",
+            "2h"
+          ],
+          "extraPeriods": [
+            "ot",
+            "so"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "GOLF",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "Golf",
+          "shortName": "Golf",
+          "pointWord": {
+            "short": {
+              "singular": "strk",
+              "plural": "strks"
+            },
+            "long": {
+              "singular": "stroke",
+              "plural": "strokes"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "tourney",
+              "plural": "tourneys"
+            },
+            "long": {
+              "singular": "tournament",
+              "plural": "tournaments"
+            }
+          },
+          "defaultPopularityScore": 7,
+          "clockType": "NO_CLOCK",
+          "basePeriods": [
+            "1r",
+            "2r",
+            "3r",
+            "4r"
+          ],
+          "extraPeriods": [
+            "5r"
+          ],
+          "unsupportedPeriods": [
+            "reg"
+          ],
+          "defaultTeamType": "SINGLE_PLAYER"
+        },
+        {
+          "sportID": "MMA",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "MMA",
+          "shortName": "MMA",
+          "pointWord": {
+            "short": {
+              "singular": "rnd",
+              "plural": "rnds"
+            },
+            "long": {
+              "singular": "round",
+              "plural": "rounds"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "fight",
+              "plural": "fights"
+            },
+            "long": {
+              "singular": "fight",
+              "plural": "fights"
+            }
+          },
+          "defaultPopularityScore": 7,
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1r",
+            "2r",
+            "3r",
+            "4r",
+            "5r"
+          ],
+          "extraPeriods": [
+            "dec"
+          ],
+          "defaultPeriodLengthSeconds": 300,
+          "defaultTeamType": "SINGLE_PLAYER"
+        },
+        {
+          "sportID": "HORSE_RACING",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "Horse Racing",
+          "shortName": "Horse Racing",
+          "pointWord": {
+            "short": {
+              "singular": "place",
+              "plural": "places"
+            },
+            "long": {
+              "singular": "placement",
+              "plural": "placements"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "race",
+              "plural": "races"
+            },
+            "long": {
+              "singular": "race",
+              "plural": "races"
+            }
+          },
+          "defaultPopularityScore": 6,
+          "clockType": "NO_CLOCK",
+          "defaultTeamType": "SINGLE_PLAYER"
+        },
+        {
+          "sportID": "NON_SPORTS",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "Non-Sports",
+          "shortName": "Non-Sports",
+          "pointWord": {
+            "short": {
+              "singular": "pt",
+              "plural": "pts"
+            },
+            "long": {
+              "singular": "point",
+              "plural": "points"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "event",
+              "plural": "events"
+            },
+            "long": {
+              "singular": "event",
+              "plural": "events"
+            }
+          },
+          "defaultPopularityScore": 6,
+          "clockType": "NO_CLOCK",
+          "defaultTeamType": null
+        }
+      ]
+    }
+  },
+  "events": {
+    "success": false,
+    "error": "Request failed with status code 400"
+  },
+  "odds": {
+    "success": false,
+    "error": "Request failed with status code 400"
+  },
+  "leagues": {
+    "success": true,
+    "data": {
+      "success": true,
+      "data": [
+        {
+          "sportID": "BASEBALL",
+          "leagueID": "MLB",
+          "enabled": true,
+          "name": "MLB",
+          "shortName": "MLB",
+          "teamType": "DEFAULT"
+        },
+        {
+          "sportID": "SOCCER",
+          "leagueID": "MLS",
+          "enabled": true,
+          "name": "MLS",
+          "shortName": "MLS",
+          "teamType": "DEFAULT"
+        },
+        {
+          "sportID": "BASKETBALL",
+          "leagueID": "NBA",
+          "enabled": true,
+          "name": "NBA",
+          "shortName": "NBA",
+          "teamType": "DEFAULT"
+        },
+        {
+          "sportID": "BASKETBALL",
+          "leagueID": "NCAAB",
+          "enabled": true,
+          "name": "College Basketball",
+          "shortName": "NCAAB",
+          "basePeriods": [
+            "1h",
+            "2h"
+          ],
+          "extraPeriods": [
+            "ot"
+          ],
+          "teamType": "DEFAULT"
+        },
+        {
+          "sportID": "FOOTBALL",
+          "leagueID": "NCAAF",
+          "enabled": true,
+          "name": "College Football",
+          "shortName": "NCAAF",
+          "teamType": "DEFAULT"
+        },
+        {
+          "sportID": "FOOTBALL",
+          "leagueID": "NFL",
+          "enabled": true,
+          "name": "NFL",
+          "shortName": "NFL",
+          "teamType": "DEFAULT"
+        },
+        {
+          "sportID": "HOCKEY",
+          "leagueID": "NHL",
+          "enabled": true,
+          "name": "NHL",
+          "shortName": "NHL",
+          "teamType": "DEFAULT"
+        },
+        {
+          "sportID": "SOCCER",
+          "leagueID": "UEFA_CHAMPIONS_LEAGUE",
+          "enabled": true,
+          "name": "Champions League",
+          "shortName": "UCL",
+          "teamType": "DEFAULT"
+        }
+      ]
+    }
+  },
+  "csgoSearch": {
+    "success": true,
+    "data": {
+      "success": true,
+      "data": [
+        {
+          "sportID": "BASKETBALL",
+          "enabled": true,
+          "name": "Basketball",
+          "shortName": "Basketball",
+          "hasMeaningfulHomeAway": true,
+          "pointWord": {
+            "short": {
+              "singular": "pt",
+              "plural": "pts"
+            },
+            "long": {
+              "singular": "point",
+              "plural": "points"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "defaultPopularityScore": 5,
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1q",
+            "2q",
+            "3q",
+            "4q"
+          ],
+          "extraPeriods": [
+            "ot"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "HOCKEY",
+          "enabled": true,
+          "hasMeaningfulHomeAway": true,
+          "name": "Hockey",
+          "shortName": "Hockey",
+          "pointWord": {
+            "short": {
+              "singular": "goal",
+              "plural": "goals"
+            },
+            "long": {
+              "singular": "goal",
+              "plural": "goals"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "defaultPopularityScore": 5,
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1p",
+            "2p",
+            "3p"
+          ],
+          "extraPeriods": [
+            "ot",
+            "so"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "FOOTBALL",
+          "enabled": true,
+          "hasMeaningfulHomeAway": true,
+          "name": "Football",
+          "shortName": "Football",
+          "pointWord": {
+            "short": {
+              "singular": "pt",
+              "plural": "pts"
+            },
+            "long": {
+              "singular": "point",
+              "plural": "points"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "defaultPopularityScore": 7,
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1q",
+            "2q",
+            "3q",
+            "4q"
+          ],
+          "extraPeriods": [
+            "ot"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "BASEBALL",
+          "enabled": true,
+          "hasMeaningfulHomeAway": true,
+          "name": "Baseball",
+          "shortName": "Baseball",
+          "pointWord": {
+            "short": {
+              "singular": "run",
+              "plural": "runs"
+            },
+            "long": {
+              "singular": "run",
+              "plural": "runs"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "defaultPopularityScore": 7,
+          "clockType": "NO_CLOCK",
+          "basePeriods": [
+            "1i",
+            "2i",
+            "3i",
+            "4i",
+            "5i",
+            "6i",
+            "7i",
+            "8i",
+            "9i"
+          ],
+          "extraPeriods": [
+            "ot"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "SOCCER",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "prefers3WayMoneyline": true,
+          "name": "Soccer",
+          "shortName": "Soccer",
+          "pointWord": {
+            "short": {
+              "singular": "goal",
+              "plural": "goals"
+            },
+            "long": {
+              "singular": "goal",
+              "plural": "goals"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "match",
+              "plural": "matches"
+            },
+            "long": {
+              "singular": "match",
+              "plural": "matches"
+            }
+          },
+          "defaultPopularityScore": 8,
+          "clockType": "COUNTS_UP",
+          "basePeriods": [
+            "1h",
+            "2h"
+          ],
+          "extraPeriods": [
+            "ot",
+            "so"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "TENNIS",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "Tennis",
+          "shortName": "Tennis",
+          "pointWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "match",
+              "plural": "matches"
+            },
+            "long": {
+              "singular": "match",
+              "plural": "matches"
+            }
+          },
+          "defaultPopularityScore": 5,
+          "clockType": "NO_CLOCK",
+          "basePeriods": [
+            "1s",
+            "2s",
+            "3s",
+            "4s",
+            "5s"
+          ],
+          "defaultTeamType": null
+        },
+        {
+          "sportID": "HANDBALL",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "prefers3WayMoneyline": true,
+          "name": "Handball",
+          "shortName": "Handball",
+          "pointWord": {
+            "short": {
+              "singular": "goal",
+              "plural": "goals"
+            },
+            "long": {
+              "singular": "goal",
+              "plural": "goals"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1h",
+            "2h"
+          ],
+          "extraPeriods": [
+            "ot",
+            "so"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "GOLF",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "Golf",
+          "shortName": "Golf",
+          "pointWord": {
+            "short": {
+              "singular": "strk",
+              "plural": "strks"
+            },
+            "long": {
+              "singular": "stroke",
+              "plural": "strokes"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "tourney",
+              "plural": "tourneys"
+            },
+            "long": {
+              "singular": "tournament",
+              "plural": "tournaments"
+            }
+          },
+          "defaultPopularityScore": 7,
+          "clockType": "NO_CLOCK",
+          "basePeriods": [
+            "1r",
+            "2r",
+            "3r",
+            "4r"
+          ],
+          "extraPeriods": [
+            "5r"
+          ],
+          "unsupportedPeriods": [
+            "reg"
+          ],
+          "defaultTeamType": "SINGLE_PLAYER"
+        },
+        {
+          "sportID": "MMA",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "MMA",
+          "shortName": "MMA",
+          "pointWord": {
+            "short": {
+              "singular": "rnd",
+              "plural": "rnds"
+            },
+            "long": {
+              "singular": "round",
+              "plural": "rounds"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "fight",
+              "plural": "fights"
+            },
+            "long": {
+              "singular": "fight",
+              "plural": "fights"
+            }
+          },
+          "defaultPopularityScore": 7,
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1r",
+            "2r",
+            "3r",
+            "4r",
+            "5r"
+          ],
+          "extraPeriods": [
+            "dec"
+          ],
+          "defaultPeriodLengthSeconds": 300,
+          "defaultTeamType": "SINGLE_PLAYER"
+        },
+        {
+          "sportID": "HORSE_RACING",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "Horse Racing",
+          "shortName": "Horse Racing",
+          "pointWord": {
+            "short": {
+              "singular": "place",
+              "plural": "places"
+            },
+            "long": {
+              "singular": "placement",
+              "plural": "placements"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "race",
+              "plural": "races"
+            },
+            "long": {
+              "singular": "race",
+              "plural": "races"
+            }
+          },
+          "defaultPopularityScore": 6,
+          "clockType": "NO_CLOCK",
+          "defaultTeamType": "SINGLE_PLAYER"
+        },
+        {
+          "sportID": "NON_SPORTS",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "Non-Sports",
+          "shortName": "Non-Sports",
+          "pointWord": {
+            "short": {
+              "singular": "pt",
+              "plural": "pts"
+            },
+            "long": {
+              "singular": "point",
+              "plural": "points"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "event",
+              "plural": "events"
+            },
+            "long": {
+              "singular": "event",
+              "plural": "events"
+            }
+          },
+          "defaultPopularityScore": 6,
+          "clockType": "NO_CLOCK",
+          "defaultTeamType": null
+        }
+      ]
+    }
+  },
+  "esportsSearch": {
+    "success": true,
+    "data": {
+      "success": true,
+      "data": [
+        {
+          "sportID": "BASKETBALL",
+          "enabled": true,
+          "name": "Basketball",
+          "shortName": "Basketball",
+          "hasMeaningfulHomeAway": true,
+          "pointWord": {
+            "short": {
+              "singular": "pt",
+              "plural": "pts"
+            },
+            "long": {
+              "singular": "point",
+              "plural": "points"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "defaultPopularityScore": 5,
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1q",
+            "2q",
+            "3q",
+            "4q"
+          ],
+          "extraPeriods": [
+            "ot"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "HOCKEY",
+          "enabled": true,
+          "hasMeaningfulHomeAway": true,
+          "name": "Hockey",
+          "shortName": "Hockey",
+          "pointWord": {
+            "short": {
+              "singular": "goal",
+              "plural": "goals"
+            },
+            "long": {
+              "singular": "goal",
+              "plural": "goals"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "defaultPopularityScore": 5,
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1p",
+            "2p",
+            "3p"
+          ],
+          "extraPeriods": [
+            "ot",
+            "so"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "FOOTBALL",
+          "enabled": true,
+          "hasMeaningfulHomeAway": true,
+          "name": "Football",
+          "shortName": "Football",
+          "pointWord": {
+            "short": {
+              "singular": "pt",
+              "plural": "pts"
+            },
+            "long": {
+              "singular": "point",
+              "plural": "points"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "defaultPopularityScore": 7,
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1q",
+            "2q",
+            "3q",
+            "4q"
+          ],
+          "extraPeriods": [
+            "ot"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "BASEBALL",
+          "enabled": true,
+          "hasMeaningfulHomeAway": true,
+          "name": "Baseball",
+          "shortName": "Baseball",
+          "pointWord": {
+            "short": {
+              "singular": "run",
+              "plural": "runs"
+            },
+            "long": {
+              "singular": "run",
+              "plural": "runs"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "defaultPopularityScore": 7,
+          "clockType": "NO_CLOCK",
+          "basePeriods": [
+            "1i",
+            "2i",
+            "3i",
+            "4i",
+            "5i",
+            "6i",
+            "7i",
+            "8i",
+            "9i"
+          ],
+          "extraPeriods": [
+            "ot"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "SOCCER",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "prefers3WayMoneyline": true,
+          "name": "Soccer",
+          "shortName": "Soccer",
+          "pointWord": {
+            "short": {
+              "singular": "goal",
+              "plural": "goals"
+            },
+            "long": {
+              "singular": "goal",
+              "plural": "goals"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "match",
+              "plural": "matches"
+            },
+            "long": {
+              "singular": "match",
+              "plural": "matches"
+            }
+          },
+          "defaultPopularityScore": 8,
+          "clockType": "COUNTS_UP",
+          "basePeriods": [
+            "1h",
+            "2h"
+          ],
+          "extraPeriods": [
+            "ot",
+            "so"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "TENNIS",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "Tennis",
+          "shortName": "Tennis",
+          "pointWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "match",
+              "plural": "matches"
+            },
+            "long": {
+              "singular": "match",
+              "plural": "matches"
+            }
+          },
+          "defaultPopularityScore": 5,
+          "clockType": "NO_CLOCK",
+          "basePeriods": [
+            "1s",
+            "2s",
+            "3s",
+            "4s",
+            "5s"
+          ],
+          "defaultTeamType": null
+        },
+        {
+          "sportID": "HANDBALL",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "prefers3WayMoneyline": true,
+          "name": "Handball",
+          "shortName": "Handball",
+          "pointWord": {
+            "short": {
+              "singular": "goal",
+              "plural": "goals"
+            },
+            "long": {
+              "singular": "goal",
+              "plural": "goals"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "game",
+              "plural": "games"
+            },
+            "long": {
+              "singular": "game",
+              "plural": "games"
+            }
+          },
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1h",
+            "2h"
+          ],
+          "extraPeriods": [
+            "ot",
+            "so"
+          ],
+          "defaultTeamType": "DEFAULT"
+        },
+        {
+          "sportID": "GOLF",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "Golf",
+          "shortName": "Golf",
+          "pointWord": {
+            "short": {
+              "singular": "strk",
+              "plural": "strks"
+            },
+            "long": {
+              "singular": "stroke",
+              "plural": "strokes"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "tourney",
+              "plural": "tourneys"
+            },
+            "long": {
+              "singular": "tournament",
+              "plural": "tournaments"
+            }
+          },
+          "defaultPopularityScore": 7,
+          "clockType": "NO_CLOCK",
+          "basePeriods": [
+            "1r",
+            "2r",
+            "3r",
+            "4r"
+          ],
+          "extraPeriods": [
+            "5r"
+          ],
+          "unsupportedPeriods": [
+            "reg"
+          ],
+          "defaultTeamType": "SINGLE_PLAYER"
+        },
+        {
+          "sportID": "MMA",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "MMA",
+          "shortName": "MMA",
+          "pointWord": {
+            "short": {
+              "singular": "rnd",
+              "plural": "rnds"
+            },
+            "long": {
+              "singular": "round",
+              "plural": "rounds"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "fight",
+              "plural": "fights"
+            },
+            "long": {
+              "singular": "fight",
+              "plural": "fights"
+            }
+          },
+          "defaultPopularityScore": 7,
+          "clockType": "COUNTS_DOWN",
+          "basePeriods": [
+            "1r",
+            "2r",
+            "3r",
+            "4r",
+            "5r"
+          ],
+          "extraPeriods": [
+            "dec"
+          ],
+          "defaultPeriodLengthSeconds": 300,
+          "defaultTeamType": "SINGLE_PLAYER"
+        },
+        {
+          "sportID": "HORSE_RACING",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "Horse Racing",
+          "shortName": "Horse Racing",
+          "pointWord": {
+            "short": {
+              "singular": "place",
+              "plural": "places"
+            },
+            "long": {
+              "singular": "placement",
+              "plural": "placements"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "race",
+              "plural": "races"
+            },
+            "long": {
+              "singular": "race",
+              "plural": "races"
+            }
+          },
+          "defaultPopularityScore": 6,
+          "clockType": "NO_CLOCK",
+          "defaultTeamType": "SINGLE_PLAYER"
+        },
+        {
+          "sportID": "NON_SPORTS",
+          "enabled": true,
+          "hasMeaningfulHomeAway": false,
+          "name": "Non-Sports",
+          "shortName": "Non-Sports",
+          "pointWord": {
+            "short": {
+              "singular": "pt",
+              "plural": "pts"
+            },
+            "long": {
+              "singular": "point",
+              "plural": "points"
+            }
+          },
+          "eventWord": {
+            "short": {
+              "singular": "event",
+              "plural": "events"
+            },
+            "long": {
+              "singular": "event",
+              "plural": "events"
+            }
+          },
+          "defaultPopularityScore": 6,
+          "clockType": "NO_CLOCK",
+          "defaultTeamType": null
+        }
+      ]
+    }
+  }
+}

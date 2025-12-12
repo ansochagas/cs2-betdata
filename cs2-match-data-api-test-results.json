@@ -1,0 +1,26 @@
+{
+  "status": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "upcoming": {
+    "success": false,
+    "error": "Request failed with status code 429"
+  },
+  "past": {
+    "success": false,
+    "error": "Request failed with status code 429"
+  },
+  "tournaments": {
+    "success": false,
+    "error": "Request failed with status code 429"
+  },
+  "teams": {
+    "success": false,
+    "error": "Request failed with status code 429"
+  },
+  "stats": {
+    "success": false,
+    "error": "Request failed with status code 429"
+  }
+}

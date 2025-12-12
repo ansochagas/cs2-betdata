@@ -1,0 +1,437 @@
+{
+  "matches": {
+    "success": true,
+    "data": {
+      "data": [
+        {
+          "team_won": {
+            "image_url": "https://storage.web7.pro/csgobot/team/red_canids.png",
+            "id": "416be8a1-b51d-4507-85f2-94b0a3a037f5",
+            "title": "RED Canids"
+          },
+          "team_lose": {
+            "image_url": "https://storage.web7.pro/csgobot/team/fluxo.png",
+            "id": "4741d4b2-16e4-45c0-b773-4102846b0db4",
+            "title": "Fluxo"
+          },
+          "created_at": "2025-10-03 18:10:13",
+          "team_lose_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/brazil.png",
+            "id": "c90e6b09-f49b-45e3-a91d-311e39862443",
+            "title": "Brazil"
+          },
+          "event": {
+            "image_url": null,
+            "id": "9aefc9e7-f580-4f1d-a235-f68ed082eb5a",
+            "title": "Circuit X South America Season 1"
+          },
+          "score_won": 2,
+          "team_won_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/brazil.png",
+            "id": "c90e6b09-f49b-45e3-a91d-311e39862443",
+            "title": "Brazil"
+          },
+          "played_at": "2025-10-03 14:35:00",
+          "score_lose": 0,
+          "match_kind": {
+            "id": "9abbbb65-1599-4b2c-8e4c-f82ca20b7a9b",
+            "title": "bo3"
+          },
+          "stars": 0,
+          "location": "lan",
+          "id": "3e61566d-0e88-4b97-8e19-07f66ca4a765"
+        },
+        {
+          "team_won": {
+            "image_url": "https://storage.web7.pro/csgobot/team/kono.png",
+            "id": "535048d8-d364-413a-9410-37cf897f4de7",
+            "title": "kONO"
+          },
+          "team_lose": {
+            "image_url": null,
+            "id": "0346f01d-fc96-4532-ad58-df1e8ff7e29d",
+            "title": "UNiTY"
+          },
+          "created_at": "2025-10-03 16:10:12",
+          "team_lose_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/czech_republic.png",
+            "id": "c756b6f4-6ad9-4707-9ebc-22fe21a87059",
+            "title": "Czech Republic"
+          },
+          "event": {
+            "image_url": null,
+            "id": "e4d24915-24e2-41bd-b7ab-020e015f784a",
+            "title": "NODWIN Clutch Series 1 Closed Qualifier"
+          },
+          "score_won": 2,
+          "team_won_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/europe.png",
+            "id": "79f3719d-d2ae-45c4-b68e-7b3385e51b6c",
+            "title": "Europe"
+          },
+          "played_at": "2025-10-03 11:00:00",
+          "score_lose": 1,
+          "match_kind": {
+            "id": "9abbbb65-1599-4b2c-8e4c-f82ca20b7a9b",
+            "title": "bo3"
+          },
+          "stars": 0,
+          "location": "online",
+          "id": "51aef47a-7bea-4a06-9d2e-8fac95d02c5d"
+        },
+        {
+          "team_won": {
+            "image_url": "https://storage.web7.pro/csgobot/team/imperial.png",
+            "id": "8b2079ec-1953-468e-957c-cf8986b12bd1",
+            "title": "Imperial"
+          },
+          "team_lose": {
+            "image_url": null,
+            "id": "5d92e963-31d1-494e-abfe-54fe03519714",
+            "title": "Gaimin Gladiators"
+          },
+          "created_at": "2025-10-03 08:10:22",
+          "team_lose_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/brazil.png",
+            "id": "c90e6b09-f49b-45e3-a91d-311e39862443",
+            "title": "Brazil"
+          },
+          "event": {
+            "image_url": null,
+            "id": "9aefc9e7-f580-4f1d-a235-f68ed082eb5a",
+            "title": "Circuit X South America Season 1"
+          },
+          "score_won": 2,
+          "team_won_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/brazil.png",
+            "id": "c90e6b09-f49b-45e3-a91d-311e39862443",
+            "title": "Brazil"
+          },
+          "played_at": "2025-10-03 05:20:00",
+          "score_lose": 0,
+          "match_kind": {
+            "id": "9abbbb65-1599-4b2c-8e4c-f82ca20b7a9b",
+            "title": "bo3"
+          },
+          "stars": 0,
+          "location": "lan",
+          "id": "c237980b-725c-4138-9c79-5ded056e3602"
+        },
+        {
+          "team_won": {
+            "image_url": "https://storage.web7.pro/csgobot/team/shinden.png",
+            "id": "ceeedbbb-b560-45f5-898e-4986b2e93e08",
+            "title": "ShindeN"
+          },
+          "team_lose": {
+            "image_url": "https://storage.web7.pro/csgobot/team/galorys.png",
+            "id": "01a1f27a-e1c2-4e0e-9d1f-10412ca37208",
+            "title": "Galorys"
+          },
+          "created_at": "2025-10-03 02:10:14",
+          "team_lose_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/brazil.png",
+            "id": "c90e6b09-f49b-45e3-a91d-311e39862443",
+            "title": "Brazil"
+          },
+          "event": {
+            "image_url": null,
+            "id": "9aefc9e7-f580-4f1d-a235-f68ed082eb5a",
+            "title": "Circuit X South America Season 1"
+          },
+          "score_won": 2,
+          "team_won_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/argentina.png",
+            "id": "695b3ea6-2767-479f-96be-8798d69a89e3",
+            "title": "Argentina"
+          },
+          "played_at": "2025-10-02 20:45:00",
+          "score_lose": 1,
+          "match_kind": {
+            "id": "9abbbb65-1599-4b2c-8e4c-f82ca20b7a9b",
+            "title": "bo3"
+          },
+          "stars": 0,
+          "location": "lan",
+          "id": "b2dcc985-59a5-4c30-ba29-a639a78a2f25"
+        },
+        {
+          "team_won": {
+            "image_url": "https://storage.web7.pro/csgobot/team/mibr.png",
+            "id": "75c2f8a0-8f67-42af-a41f-9cb4ed089101",
+            "title": "MIBR"
+          },
+          "team_lose": {
+            "image_url": "https://storage.web7.pro/csgobot/team/shinden.png",
+            "id": "ceeedbbb-b560-45f5-898e-4986b2e93e08",
+            "title": "ShindeN"
+          },
+          "created_at": "2025-10-02 22:10:15",
+          "team_lose_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/argentina.png",
+            "id": "695b3ea6-2767-479f-96be-8798d69a89e3",
+            "title": "Argentina"
+          },
+          "event": {
+            "image_url": null,
+            "id": "9aefc9e7-f580-4f1d-a235-f68ed082eb5a",
+            "title": "Circuit X South America Season 1"
+          },
+          "score_won": 2,
+          "team_won_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/brazil.png",
+            "id": "c90e6b09-f49b-45e3-a91d-311e39862443",
+            "title": "Brazil"
+          },
+          "played_at": "2025-10-02 17:50:00",
+          "score_lose": 0,
+          "match_kind": {
+            "id": "9abbbb65-1599-4b2c-8e4c-f82ca20b7a9b",
+            "title": "bo3"
+          },
+          "stars": 0,
+          "location": "lan",
+          "id": "699b310c-af95-400f-a3ca-97be78bacd9d"
+        },
+        {
+          "team_won": {
+            "image_url": "https://storage.web7.pro/csgobot/team/shinden.png",
+            "id": "ceeedbbb-b560-45f5-898e-4986b2e93e08",
+            "title": "ShindeN"
+          },
+          "team_lose": {
+            "image_url": "https://storage.web7.pro/csgobot/team/galorys.png",
+            "id": "01a1f27a-e1c2-4e0e-9d1f-10412ca37208",
+            "title": "Galorys"
+          },
+          "created_at": "2025-10-02 18:10:14",
+          "team_lose_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/brazil.png",
+            "id": "c90e6b09-f49b-45e3-a91d-311e39862443",
+            "title": "Brazil"
+          },
+          "event": {
+            "image_url": null,
+            "id": "9aefc9e7-f580-4f1d-a235-f68ed082eb5a",
+            "title": "Circuit X South America Season 1"
+          },
+          "score_won": 2,
+          "team_won_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/argentina.png",
+            "id": "695b3ea6-2767-479f-96be-8798d69a89e3",
+            "title": "Argentina"
+          },
+          "played_at": "2025-10-02 15:30:00",
+          "score_lose": 0,
+          "match_kind": {
+            "id": "9abbbb65-1599-4b2c-8e4c-f82ca20b7a9b",
+            "title": "bo3"
+          },
+          "stars": 0,
+          "location": "lan",
+          "id": "8c49d1bc-7cac-4251-b442-e37b95012322"
+        },
+        {
+          "team_won": {
+            "image_url": "https://storage.web7.pro/csgobot/team/the_huns.png",
+            "id": "e5cf40a6-95f5-4c87-a3a0-92055a3beeaf",
+            "title": "The Huns"
+          },
+          "team_lose": {
+            "image_url": "https://storage.web7.pro/csgobot/team/chinggis_warriors.png",
+            "id": "aec35a09-dc0c-4dd7-9fed-e2df79ad5df8",
+            "title": "Chinggis Warriors"
+          },
+          "created_at": "2025-10-02 16:10:20",
+          "team_lose_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/mongolia.png",
+            "id": "0fc0b1d4-daad-4cfd-ad7d-bb34b33eba2b",
+            "title": "Mongolia"
+          },
+          "event": {
+            "image_url": null,
+            "id": "1dfaf694-72e9-4b42-9e82-963a8dfea4eb",
+            "title": "ESN Fall Showdown 2025"
+          },
+          "score_won": 2,
+          "team_won_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/mongolia.png",
+            "id": "0fc0b1d4-daad-4cfd-ad7d-bb34b33eba2b",
+            "title": "Mongolia"
+          },
+          "played_at": "2025-10-02 13:00:00",
+          "score_lose": 0,
+          "match_kind": {
+            "id": "9abbbb65-1599-4b2c-8e4c-f82ca20b7a9b",
+            "title": "bo3"
+          },
+          "stars": 0,
+          "location": "lan",
+          "id": "c6ceff02-c54c-4e80-a2f3-0f2360997bc2"
+        },
+        {
+          "team_won": {
+            "image_url": null,
+            "id": "88bacba6-2caa-46ce-8fd0-589569a8daf2",
+            "title": "ARCRED"
+          },
+          "team_lose": {
+            "image_url": "https://storage.web7.pro/csgobot/team/betera.png",
+            "id": "9cfcf8d3-9f68-426d-9910-0664f9fa3788",
+            "title": "Betera"
+          },
+          "created_at": "2025-10-02 12:10:16",
+          "team_lose_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/russia.png",
+            "id": "247455de-6d29-450a-ba91-33be90bec68e",
+            "title": "Russia"
+          },
+          "event": {
+            "image_url": null,
+            "id": "b162cf69-c561-4eb0-a642-19089d9fffc7",
+            "title": "Exort The Proving Grounds Season 5"
+          },
+          "score_won": 1,
+          "team_won_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/europe.png",
+            "id": "79f3719d-d2ae-45c4-b68e-7b3385e51b6c",
+            "title": "Europe"
+          },
+          "played_at": "2025-10-02 10:43:07",
+          "score_lose": 0,
+          "match_kind": {
+            "id": "9abbbb65-1599-4b2c-8e4c-f82ca20b7a9b",
+            "title": "bo3"
+          },
+          "stars": 0,
+          "location": "online",
+          "id": "754dcfb1-f179-46c7-beae-dd0e3232f255"
+        },
+        {
+          "team_won": {
+            "image_url": "https://storage.web7.pro/csgobot/team/chinggis_warriors.png",
+            "id": "aec35a09-dc0c-4dd7-9fed-e2df79ad5df8",
+            "title": "Chinggis Warriors"
+          },
+          "team_lose": {
+            "image_url": null,
+            "id": "776df15d-4216-4443-a1a9-4be6d84fac46",
+            "title": "NomadS"
+          },
+          "created_at": "2025-10-02 14:10:11",
+          "team_lose_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/mongolia.png",
+            "id": "0fc0b1d4-daad-4cfd-ad7d-bb34b33eba2b",
+            "title": "Mongolia"
+          },
+          "event": {
+            "image_url": null,
+            "id": "1dfaf694-72e9-4b42-9e82-963a8dfea4eb",
+            "title": "ESN Fall Showdown 2025"
+          },
+          "score_won": 2,
+          "team_won_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/mongolia.png",
+            "id": "0fc0b1d4-daad-4cfd-ad7d-bb34b33eba2b",
+            "title": "Mongolia"
+          },
+          "played_at": "2025-10-02 09:35:00",
+          "score_lose": 1,
+          "match_kind": {
+            "id": "9abbbb65-1599-4b2c-8e4c-f82ca20b7a9b",
+            "title": "bo3"
+          },
+          "stars": 0,
+          "location": "lan",
+          "id": "bbff384a-2e3c-4c55-8362-a5fae31b8dc7"
+        },
+        {
+          "team_won": {
+            "image_url": null,
+            "id": "762699cb-e160-4039-aad7-679e7fa47433",
+            "title": "Rare Atom"
+          },
+          "team_lose": {
+            "image_url": null,
+            "id": "462eb4d0-4b79-4a8d-b1b7-f0e343b08ed0",
+            "title": "Change The Game"
+          },
+          "created_at": "2025-10-02 14:10:11",
+          "team_lose_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/china.png",
+            "id": "4fe80f09-799d-4ddd-8cf8-23fe2603b9c2",
+            "title": "China"
+          },
+          "event": {
+            "image_url": null,
+            "id": "499fd832-eefa-434c-a95c-b461890a7b68",
+            "title": "XSE Pro League Shanghai 2025"
+          },
+          "score_won": 2,
+          "team_won_country": {
+            "image_url": "https://storage.web7.pro/csgobot/country/china.png",
+            "id": "4fe80f09-799d-4ddd-8cf8-23fe2603b9c2",
+            "title": "China"
+          },
+          "played_at": "2025-10-02 09:00:00",
+          "score_lose": 1,
+          "match_kind": {
+            "id": "9abbbb65-1599-4b2c-8e4c-f82ca20b7a9b",
+            "title": "bo3"
+          },
+          "stars": 0,
+          "location": "lan",
+          "id": "a8536302-7817-4e9e-82ea-093b1f62caff"
+        }
+      ],
+      "meta": {
+        "limit": 10,
+        "page": 1,
+        "total": 45152,
+        "pages": 4516
+      }
+    }
+  },
+  "matchesSimple": {
+    "success": true,
+    "data": {
+      "error": true,
+      "message": [
+        {
+          "input": null,
+          "loc": [
+            "page"
+          ],
+          "msg": "Input should be a valid integer",
+          "type": "int_type",
+          "url": "https://errors.pydantic.dev/2.10/v/int_type"
+        },
+        {
+          "input": null,
+          "loc": [
+            "limit"
+          ],
+          "msg": "Input should be a valid integer",
+          "type": "int_type",
+          "url": "https://errors.pydantic.dev/2.10/v/int_type"
+        }
+      ]
+    }
+  },
+  "upcoming": {
+    "success": false,
+    "error": "Request failed with status code 429"
+  },
+  "finished": {
+    "success": false,
+    "error": "Request failed with status code 429"
+  },
+  "tournaments": {
+    "success": false,
+    "error": "Request failed with status code 429"
+  },
+  "teams": {
+    "success": false,
+    "error": "Request failed with status code 429"
+  }
+}

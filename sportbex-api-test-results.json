@@ -1,0 +1,34 @@
+{
+  "competitions4": {
+    "success": true,
+    "data": []
+  },
+  "competitions": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "esportsCompetitions": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "csgoCompetitions": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "events4": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "markets4": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "teams": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "odds": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  }
+}

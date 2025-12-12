@@ -1,0 +1,891 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useSession, signOut } from "next-auth/react";
+import {
+  Users,
+  UserCheck,
+  UserPlus,
+  MessageSquare,
+  Send,
+  TrendingUp,
+  DollarSign,
+  Calendar,
+  AlertTriangle,
+  Zap,
+  Clock,
+  Info,
+  Settings,
+  HelpCircle,
+  Activity,
+} from "lucide-react";
+
+interface AdminStats {
+  totalUsers: number;
+  activeSubscriptions: number;
+  trialUsers: number;
+  telegramLinkedUsers: number;
+  recentSignups: number;
+  monthlyRevenue: number;
+}
+
+interface BroadcastMessage {
+  title: string;
+  message: string;
+  target: "all" | "active" | "trial";
+}
+
+export default function AdminDashboard() {
+  const { data: session } = useSession();
+  const [stats, setStats] = useState<AdminStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [broadcastMessage, setBroadcastMessage] = useState<BroadcastMessage>({
+    title: "",
+    message: "",
+    target: "all",
+  });
+  const [sendingBroadcast, setSendingBroadcast] = useState(false);
+  const [broadcastResult, setBroadcastResult] = useState<string | null>(null);
+  const [integrityCheck, setIntegrityCheck] = useState<any>(null);
+  const [checkingIntegrity, setCheckingIntegrity] = useState(false);
+  const [alertsData, setAlertsData] = useState<any>(null);
+  const [loadingAlerts, setLoadingAlerts] = useState(false);
+  const [sendingAlerts, setSendingAlerts] = useState(false);
+  const [alertResult, setAlertResult] = useState<string | null>(null);
+  const [gameAlertsStatus, setGameAlertsStatus] = useState<any>(null);
+  const [checkingGameAlerts, setCheckingGameAlerts] = useState(false);
+  const [gameAlertResult, setGameAlertResult] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Verificar se usuário é admin
+    if (session?.user?.email && !isAdmin(session.user.email)) {
+      window.location.href = "/dashboard";
+      return;
+    }
+
+    fetchAdminStats();
+  }, [session]);
+
+  const isAdmin = (email: string) => {
+    // Lista de emails administrativos
+    const adminEmails = [
+      "admin@csgoscout.com",
+      "andersonchagas45@gmail.com", // Conta admin criada
+      // Adicionar mais emails conforme necessário
+    ];
+
+    // Verificar se é admin
+    return adminEmails.includes(email);
+  };
+
+  const fetchAdminStats = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/admin/stats");
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setStats(data.stats);
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao buscar estatísticas:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleBroadcast = async () => {
+    if (!broadcastMessage.title || !broadcastMessage.message) {
+      alert("Preencha título e mensagem");
+      return;
+    }
+
+    try {
+      setSendingBroadcast(true);
+      setBroadcastResult(null);
+
+      const response = await fetch("/api/admin/broadcast", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(broadcastMessage),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setBroadcastResult(
+          `✅ Mensagem enviada para ${data.sentCount} usuários!`
+        );
+        setBroadcastMessage({ title: "", message: "", target: "all" });
+      } else {
+        setBroadcastResult(`❌ Erro: ${data.error}`);
+      }
+    } catch (error) {
+      setBroadcastResult("❌ Erro ao enviar mensagem");
+    } finally {
+      setSendingBroadcast(false);
+    }
+  };
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: "/" });
+  };
+
+  const handleIntegrityCheck = async () => {
+    try {
+      setCheckingIntegrity(true);
+      const response = await fetch("/api/admin/subscription-integrity");
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setIntegrityCheck(data.integrity);
+        }
+      }
+    } catch (error) {
+      console.error("Erro na verificação de integridade:", error);
+    } finally {
+      setCheckingIntegrity(false);
+    }
+  };
+
+  const handleLoadAlerts = async () => {
+    try {
+      setLoadingAlerts(true);
+      const response = await fetch("/api/admin/subscription-alerts");
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setAlertsData(data);
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao carregar alertas:", error);
+    } finally {
+      setLoadingAlerts(false);
+    }
+  };
+
+  const handleSendAlerts = async () => {
+    try {
+      setSendingAlerts(true);
+      setAlertResult(null);
+
+      const response = await fetch("/api/admin/subscription-alerts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ action: "send" }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setAlertResult(`✅ ${data.result.sent} alertas enviados com sucesso!`);
+        // Recarregar dados
+        handleLoadAlerts();
+      } else {
+        setAlertResult(`❌ Erro: ${data.error}`);
+      }
+    } catch (error) {
+      setAlertResult("❌ Erro ao enviar alertas");
+    } finally {
+      setSendingAlerts(false);
+    }
+  };
+
+  const handleCheckGameAlerts = async () => {
+    try {
+      setCheckingGameAlerts(true);
+      setGameAlertResult(null);
+
+      const response = await fetch("/api/admin/game-alerts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ action: "check" }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setGameAlertResult(`✅ ${data.message}`);
+        // Recarregar status
+        handleLoadGameAlertsStatus();
+      } else {
+        setGameAlertResult(`❌ Erro: ${data.error}`);
+      }
+    } catch (error) {
+      setGameAlertResult("❌ Erro ao verificar alertas de jogos");
+    } finally {
+      setCheckingGameAlerts(false);
+    }
+  };
+
+  const handleLoadGameAlertsStatus = async () => {
+    try {
+      const response = await fetch("/api/admin/game-alerts");
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setGameAlertsStatus(data.status);
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao carregar status dos alertas de jogos:", error);
+    }
+  };
+
+  if (!session?.user?.email || !isAdmin(session.user.email)) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <AlertTriangle size={64} className="text-red-500 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold mb-4">Acesso Negado</h1>
+          <p className="text-zinc-400 mb-8">
+            Você não tem permissão para acessar esta página.
+          </p>
+          <button
+            onClick={() => (window.location.href = "/dashboard")}
+            className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg transition-colors"
+          >
+            Voltar ao Dashboard
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-black text-white">
+      {/* Header */}
+      <header className="border-b border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="text-2xl font-bold bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
+              ADMIN PANEL
+            </div>
+            <span className="text-zinc-400">•</span>
+            <span className="text-zinc-400">Dashboard Administrativo</span>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-zinc-400">
+              Admin: {session?.user?.name}
+            </span>
+            <button
+              onClick={handleSignOut}
+              className="px-4 py-2 text-sm bg-zinc-800 hover:bg-zinc-700 rounded-lg transition-colors"
+            >
+              Sair
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Métricas Principais */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Cards de Estatísticas */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
+                <div className="flex items-center gap-4">
+                  <Users className="text-blue-400" size={32} />
+                  <div>
+                    <p className="text-2xl font-bold">
+                      {stats?.totalUsers || 0}
+                    </p>
+                    <p className="text-zinc-400 text-sm">Total de Usuários</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
+                <div className="flex items-center gap-4">
+                  <UserCheck className="text-green-400" size={32} />
+                  <div>
+                    <p className="text-2xl font-bold">
+                      {stats?.activeSubscriptions || 0}
+                    </p>
+                    <p className="text-zinc-400 text-sm">Assinaturas Ativas</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
+                <div className="flex items-center gap-4">
+                  <UserPlus className="text-orange-400" size={32} />
+                  <div>
+                    <p className="text-2xl font-bold">
+                      {stats?.trialUsers || 0}
+                    </p>
+                    <p className="text-zinc-400 text-sm">Em Trial</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
+                <div className="flex items-center gap-4">
+                  <MessageSquare className="text-cyan-400" size={32} />
+                  <div>
+                    <p className="text-2xl font-bold">
+                      {stats?.telegramLinkedUsers || 0}
+                    </p>
+                    <p className="text-zinc-400 text-sm">Telegram Vinculado</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Receita e Novos Usuários */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <DollarSign className="text-green-400" size={24} />
+                  <h3 className="text-lg font-semibold">Receita Mensal</h3>
+                </div>
+                <p className="text-3xl font-bold text-green-400">
+                  R$ {stats?.monthlyRevenue?.toFixed(2) || "0.00"}
+                </p>
+                <p className="text-zinc-400 text-sm mt-2">
+                  <TrendingUp size={14} className="inline mr-1" />
+                  +12% em relação ao mês passado
+                </p>
+              </div>
+
+              <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <Calendar className="text-blue-400" size={24} />
+                  <h3 className="text-lg font-semibold">Novos Cadastros</h3>
+                </div>
+                <p className="text-3xl font-bold text-blue-400">
+                  {stats?.recentSignups || 0}
+                </p>
+                <p className="text-zinc-400 text-sm mt-2">
+                  Nos últimos 30 dias
+                </p>
+              </div>
+            </div>
+
+            {/* Verificação de Integridade */}
+            <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <AlertTriangle className="text-orange-400" size={24} />
+                  <div>
+                    <h3 className="text-lg font-semibold">
+                      Integridade das Subscriptions
+                    </h3>
+                    <p className="text-zinc-400 text-sm">
+                      Verifique a saúde dos planos dos usuários
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleIntegrityCheck}
+                  disabled={checkingIntegrity}
+                  className="bg-orange-500 hover:bg-orange-600 disabled:bg-zinc-600 text-white px-4 py-2 rounded-lg transition-colors disabled:cursor-not-allowed flex items-center gap-2"
+                >
+                  {checkingIntegrity ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      Verificando...
+                    </>
+                  ) : (
+                    <>
+                      <AlertTriangle size={16} />
+                      Verificar
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {integrityCheck && (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-blue-400">
+                        {integrityCheck.totalSubscriptions}
+                      </p>
+                      <p className="text-xs text-zinc-400">Total</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-green-400">
+                        {integrityCheck.validSubscriptions}
+                      </p>
+                      <p className="text-xs text-zinc-400">Válidas</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-red-400">
+                        {integrityCheck.invalidSubscriptions}
+                      </p>
+                      <p className="text-xs text-zinc-400">Inválidas</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-orange-400">
+                        {integrityCheck.expiredSubscriptions}
+                      </p>
+                      <p className="text-xs text-zinc-400">Expiradas</p>
+                    </div>
+                  </div>
+
+                  {integrityCheck.issues.length > 0 && (
+                    <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4">
+                      <h4 className="text-red-400 font-semibold mb-2">
+                        ⚠️ Problemas Encontrados ({integrityCheck.issues.length}
+                        )
+                      </h4>
+                      <div className="space-y-1 max-h-32 overflow-y-auto">
+                        {integrityCheck.issues
+                          .slice(0, 5)
+                          .map((issue: string, index: number) => (
+                            <p key={index} className="text-red-300 text-sm">
+                              • {issue}
+                            </p>
+                          ))}
+                        {integrityCheck.issues.length > 5 && (
+                          <p className="text-red-300 text-sm">
+                            ... e mais {integrityCheck.issues.length - 5}{" "}
+                            problemas
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {integrityCheck.issues.length === 0 && (
+                    <div className="bg-green-500/20 border border-green-500/50 rounded-lg p-4">
+                      <p className="text-green-400 text-sm">
+                        ✅ Todas as subscriptions estão íntegras!
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Alertas de Expiração */}
+            <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <AlertTriangle className="text-red-400" size={24} />
+                  <div>
+                    <h3 className="text-lg font-semibold">
+                      Alertas de Expiração
+                    </h3>
+                    <p className="text-zinc-400 text-sm">
+                      Usuários próximos da expiração do plano
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleLoadAlerts}
+                    disabled={loadingAlerts}
+                    className="bg-blue-500 hover:bg-blue-600 disabled:bg-zinc-600 text-white px-4 py-2 rounded-lg transition-colors disabled:cursor-not-allowed flex items-center gap-2"
+                  >
+                    {loadingAlerts ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        Carregando...
+                      </>
+                    ) : (
+                      <>
+                        <AlertTriangle size={16} />
+                        Verificar
+                      </>
+                    )}
+                  </button>
+                  <button
+                    onClick={handleSendAlerts}
+                    disabled={sendingAlerts || !alertsData?.alerts?.length}
+                    className="bg-red-500 hover:bg-red-600 disabled:bg-zinc-600 text-white px-4 py-2 rounded-lg transition-colors disabled:cursor-not-allowed flex items-center gap-2"
+                  >
+                    {sendingAlerts ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        Enviando...
+                      </>
+                    ) : (
+                      <>
+                        <Send size={16} />
+                        Enviar Alertas
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {alertResult && (
+                <div
+                  className={`mb-4 p-3 rounded-lg text-sm ${
+                    alertResult.includes("✅")
+                      ? "bg-green-500/20 border border-green-500/50 text-green-400"
+                      : "bg-red-500/20 border border-red-500/50 text-red-400"
+                  }`}
+                >
+                  {alertResult}
+                </div>
+              )}
+
+              {alertsData && (
+                <div className="space-y-4">
+                  {/* Resumo */}
+                  <div className="grid grid-cols-4 gap-4 mb-6">
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-red-400">
+                        {alertsData.summary?.critical || 0}
+                      </p>
+                      <p className="text-xs text-zinc-400">
+                        Críticos (≤3 dias)
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-orange-400">
+                        {alertsData.summary?.warning || 0}
+                      </p>
+                      <p className="text-xs text-zinc-400">Avisos (≤7 dias)</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-gray-400">
+                        {alertsData.summary?.expired || 0}
+                      </p>
+                      <p className="text-xs text-zinc-400">Expirados</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-blue-400">
+                        {alertsData.summary?.total || 0}
+                      </p>
+                      <p className="text-xs text-zinc-400">Total</p>
+                    </div>
+                  </div>
+
+                  {/* Lista de Alertas */}
+                  {alertsData.alerts?.length > 0 ? (
+                    <div className="space-y-3">
+                      <h4 className="text-sm font-semibold text-zinc-300">
+                        Usuários que precisam de alertas:
+                      </h4>
+                      {alertsData.alerts
+                        .slice(0, 10)
+                        .map((alert: any, index: number) => (
+                          <div
+                            key={index}
+                            className={`p-3 rounded-lg border ${
+                              alert.alertType === "critical"
+                                ? "bg-red-500/10 border-red-500/30"
+                                : alert.alertType === "warning"
+                                ? "bg-orange-500/10 border-orange-500/30"
+                                : "bg-gray-500/10 border-gray-500/30"
+                            }`}
+                          >
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <p className="text-sm font-medium text-white">
+                                  {alert.userEmail}
+                                </p>
+                                <p className="text-xs text-zinc-400 mt-1">
+                                  {alert.message}
+                                </p>
+                              </div>
+                              <div
+                                className={`px-2 py-1 rounded text-xs font-bold ${
+                                  alert.alertType === "critical"
+                                    ? "bg-red-500/20 text-red-400"
+                                    : alert.alertType === "warning"
+                                    ? "bg-orange-500/20 text-orange-400"
+                                    : "bg-gray-500/20 text-gray-400"
+                                }`}
+                              >
+                                {alert.daysRemaining} dias
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      {alertsData.alerts.length > 10 && (
+                        <p className="text-xs text-zinc-400 text-center">
+                          ... e mais {alertsData.alerts.length - 10} usuários
+                        </p>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <p className="text-zinc-400">
+                        🎉 Nenhum alerta necessário no momento!
+                      </p>
+                      <p className="text-xs text-zinc-500 mt-1">
+                        Todos os usuários estão com planos em dia
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Alertas de Jogos */}
+            <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <Zap className="text-yellow-400" size={24} />
+                  <div>
+                    <h3 className="text-lg font-semibold">Alertas de Jogos</h3>
+                    <p className="text-zinc-400 text-sm">
+                      Notificações automáticas de jogos próximos
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleCheckGameAlerts}
+                  disabled={checkingGameAlerts}
+                  className="bg-yellow-500 hover:bg-yellow-600 disabled:bg-zinc-600 text-white px-4 py-2 rounded-lg transition-colors disabled:cursor-not-allowed flex items-center gap-2"
+                >
+                  {checkingGameAlerts ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      Verificando...
+                    </>
+                  ) : (
+                    <>
+                      <Zap size={16} />
+                      Verificar Jogos
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {gameAlertResult && (
+                <div
+                  className={`mb-4 p-3 rounded-lg text-sm ${
+                    gameAlertResult.includes("✅")
+                      ? "bg-green-500/20 border border-green-500/50 text-green-400"
+                      : "bg-red-500/20 border border-red-500/50 text-red-400"
+                  }`}
+                >
+                  {gameAlertResult}
+                </div>
+              )}
+
+              {gameAlertsStatus && (
+                <div className="space-y-4">
+                  {/* Status do Sistema */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="bg-zinc-800/50 rounded-lg p-4 text-center">
+                      <div
+                        className={`w-4 h-4 rounded-full mx-auto mb-2 ${
+                          gameAlertsStatus.serviceActive
+                            ? "bg-green-400"
+                            : "bg-red-400"
+                        }`}
+                      ></div>
+                      <p className="text-sm text-zinc-400">Status</p>
+                      <p className="text-white font-medium">
+                        {gameAlertsStatus.serviceActive ? "Ativo" : "Inativo"}
+                      </p>
+                    </div>
+
+                    <div className="bg-zinc-800/50 rounded-lg p-4 text-center">
+                      <Clock size={20} className="mx-auto mb-2 text-blue-400" />
+                      <p className="text-sm text-zinc-400">
+                        Última Verificação
+                      </p>
+                      <p className="text-white font-medium">
+                        {new Date(
+                          gameAlertsStatus.lastCheck
+                        ).toLocaleTimeString("pt-BR")}
+                      </p>
+                    </div>
+
+                    <div className="bg-zinc-800/50 rounded-lg p-4 text-center">
+                      <Settings
+                        size={20}
+                        className="mx-auto mb-2 text-purple-400"
+                      />
+                      <p className="text-sm text-zinc-400">Intervalo</p>
+                      <p className="text-white font-medium">
+                        {gameAlertsStatus.checkInterval}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Informações do Sistema */}
+                  <div className="bg-zinc-800/50 rounded-lg p-4">
+                    <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                      <Info size={16} className="text-blue-400" />
+                      Informações do Sistema
+                    </h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-zinc-400">
+                          Alertas Habilitados:
+                        </span>
+                        <span
+                          className={`font-medium ${
+                            gameAlertsStatus.alertsEnabled
+                              ? "text-green-400"
+                              : "text-red-400"
+                          }`}
+                        >
+                          {gameAlertsStatus.alertsEnabled ? "Sim" : "Não"}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-zinc-400">Mensagem:</span>
+                        <span className="text-white">
+                          {gameAlertsStatus.message}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Como Funciona */}
+                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
+                    <h4 className="text-blue-400 font-semibold mb-2 flex items-center gap-2">
+                      <HelpCircle size={16} />
+                      Como Funciona
+                    </h4>
+                    <ul className="text-sm text-zinc-300 space-y-1">
+                      <li>• ✅ Verifica jogos a cada 1 minuto</li>
+                      <li>• 🎯 Alerta 10min, 5min e no início do jogo</li>
+                      <li>
+                        • 📱 Envia via Telegram para usuários configurados
+                      </li>
+                      <li>• 🚫 Evita alertas duplicados (1h de bloqueio)</li>
+                      <li>• ⚡ Funciona 24/7 em background</li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Painel de Broadcast */}
+          <div className="lg:col-span-1">
+            <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6 sticky top-8">
+              <div className="flex items-center gap-3 mb-6">
+                <Send className="text-orange-400" size={24} />
+                <h2 className="text-xl font-bold">Broadcast Telegram</h2>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-zinc-300 mb-2">
+                    Título da Mensagem
+                  </label>
+                  <input
+                    type="text"
+                    value={broadcastMessage.title}
+                    onChange={(e) =>
+                      setBroadcastMessage((prev) => ({
+                        ...prev,
+                        title: e.target.value,
+                      }))
+                    }
+                    className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:border-orange-500 focus:outline-none"
+                    placeholder="Ex: Manutenção Programada"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-zinc-300 mb-2">
+                    Mensagem
+                  </label>
+                  <textarea
+                    value={broadcastMessage.message}
+                    onChange={(e) =>
+                      setBroadcastMessage((prev) => ({
+                        ...prev,
+                        message: e.target.value,
+                      }))
+                    }
+                    className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:border-orange-500 focus:outline-none resize-none"
+                    rows={4}
+                    placeholder="Digite sua mensagem..."
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-zinc-300 mb-2">
+                    Público Alvo
+                  </label>
+                  <select
+                    value={broadcastMessage.target}
+                    onChange={(e) =>
+                      setBroadcastMessage((prev) => ({
+                        ...prev,
+                        target: e.target.value as any,
+                      }))
+                    }
+                    className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:border-orange-500 focus:outline-none"
+                  >
+                    <option value="all">Todos os usuários vinculados</option>
+                    <option value="active">Apenas assinantes ativos</option>
+                    <option value="trial">Apenas usuários em trial</option>
+                  </select>
+                </div>
+
+                {broadcastResult && (
+                  <div
+                    className={`p-3 rounded-lg text-sm ${
+                      broadcastResult.includes("✅")
+                        ? "bg-green-500/20 border border-green-500/50 text-green-400"
+                        : "bg-red-500/20 border border-red-500/50 text-red-400"
+                    }`}
+                  >
+                    {broadcastResult}
+                  </div>
+                )}
+
+                <button
+                  onClick={handleBroadcast}
+                  disabled={
+                    sendingBroadcast ||
+                    !broadcastMessage.title ||
+                    !broadcastMessage.message
+                  }
+                  className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 disabled:from-zinc-600 disabled:to-zinc-700 text-white font-bold py-3 px-4 rounded-lg transition-all disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {sendingBroadcast ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      Enviar Broadcast
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <div className="mt-6 pt-6 border-t border-zinc-800">
+                <h3 className="text-sm font-medium mb-3">Informações</h3>
+                <div className="text-xs text-zinc-400 space-y-2">
+                  <p>
+                    • Apenas usuários com Telegram vinculado recebem as
+                    mensagens
+                  </p>
+                  <p>• Mensagens são enviadas em lote para evitar sobrecarga</p>
+                  <p>• Use com responsabilidade</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

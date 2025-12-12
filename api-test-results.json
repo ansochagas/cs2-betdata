@@ -1,0 +1,3352 @@
+{
+  "searchATK": {
+    "success": true,
+    "data": {
+      "results": [
+        {
+          "entity": {
+            "id": 363904,
+            "name": "ATK",
+            "nameCode": "ATK",
+            "slug": "atk",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 13,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "أتاك",
+                "hi": "एटीके",
+                "bn": "এটিকে"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 8044.77,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 458195,
+            "name": "ATK Female",
+            "nameCode": "AFE",
+            "slug": "atk-female",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 2,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "gender": "F",
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "إيه تي كيه فيميل"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 2842.3083,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 483220,
+            "name": "ex-ATK",
+            "nameCode": "EXA",
+            "slug": "ex-atk",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 1,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "إكس-إيه تي كيه"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 2078.8562,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 936047,
+            "name": "ATK Esports",
+            "nameCode": "AES",
+            "slug": "atk-esports",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 1,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "NL",
+              "name": "Netherlands",
+              "slug": "netherlands"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "إيه تي كيه إي سبورتس"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 1937.6204,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 1069949,
+            "name": "Doru",
+            "slug": "doru",
+            "userCount": 1,
+            "team": {
+              "id": 363904,
+              "name": "ATK",
+              "nameCode": "ATK",
+              "slug": "atk",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 13,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أتاك",
+                  "hi": "एटीके",
+                  "bn": "এটিকে"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "shortName": "Doru"
+          },
+          "score": 1695.724,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1143791,
+            "name": "sprayxd",
+            "slug": "sprayxd",
+            "userCount": 1,
+            "team": {
+              "id": 363904,
+              "name": "ATK",
+              "nameCode": "ATK",
+              "slug": "atk",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 13,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أتاك",
+                  "hi": "एटीके",
+                  "bn": "এটিকে"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "IL",
+              "name": "Israel",
+              "slug": "israel"
+            },
+            "shortName": "sprayxd"
+          },
+          "score": 1689.1571,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1075776,
+            "name": "SloWye",
+            "slug": "slowye",
+            "userCount": 1,
+            "team": {
+              "id": 363904,
+              "name": "ATK",
+              "nameCode": "ATK",
+              "slug": "atk",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 13,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أتاك",
+                  "hi": "एटीके",
+                  "bn": "এটিকে"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "shortName": "SloWye"
+          },
+          "score": 1685.7272,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1078568,
+            "name": "TenZ",
+            "slug": "tenz",
+            "userCount": 1,
+            "team": {
+              "id": 363904,
+              "name": "ATK",
+              "nameCode": "ATK",
+              "slug": "atk",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 13,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أتاك",
+                  "hi": "एटीके",
+                  "bn": "এটিকে"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "CA",
+              "name": "Canada",
+              "slug": "canada"
+            },
+            "shortName": "TenZ"
+          },
+          "score": 1626.9038,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1077724,
+            "name": "Blaze",
+            "slug": "blaze",
+            "userCount": 1,
+            "team": {
+              "id": 363904,
+              "name": "ATK",
+              "nameCode": "ATK",
+              "slug": "atk",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 13,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أتاك",
+                  "hi": "एटीके",
+                  "bn": "এটিকে"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "shortName": "Blaze"
+          },
+          "score": 1621.7368,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1079269,
+            "name": "Fadey",
+            "slug": "fadey",
+            "userCount": 1,
+            "team": {
+              "id": 363904,
+              "name": "ATK",
+              "nameCode": "ATK",
+              "slug": "atk",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 13,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أتاك",
+                  "hi": "एटीके",
+                  "bn": "এটিকে"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "shortName": "Fadey"
+          },
+          "score": 1621.7368,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1079125,
+            "name": "MisteM",
+            "slug": "mistem",
+            "userCount": 1,
+            "team": {
+              "id": 363904,
+              "name": "ATK",
+              "nameCode": "ATK",
+              "slug": "atk",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 13,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أتاك",
+                  "hi": "एटीके",
+                  "bn": "এটিকে"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "shortName": "MisteM"
+          },
+          "score": 1616.8125,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1079121,
+            "name": "Domsterr",
+            "slug": "domsterr",
+            "userCount": 1,
+            "team": {
+              "id": 363904,
+              "name": "ATK",
+              "nameCode": "ATK",
+              "slug": "atk",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 13,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أتاك",
+                  "hi": "एटीके",
+                  "bn": "এটিকে"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "shortName": "Domsterr"
+          },
+          "score": 1607.6266,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1438638,
+            "name": "KayC",
+            "slug": "kayc",
+            "userCount": 1,
+            "team": {
+              "id": 458195,
+              "name": "ATK Female",
+              "nameCode": "AFE",
+              "slug": "atk-female",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "F",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "إيه تي كيه فيميل"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "shortName": "KayC"
+          },
+          "score": 1498.9294,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1438640,
+            "name": "leafy",
+            "slug": "leafy",
+            "userCount": 1,
+            "team": {
+              "id": 458195,
+              "name": "ATK Female",
+              "nameCode": "AFE",
+              "slug": "atk-female",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "F",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "إيه تي كيه فيميل"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "shortName": "leafy"
+          },
+          "score": 1495.0319,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1438639,
+            "name": "Graceyy",
+            "slug": "graceyy",
+            "userCount": 1,
+            "team": {
+              "id": 458195,
+              "name": "ATK Female",
+              "nameCode": "AFE",
+              "slug": "atk-female",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "F",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "إيه تي كيه فيميل"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "shortName": "Graceyy"
+          },
+          "score": 1490.3579,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1982516,
+            "name": "YouNique",
+            "slug": "younique",
+            "userCount": 1,
+            "team": {
+              "id": 936047,
+              "name": "ATK Esports",
+              "nameCode": "AES",
+              "slug": "atk-esports",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 1,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "إيه تي كيه إي سبورتس"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "shortName": "YouNique",
+            "position": "sup"
+          },
+          "score": 1483.5107,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1982512,
+            "name": "Freckle04",
+            "slug": "freckle04",
+            "userCount": 1,
+            "team": {
+              "id": 936047,
+              "name": "ATK Esports",
+              "nameCode": "AES",
+              "slug": "atk-esports",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 1,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "إيه تي كيه إي سبورتس"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "NL",
+              "name": "Netherlands",
+              "slug": "netherlands"
+            },
+            "shortName": "Freckle04",
+            "position": "jun"
+          },
+          "score": 1477.7671,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1982517,
+            "name": "Clax",
+            "slug": "clax",
+            "userCount": 1,
+            "team": {
+              "id": 936047,
+              "name": "ATK Esports",
+              "nameCode": "AES",
+              "slug": "atk-esports",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 1,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "إيه تي كيه إي سبورتس"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "shortName": "Clax",
+            "position": "adc"
+          },
+          "score": 1433.9033,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1982510,
+            "name": "HandiDog",
+            "slug": "handidog",
+            "userCount": 1,
+            "team": {
+              "id": 936047,
+              "name": "ATK Esports",
+              "nameCode": "AES",
+              "slug": "atk-esports",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 1,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "إيه تي كيه إي سبورتس"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "NL",
+              "name": "Netherlands",
+              "slug": "netherlands"
+            },
+            "shortName": "HandiDog",
+            "position": "top"
+          },
+          "score": 1419.6936,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 417186,
+            "name": "ATK.gg",
+            "nameCode": "ATK",
+            "slug": "atkgg",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 2,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "gender": "F",
+            "country": {
+              "alpha2": "ZA",
+              "name": "South Africa",
+              "slug": "south-africa"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "إيه تي كيه .جي جي"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 394.98605,
+          "type": "team"
+        }
+      ]
+    }
+  },
+  "searchFuria": {
+    "success": true,
+    "data": {
+      "results": [
+        {
+          "entity": {
+            "id": 364252,
+            "name": "FURIA",
+            "nameCode": "FUR",
+            "slug": "furia",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 11127,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "gender": "M",
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "فيوريا",
+                "hi": "फुरिया",
+                "bn": "ফুরিয়া"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 284045.8,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 363860,
+            "name": "FURIA Esports",
+            "nameCode": "FES",
+            "slug": "furia-esports",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 571,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "gender": "M",
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "فوريا"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 66759.27,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 388979,
+            "name": "FURIA fe",
+            "nameCode": "FFE",
+            "slug": "furia-fe",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 164,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "فوريا في"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 29400.54,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 364888,
+            "name": "FURIA Esports",
+            "nameCode": "FES",
+            "slug": "furia-esports",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 75,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "فوريا إسبورتس"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 20362.506,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 375469,
+            "name": "FURIA Academy",
+            "nameCode": "FAC",
+            "slug": "furia-academy",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 62,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "أكاديمية فيوريا"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 18434.004,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 365387,
+            "name": "FURIA Academy",
+            "nameCode": "FAC",
+            "slug": "furia-academy",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 64,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "فوريا أكاديمي"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 18307.232,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 1080606,
+            "name": "FalleN",
+            "slug": "fallen",
+            "retired": false,
+            "userCount": 65,
+            "team": {
+              "id": 364252,
+              "name": "FURIA",
+              "nameCode": "FUR",
+              "slug": "furia",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 11127,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "فيوريا",
+                  "hi": "फुरिया",
+                  "bn": "ফুরিয়া"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "FalleN"
+          },
+          "score": 13772.148,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1078762,
+            "name": "KSCERATO",
+            "slug": "kscerato",
+            "userCount": 17,
+            "team": {
+              "id": 364252,
+              "name": "FURIA",
+              "nameCode": "FUR",
+              "slug": "furia",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 11127,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "فيوريا",
+                  "hi": "फुरिया",
+                  "bn": "ফুরিয়া"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "kscerato"
+          },
+          "score": 6761.015,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1078765,
+            "name": "yuurih",
+            "slug": "yuurih",
+            "userCount": 12,
+            "team": {
+              "id": 364252,
+              "name": "FURIA",
+              "nameCode": "FUR",
+              "slug": "furia",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 11127,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "فيوريا",
+                  "hi": "फुरिया",
+                  "bn": "ফুরিয়া"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "yuurih"
+          },
+          "score": 5743.1646,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 388612,
+            "name": "Fúria Jovem",
+            "nameCode": "FJO",
+            "slug": "furia-jovem",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 3,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "فوريا جوفيم"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 3904.253,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 1076040,
+            "name": "drop",
+            "slug": "drop",
+            "userCount": 2,
+            "team": {
+              "id": 364252,
+              "name": "FURIA",
+              "nameCode": "FUR",
+              "slug": "furia",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 11127,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "فيوريا",
+                  "hi": "फुरिया",
+                  "bn": "ফুরিয়া"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "drop"
+          },
+          "score": 2372.6694,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1078763,
+            "name": "VINI",
+            "slug": "vini",
+            "userCount": 2,
+            "team": {
+              "id": 364252,
+              "name": "FURIA",
+              "nameCode": "FUR",
+              "slug": "furia",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 11127,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "فيوريا",
+                  "hi": "फुरिया",
+                  "bn": "ফুরিয়া"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "VINI"
+          },
+          "score": 2372.6694,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1080294,
+            "name": "chelo",
+            "slug": "chelo",
+            "retired": false,
+            "userCount": 2,
+            "team": {
+              "id": 364252,
+              "name": "FURIA",
+              "nameCode": "FUR",
+              "slug": "furia",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 11127,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "فيوريا",
+                  "hi": "फुरिया",
+                  "bn": "ফুরিয়া"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "chelo"
+          },
+          "score": 2353.52,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1089671,
+            "name": "Furia",
+            "slug": "furia",
+            "userCount": 2,
+            "team": {
+              "id": 368846,
+              "name": "FarmingSimulator20",
+              "nameCode": "FAR",
+              "slug": "farmingsimulator20",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 1,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "فارمنغ سيمولاتور 20"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "PL",
+              "name": "Poland",
+              "slug": "poland"
+            },
+            "shortName": "Furia"
+          },
+          "score": 2227.2754,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1074757,
+            "name": "vn",
+            "slug": "vn",
+            "userCount": 2,
+            "team": {
+              "id": 365387,
+              "name": "FURIA Academy",
+              "nameCode": "FAC",
+              "slug": "furia-academy",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 64,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "فوريا أكاديمي"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "vn"
+          },
+          "score": 2107.633,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1075696,
+            "name": "Damage",
+            "slug": "damage",
+            "userCount": 2,
+            "team": {
+              "id": 363860,
+              "name": "FURIA Esports",
+              "nameCode": "FES",
+              "slug": "furia-esports",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 571,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "فوريا"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "Damage",
+            "position": "sup"
+          },
+          "score": 2062.6228,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1214674,
+            "name": "fURIA",
+            "slug": "furia",
+            "userCount": 1,
+            "team": {
+              "id": 414898,
+              "name": "ghoulsW",
+              "nameCode": "GHO",
+              "slug": "ghoulsw",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 4,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "غولز دبليو"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "RS",
+              "name": "Serbia",
+              "slug": "serbia"
+            },
+            "shortName": "fURIA"
+          },
+          "score": 1692.9546,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1078764,
+            "name": "arT",
+            "slug": "art",
+            "userCount": 1,
+            "team": {
+              "id": 364252,
+              "name": "FURIA",
+              "nameCode": "FUR",
+              "slug": "furia",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 11127,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "فيوريا",
+                  "hi": "फुरिया",
+                  "bn": "ফুরিয়া"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "arT"
+          },
+          "score": 1684.8153,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1080439,
+            "name": "HEN1",
+            "slug": "hen1",
+            "userCount": 1,
+            "team": {
+              "id": 364252,
+              "name": "FURIA",
+              "nameCode": "FUR",
+              "slug": "furia",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 11127,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "فيوريا",
+                  "hi": "फुरिया",
+                  "bn": "ফুরিয়া"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "HEN1"
+          },
+          "score": 1676.7727,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1183634,
+            "name": "olga",
+            "slug": "olga",
+            "userCount": 1,
+            "team": {
+              "id": 388979,
+              "name": "FURIA fe",
+              "nameCode": "FFE",
+              "slug": "furia-fe",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 164,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "فوريا في"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "olga"
+          },
+          "score": 1522.86,
+          "type": "player"
+        }
+      ]
+    }
+  },
+  "searchNavi": {
+    "success": true,
+    "data": {
+      "results": [
+        {
+          "entity": {
+            "id": 364232,
+            "name": "Natus Vincere",
+            "nameCode": "NVI",
+            "slug": "natus-vincere",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 5133,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "gender": "M",
+            "country": {
+              "alpha2": "UA",
+              "name": "Ukraine",
+              "slug": "ukraine"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "نا في",
+                "hi": "नावी",
+                "bn": "নাভি"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 141394.31,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 364836,
+            "name": "NAVI Junior",
+            "nameCode": "NJU",
+            "slug": "navi-junior",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 194,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "UA",
+              "name": "Ukraine",
+              "slug": "ukraine"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "نافي جونيور",
+                "hi": "नावी जूनियर",
+                "bn": "নাভি জুনিয়র"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 27257.562,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 459366,
+            "name": "NAVI Junior",
+            "nameCode": "NJU",
+            "slug": "navi-junior",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 141,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "UA",
+              "name": "Ukraine",
+              "slug": "ukraine"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "نافي جونيور",
+                "hi": "नावी जूनियर",
+                "bn": "নাভি জুনিয়র"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 23237.838,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 414302,
+            "name": "NAVI Javelins",
+            "nameCode": "NJA",
+            "slug": "navi-javelins",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 44,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "UA",
+              "name": "Ukraine",
+              "slug": "ukraine"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "نافي جافلينز"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 15350.211,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 364486,
+            "name": "NAVI Youth",
+            "nameCode": "NYO",
+            "slug": "navi-youth",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 25,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "UA",
+              "name": "Ukraine",
+              "slug": "ukraine"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "نافي يوث"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 11703.846,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 1170633,
+            "name": "npl",
+            "slug": "npl",
+            "userCount": 18,
+            "team": {
+              "id": 364836,
+              "name": "NAVI Junior",
+              "nameCode": "NJU",
+              "slug": "navi-junior",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 194,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي جونيور",
+                  "hi": "नावी जूनियर",
+                  "bn": "নাভি জুনিয়র"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "UA",
+              "name": "Ukraine",
+              "slug": "ukraine"
+            },
+            "shortName": "nipl"
+          },
+          "score": 6568.705,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1071424,
+            "name": "m0NESY",
+            "slug": "m0nesy",
+            "userCount": 14,
+            "team": {
+              "id": 364836,
+              "name": "NAVI Junior",
+              "nameCode": "NJU",
+              "slug": "navi-junior",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 194,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي جونيور",
+                  "hi": "नावी जूनियर",
+                  "bn": "নাভি জুনিয়র"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "RU",
+              "name": "Russia",
+              "slug": "russia"
+            },
+            "shortName": "m0NESY"
+          },
+          "score": 5536.231,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1107967,
+            "name": "ex-NAVI Junior",
+            "nameCode": "EJU",
+            "slug": "ex-navi-junior",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 2,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "UA",
+              "name": "Ukraine",
+              "slug": "ukraine"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "إكس-نافي جونيور"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 3048.1785,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 1074499,
+            "name": "fear",
+            "slug": "fear",
+            "userCount": 1,
+            "team": {
+              "id": 364486,
+              "name": "NAVI Youth",
+              "nameCode": "NYO",
+              "slug": "navi-youth",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 25,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي يوث"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "UA",
+              "name": "Ukraine",
+              "slug": "ukraine"
+            },
+            "shortName": "fear"
+          },
+          "score": 1540.3087,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1546086,
+            "name": "Niku",
+            "slug": "niku",
+            "userCount": 1,
+            "team": {
+              "id": 459366,
+              "name": "NAVI Junior",
+              "nameCode": "NJU",
+              "slug": "navi-junior",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 141,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي جونيور",
+                  "hi": "नावी जूनियर",
+                  "bn": "নাভি জুনিয়র"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "UA",
+              "name": "Ukraine",
+              "slug": "ukraine"
+            },
+            "shortName": "Niku",
+            "position": "mid"
+          },
+          "score": 1534.3771,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1445129,
+            "name": "daze",
+            "slug": "daze",
+            "userCount": 1,
+            "team": {
+              "id": 459366,
+              "name": "NAVI Junior",
+              "nameCode": "NJU",
+              "slug": "navi-junior",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 141,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي جونيور",
+                  "hi": "नावी जूनियर",
+                  "bn": "নাভি জুনিয়র"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "KZ",
+              "name": "Kazakhstan",
+              "slug": "kazakhstan"
+            },
+            "shortName": "Daze",
+            "position": "ss"
+          },
+          "score": 1534.2542,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1935737,
+            "name": "kodak",
+            "slug": "kodak",
+            "userCount": 1,
+            "team": {
+              "id": 364486,
+              "name": "NAVI Youth",
+              "nameCode": "NYO",
+              "slug": "navi-youth",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 25,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي يوث"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "UA",
+              "name": "Ukraine",
+              "slug": "ukraine"
+            },
+            "shortName": "kodak"
+          },
+          "score": 1534.2542,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 2293522,
+            "name": "gbc",
+            "slug": "gbc",
+            "userCount": 1,
+            "team": {
+              "id": 459366,
+              "name": "NAVI Junior",
+              "nameCode": "NJU",
+              "slug": "navi-junior",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 141,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي جونيور",
+                  "hi": "नावी जूनियर",
+                  "bn": "নাভি জুনিয়র"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "UA",
+              "name": "Ukraine",
+              "slug": "ukraine"
+            },
+            "shortName": "gbc",
+            "position": "mid"
+          },
+          "score": 1532.437,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 2297352,
+            "name": "AJ-",
+            "slug": "aj",
+            "userCount": 1,
+            "team": {
+              "id": 364486,
+              "name": "NAVI Youth",
+              "nameCode": "NYO",
+              "slug": "navi-youth",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 25,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي يوث"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "DE",
+              "name": "Germany",
+              "slug": "germany"
+            },
+            "shortName": "AJ-"
+          },
+          "score": 1531.9204,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1099347,
+            "name": "YumsaN",
+            "slug": "yumsan",
+            "userCount": 1,
+            "team": {
+              "id": 364486,
+              "name": "NAVI Youth",
+              "nameCode": "NYO",
+              "slug": "navi-youth",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 25,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي يوث"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "RU",
+              "name": "Russia",
+              "slug": "russia"
+            },
+            "shortName": "YumsaN"
+          },
+          "score": 1528.4485,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1415960,
+            "name": "rendY",
+            "slug": "rendy",
+            "userCount": 1,
+            "team": {
+              "id": 364836,
+              "name": "NAVI Junior",
+              "nameCode": "NJU",
+              "slug": "navi-junior",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 194,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي جونيور",
+                  "hi": "नावी जूनियर",
+                  "bn": "নাভি জুনিয়র"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "UA",
+              "name": "Ukraine",
+              "slug": "ukraine"
+            },
+            "shortName": "rendY"
+          },
+          "score": 1528.4485,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1071472,
+            "name": "SynyX",
+            "slug": "synyx",
+            "userCount": 1,
+            "team": {
+              "id": 364486,
+              "name": "NAVI Youth",
+              "nameCode": "NYO",
+              "slug": "navi-youth",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 25,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي يوث"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "UA",
+              "name": "Ukraine",
+              "slug": "ukraine"
+            },
+            "shortName": "SynyX"
+          },
+          "score": 1526.331,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1099447,
+            "name": "Synyx",
+            "slug": "synyx",
+            "userCount": 1,
+            "team": {
+              "id": 364486,
+              "name": "NAVI Youth",
+              "nameCode": "NYO",
+              "slug": "navi-youth",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 25,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي يوث"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "shortName": "Synyx"
+          },
+          "score": 1526.331,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1071473,
+            "name": "ketsuo",
+            "slug": "ketsuo",
+            "userCount": 1,
+            "team": {
+              "id": 364486,
+              "name": "NAVI Youth",
+              "nameCode": "NYO",
+              "slug": "navi-youth",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 25,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي يوث"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "RU",
+              "name": "Russia",
+              "slug": "russia"
+            },
+            "shortName": "ketsuo"
+          },
+          "score": 1520.4763,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1170635,
+            "name": "Fen2k",
+            "slug": "fen2k",
+            "userCount": 1,
+            "team": {
+              "id": 364836,
+              "name": "NAVI Junior",
+              "nameCode": "NJU",
+              "slug": "navi-junior",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 194,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "نافي جونيور",
+                  "hi": "नावी जूनियर",
+                  "bn": "নাভি জুনিয়র"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "RU",
+              "name": "Russia",
+              "slug": "russia"
+            },
+            "shortName": "Fen2k"
+          },
+          "score": 1520.4763,
+          "type": "player"
+        }
+      ]
+    }
+  },
+  "searchMibr": {
+    "success": true,
+    "data": {
+      "results": [
+        {
+          "entity": {
+            "id": 366538,
+            "name": "MIBR",
+            "nameCode": "MIB",
+            "slug": "mibr",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 2483,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "gender": "M",
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "أم أي بي أر",
+                "hi": "एमआईबीआर",
+                "bn": "এমআইবিআর"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 139520.45,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 399046,
+            "name": "MIBR Academy",
+            "nameCode": "MAC",
+            "slug": "mibr-academy",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 38,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "MIBR أكاديمية"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 17836.322,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 406233,
+            "name": "MIBR fe",
+            "nameCode": "MFE",
+            "slug": "mibr-fe",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 43,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "مي آي بي آر في"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 15124.761,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 493515,
+            "name": "MIBR",
+            "nameCode": "MIB",
+            "slug": "mibr",
+            "national": false,
+            "sport": {
+              "id": 72,
+              "slug": "esports",
+              "name": "E-sports"
+            },
+            "userCount": 16,
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 0,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "م آي بي آر"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "score": 9398.706,
+          "type": "team"
+        },
+        {
+          "entity": {
+            "id": 1078766,
+            "name": "shz",
+            "slug": "shz",
+            "userCount": 3,
+            "team": {
+              "id": 366538,
+              "name": "MIBR",
+              "nameCode": "MIB",
+              "slug": "mibr",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2483,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أم أي بي أر",
+                  "hi": "एमआईबीआर",
+                  "bn": "এমআইবিআর"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "shz"
+          },
+          "score": 3214.4338,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1080605,
+            "name": "fer",
+            "slug": "fer",
+            "userCount": 3,
+            "team": {
+              "id": 366538,
+              "name": "MIBR",
+              "nameCode": "MIB",
+              "slug": "mibr",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2483,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أم أي بي أر",
+                  "hi": "एमआईबीआर",
+                  "bn": "এমআইবিআর"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "fer"
+          },
+          "score": 3214.4338,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1080261,
+            "name": "nak",
+            "slug": "nak",
+            "userCount": 2,
+            "team": {
+              "id": 366538,
+              "name": "MIBR",
+              "nameCode": "MIB",
+              "slug": "mibr",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2483,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أم أي بي أر",
+                  "hi": "एमआईबीआर",
+                  "bn": "এমআইবিআর"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "nak"
+          },
+          "score": 2624.5742,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1173097,
+            "name": "Cellax",
+            "slug": "cellax",
+            "userCount": 2,
+            "team": {
+              "id": 406233,
+              "name": "MIBR fe",
+              "nameCode": "MFE",
+              "slug": "mibr-fe",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 43,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "مي آي بي آر في"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "Cellax"
+          },
+          "score": 2415.9526,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1438630,
+            "name": "nicks",
+            "slug": "nicks",
+            "userCount": 2,
+            "team": {
+              "id": 399046,
+              "name": "MIBR Academy",
+              "nameCode": "MAC",
+              "slug": "mibr-academy",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 38,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "MIBR أكاديمية"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "nicks"
+          },
+          "score": 2313.6416,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1079221,
+            "name": "trk",
+            "slug": "trk",
+            "userCount": 1,
+            "team": {
+              "id": 366538,
+              "name": "MIBR",
+              "nameCode": "MIB",
+              "slug": "mibr",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2483,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أم أي بي أر",
+                  "hi": "एमआईबीआर",
+                  "bn": "এমআইবিআর"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "trk"
+          },
+          "score": 1926.5675,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1564253,
+            "name": "Muph",
+            "slug": "muph",
+            "userCount": 1,
+            "team": {
+              "id": 493515,
+              "name": "MIBR",
+              "nameCode": "MIB",
+              "slug": "mibr",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 16,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "م آي بي آر"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "Muph",
+            "position": "adc"
+          },
+          "score": 1920.122,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1088262,
+            "name": "leo_drk",
+            "slug": "leo-drk",
+            "userCount": 1,
+            "team": {
+              "id": 366538,
+              "name": "MIBR",
+              "nameCode": "MIB",
+              "slug": "mibr",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2483,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أم أي بي أر",
+                  "hi": "एमआईबीआर",
+                  "bn": "এমআইবিআর"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "shortName": "leo_drk"
+          },
+          "score": 1898.9697,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1087938,
+            "name": "leo_drk",
+            "slug": "leo-drk",
+            "userCount": 1,
+            "team": {
+              "id": 366538,
+              "name": "MIBR",
+              "nameCode": "MIB",
+              "slug": "mibr",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2483,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أم أي بي أر",
+                  "hi": "एमआईबीआर",
+                  "bn": "এমআইবিআর"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "shortName": "leo_drk"
+          },
+          "score": 1897.7091,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1080300,
+            "name": "yeL",
+            "slug": "yel",
+            "userCount": 1,
+            "team": {
+              "id": 366538,
+              "name": "MIBR",
+              "nameCode": "MIB",
+              "slug": "mibr",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2483,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أم أي بي أر",
+                  "hi": "एमआईबीआर",
+                  "bn": "এমআইবিআর"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "yeL"
+          },
+          "score": 1876.5571,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1080257,
+            "name": "exit",
+            "slug": "exit",
+            "userCount": 1,
+            "team": {
+              "id": 366538,
+              "name": "MIBR",
+              "nameCode": "MIB",
+              "slug": "mibr",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2483,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أم أي بي أر",
+                  "hi": "एमआईबीआर",
+                  "bn": "এমআইবিআর"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "exit"
+          },
+          "score": 1867.1158,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1080434,
+            "name": "kNgV-",
+            "slug": "kngv",
+            "userCount": 1,
+            "team": {
+              "id": 366538,
+              "name": "MIBR",
+              "nameCode": "MIB",
+              "slug": "mibr",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2483,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أم أي بي أر",
+                  "hi": "एमआईबीआर",
+                  "bn": "এমআইবিআর"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "kNgV-"
+          },
+          "score": 1867.1158,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1089548,
+            "name": "vsm",
+            "slug": "vsm",
+            "userCount": 1,
+            "team": {
+              "id": 366538,
+              "name": "MIBR",
+              "nameCode": "MIB",
+              "slug": "mibr",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2483,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أم أي بي أر",
+                  "hi": "एमआईबीआर",
+                  "bn": "এমআইবিআর"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "shortName": "vsm"
+          },
+          "score": 1855.8542,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1121643,
+            "name": "brnz4n",
+            "slug": "brnz4n",
+            "userCount": 1,
+            "team": {
+              "id": 366538,
+              "name": "MIBR",
+              "nameCode": "MIB",
+              "slug": "mibr",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2483,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "أم أي بي أر",
+                  "hi": "एमआईबीआर",
+                  "bn": "এমআইবিআর"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "brnz4n"
+          },
+          "score": 1828.955,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1173096,
+            "name": "fly",
+            "slug": "fly",
+            "userCount": 1,
+            "team": {
+              "id": 406233,
+              "name": "MIBR fe",
+              "nameCode": "MFE",
+              "slug": "mibr-fe",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 43,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "مي آي بي آر في"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "fly"
+          },
+          "score": 1732.2153,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1954085,
+            "name": "lexy",
+            "slug": "lexy",
+            "userCount": 1,
+            "team": {
+              "id": 406233,
+              "name": "MIBR fe",
+              "nameCode": "MFE",
+              "slug": "mibr-fe",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 43,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "مي آي بي آر في"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "shortName": "lexy"
+          },
+          "score": 1723.4863,
+          "type": "player"
+        }
+      ]
+    }
+  },
+  "searchYuurih": {
+    "success": true,
+    "data": {
+      "results": [
+        {
+          "entity": {
+            "id": 1078765,
+            "name": "yuurih",
+            "slug": "yuurih",
+            "userCount": 12,
+            "team": {
+              "id": 364252,
+              "name": "FURIA",
+              "nameCode": "FUR",
+              "slug": "furia",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 11127,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "gender": "M",
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "فيوريا",
+                  "hi": "फुरिया",
+                  "bn": "ফুরিয়া"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "BR",
+              "name": "Brazil",
+              "slug": "brazil"
+            },
+            "shortName": "yuurih"
+          },
+          "score": 8318.6875,
+          "type": "player"
+        },
+        {
+          "entity": {
+            "id": 1095767,
+            "name": "Yuurih",
+            "slug": "yuurih",
+            "userCount": 2,
+            "team": {
+              "id": 372783,
+              "name": "CMG",
+              "nameCode": "CMG",
+              "slug": "cmg",
+              "national": false,
+              "sport": {
+                "id": 72,
+                "slug": "esports",
+                "name": "E-sports"
+              },
+              "userCount": 2,
+              "teamColors": {
+                "primary": "#374df5",
+                "secondary": "#374df5",
+                "text": "#ffffff"
+              },
+              "fieldTranslations": {
+                "nameTranslation": {
+                  "ar": "سي إم جي"
+                },
+                "shortNameTranslation": {}
+              }
+            },
+            "deceased": false,
+            "country": {
+              "alpha2": "CN",
+              "name": "China",
+              "slug": "china"
+            },
+            "shortName": "Yuurih",
+            "position": "top"
+          },
+          "score": 3446.9565,
+          "type": "player"
+        }
+      ]
+    }
+  },
+  "matches": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "teams": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "tournaments": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "matches": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "matchesByDate": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "upcoming": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "teamMatches": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "events": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "teams": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  },
+  "rankings": {
+    "success": false,
+    "error": "Request failed with status code 404"
+  }
+}

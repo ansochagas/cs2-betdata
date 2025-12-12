@@ -1,0 +1,50 @@
+{
+  "status": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "sports": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "esportsEvents": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "sport_78": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "sport_90": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "sport_150": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "sport_151": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "sport_152": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "sport_153": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "sport_154": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "csgoSearch": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  },
+  "premium": {
+    "success": false,
+    "error": "Request failed with status code 401"
+  }
+}
