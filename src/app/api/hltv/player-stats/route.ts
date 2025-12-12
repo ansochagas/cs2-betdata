@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { HLTVScraper } from "@/services/hltv-scraper";
 
+export const dynamic = "force-dynamic";
+
 const scraper = new HLTVScraper();
 
 export async function GET(request: NextRequest) {

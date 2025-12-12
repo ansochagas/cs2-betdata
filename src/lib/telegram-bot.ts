@@ -317,6 +317,13 @@ class TelegramBot {
   }
 }
 
-// Exportar instância singleton
-export const telegramBot = new TelegramBot();
-export default telegramBot;
+let telegramBotInstance: TelegramBot | null = null;
+
+export function getTelegramBot() {
+  if (!telegramBotInstance) {
+    telegramBotInstance = new TelegramBot();
+  }
+  return telegramBotInstance;
+}
+
+export type TelegramBotInstance = TelegramBot;

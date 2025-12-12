@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CSGOBatchCollector } from "@/lib/services/csgoBatchCollector";
 
+export const dynamic = "force-dynamic";
+
 let batchCollector: CSGOBatchCollector | null = null;
 
 // Inicializar Batch Collector (singleton)

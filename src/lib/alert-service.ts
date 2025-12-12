@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { telegramBot } from "./telegram-bot";
+import { getTelegramBot } from "./telegram-bot";
 
 const prisma = new PrismaClient();
 
@@ -17,6 +17,7 @@ export class AlertService {
    */
   async sendMatchStartingAlert(match: MatchAlert): Promise<void> {
     try {
+      const telegramBot = getTelegramBot();
       console.log(
         `🔔 Enviando alerta: ${match.homeTeam} vs ${match.awayTeam} começa em ${match.minutesUntilStart} minutos`
       );

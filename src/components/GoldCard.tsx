@@ -1,29 +1,25 @@
 import Image from "next/image";
 
+export interface GoldCardMatch {
+  id: string;
+  league: string;
+  homeTeam: string;
+  awayTeam: string;
+  startTime: string | Date;
+  odds?: {
+    moneyline?: {
+      home: number;
+      away: number;
+      draw?: number;
+    };
+  };
+  status?: "scheduled" | "live" | "finished" | string;
+}
+
 interface GoldCardProps {
   title: string;
   description: string;
-  match: {
-    home: {
-      name: string;
-      id: string;
-      image_id?: string;
-    };
-    away: {
-      name: string;
-      id: string;
-      image_id?: string;
-    };
-    league: {
-      name: string;
-      id: string;
-    };
-    time: string;
-    time_status: string;
-    scores?: any;
-    timer?: any;
-    bet365_id?: string;
-  };
+  match: GoldCardMatch;
   value: string;
   icon: string;
   color: string;
@@ -39,8 +35,8 @@ export default function GoldCard({
   color,
   teamLogos,
 }: GoldCardProps) {
-  const formatTime = (dateString: string) => {
-    const date = new Date(parseInt(dateString) * 1000); // BETSAPI usa timestamp Unix
+  const formatTime = (dateInput: string | Date) => {
+    const date = dateInput instanceof Date ? dateInput : new Date(dateInput);
     return date.toLocaleString("pt-BR", {
       day: "2-digit",
       month: "2-digit",
@@ -49,18 +45,17 @@ export default function GoldCard({
     });
   };
 
-  const getStatusText = (timeStatus: string) => {
-    switch (timeStatus) {
-      case "1":
-        return "AO VIVO";
-      case "0":
-        return "AGENDADO";
-      case "2":
-        return "FINALIZADO";
-      default:
-        return "DESCONHECIDO";
+  const getStatus = (status?: string) => {
+    if (status === "live") {
+      return { label: "AO VIVO", className: "bg-red-500/20 text-red-400" };
     }
+    if (status === "finished") {
+      return { label: "FINALIZADO", className: "bg-green-500/20 text-green-400" };
+    }
+    return { label: "AGENDADO", className: "bg-blue-500/20 text-blue-400" };
   };
+
+  const status = getStatus(match.status);
 
   return (
     <div
@@ -74,7 +69,7 @@ export default function GoldCard({
 
       {/* Crown Icon */}
       <div className="absolute top-4 right-4 text-4xl opacity-80 group-hover:scale-110 transition-transform">
-        👑
+        🏆
       </div>
 
       {/* Content */}
@@ -102,47 +97,43 @@ export default function GoldCard({
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center overflow-hidden">
-                {teamLogos[match.home.name] ? (
+                {teamLogos[match.homeTeam] ? (
                   <img
-                    src={teamLogos[match.home.name]!}
-                    alt={`${match.home.name} logo`}
+                    src={teamLogos[match.homeTeam]!}
+                    alt={`${match.homeTeam} logo`}
                     className="w-full h-full object-contain"
                   />
                 ) : (
-                  <span className="text-lg">🏆</span>
+                  <span className="text-lg">🎯</span>
                 )}
               </div>
               <div>
-                <div className="font-bold text-white text-sm">
-                  {match.home.name}
-                </div>
+                <div className="font-bold text-white text-sm">{match.homeTeam}</div>
                 <div className="text-xs text-white/60">Casa</div>
               </div>
             </div>
 
             <div className="text-center">
               <div className="text-white font-bold">VS</div>
-              <div className="text-xs text-white/60">{match.league.name}</div>
+              <div className="text-xs text-white/60">{match.league}</div>
             </div>
 
             <div className="flex items-center gap-3">
               <div>
                 <div className="font-bold text-white text-sm text-right">
-                  {match.away.name}
+                  {match.awayTeam}
                 </div>
-                <div className="text-xs text-white/60 text-right">
-                  Visitante
-                </div>
+                <div className="text-xs text-white/60 text-right">Visitante</div>
               </div>
               <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center overflow-hidden">
-                {teamLogos[match.away.name] ? (
+                {teamLogos[match.awayTeam] ? (
                   <img
-                    src={teamLogos[match.away.name]!}
-                    alt={`${match.away.name} logo`}
+                    src={teamLogos[match.awayTeam]!}
+                    alt={`${match.awayTeam} logo`}
                     className="w-full h-full object-contain"
                   />
                 ) : (
-                  <span className="text-lg">🎯</span>
+                  <span className="text-lg">⭐</span>
                 )}
               </div>
             </div>
@@ -151,27 +142,14 @@ export default function GoldCard({
           {/* Time & Status */}
           <div className="flex items-center justify-between text-sm">
             <div className="flex items-center gap-2 text-white/80">
-              <span>🕐</span>
-              <span>{formatTime(match.time)}</span>
+              <span>⏰</span>
+              <span>{formatTime(match.startTime)}</span>
             </div>
 
             <div className="flex items-center gap-2">
-              <div
-                className={`px-2 py-1 rounded text-xs font-bold ${
-                  match.time_status === "1"
-                    ? "bg-red-500/20 text-red-400"
-                    : match.time_status === "0"
-                    ? "bg-blue-500/20 text-blue-400"
-                    : "bg-green-500/20 text-green-400"
-                }`}
-              >
-                {getStatusText(match.time_status)}
+              <div className={`px-2 py-1 rounded text-xs font-bold ${status.className}`}>
+                {status.label}
               </div>
-              {match.timer && match.time_status === "1" && (
-                <div className="bg-orange-500/20 px-2 py-1 rounded text-xs font-bold text-orange-400">
-                  {match.timer.tm}:{match.timer.ts}
-                </div>
-              )}
             </div>
           </div>
         </div>

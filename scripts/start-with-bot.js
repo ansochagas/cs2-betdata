@@ -12,7 +12,8 @@ async function startBot() {
 
   try {
     // Importar e iniciar o bot
-    const { telegramBot } = await import("../src/lib/telegram-bot.ts");
+    const { getTelegramBot } = await import("../src/lib/telegram-bot.ts");
+    const telegramBot = getTelegramBot();
 
     // Aguardar um pouco para garantir que o Next.js esteja rodando
     setTimeout(async () => {

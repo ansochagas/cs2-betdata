@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { csgoAPI } from "@/lib/api/csgoAPI";
 
+export const dynamic = "force-dynamic";
+
 interface TeamStats {
   teamId: string;
   teamName: string;

@@ -11,22 +11,20 @@ const devMockMatches: CsgoMatch[] = [
     league: "DEV League",
     homeTeam: "Team Alpha",
     awayTeam: "Team Beta",
-    startTime: new Date().toISOString(),
+    startTime: new Date(),
     odds: {
       moneyline: { home: 1.8, away: 2.0, draw: 9 },
     },
-    status: "scheduled",
   },
   {
     id: "dev-2",
     league: "DEV League",
     homeTeam: "Team Gamma",
     awayTeam: "Team Delta",
-    startTime: new Date(Date.now() + 3600 * 1000).toISOString(),
+    startTime: new Date(Date.now() + 3600 * 1000),
     odds: {
       moneyline: { home: 1.9, away: 1.9, draw: 8 },
     },
-    status: "scheduled",
   },
 ];
 

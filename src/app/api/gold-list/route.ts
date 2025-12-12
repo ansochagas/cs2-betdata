@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { advancedCache } from "@/services/advanced-cache-service";
 
+export const dynamic = "force-dynamic";
+
 interface GoldListOpportunity {
   rank: number;
   match: {

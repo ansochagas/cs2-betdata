@@ -109,7 +109,8 @@ ${message}
     let errorCount = 0;
 
     // Importar telegramBot dinamicamente para evitar problemas de inicialização
-    const { telegramBot } = await import("@/lib/telegram-bot");
+    const { getTelegramBot } = await import("@/lib/telegram-bot");
+    const telegramBot = getTelegramBot();
 
     for (const user of usersWithTelegram) {
       try {

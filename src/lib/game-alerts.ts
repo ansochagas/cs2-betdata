@@ -1,11 +1,18 @@
 import { PrismaClient } from "@prisma/client";
-import telegramBot from "./telegram-bot";
+import { getTelegramBot } from "./telegram-bot";
 
 const prisma = new PrismaClient();
 
 // Cache para evitar alertas duplicados (por 1 hora)
 const sentAlerts = new Map<string, number>();
 const ALERT_CACHE_DURATION = 60 * 60 * 1000; // 1 hora
+
+type CheckResult = {
+  alertsSent: number;
+  gamesStartingSoon: number;
+  usersWithAlerts: number;
+  error?: boolean;
+};
 
 export class GameAlertsService {
   private isRunning = false;
@@ -16,11 +23,11 @@ export class GameAlertsService {
    */
   async start() {
     if (this.isRunning) {
-      console.log("⚠️ Serviço de alertas já está rodando");
+      console.log("[alerts] Serviço já está rodando");
       return;
     }
 
-    console.log("🚀 Iniciando serviço de alertas de jogos...");
+    console.log("[alerts] Iniciando serviço de alertas de jogos...");
     this.isRunning = true;
 
     // Executar imediatamente na inicialização
@@ -31,9 +38,7 @@ export class GameAlertsService {
       await this.checkAndSendAlerts();
     }, 2 * 60 * 1000); // 2 minutos
 
-    console.log(
-      "✅ Serviço de alertas iniciado - verificando jogos a cada 2 minutos"
-    );
+    console.log("[alerts] Serviço iniciado - verificando a cada 2 minutos");
   }
 
   /**
@@ -45,15 +50,15 @@ export class GameAlertsService {
       this.intervalId = null;
     }
     this.isRunning = false;
-    console.log("🛑 Serviço de alertas parado");
+    console.log("[alerts] Serviço parado");
   }
 
   /**
    * Verifica jogos e envia alertas
    */
-  private async checkAndSendAlerts() {
+  async checkAndSendAlerts(): Promise<CheckResult> {
     try {
-      console.log("🔍 Verificando jogos para alertas...");
+      console.log("[alerts] Verificando jogos para alertas...");
 
       // Buscar jogos que começam em 10 minutos (± 2 minutos de tolerância)
       const now = new Date();
@@ -68,19 +73,28 @@ export class GameAlertsService {
       );
 
       if (!gamesResponse.ok) {
-        console.error("❌ Erro ao buscar jogos:", gamesResponse.status);
-        return;
+        console.error("[alerts] Erro ao buscar jogos:", gamesResponse.status);
+        return {
+          alertsSent: 0,
+          gamesStartingSoon: 0,
+          usersWithAlerts: 0,
+          error: true,
+        };
       }
 
       const gamesData = await gamesResponse.json();
 
       if (!gamesData.success || !gamesData.data) {
-        console.log("⚠️ Nenhum jogo encontrado");
-        return;
+        console.log("[alerts] Nenhum jogo encontrado");
+        return {
+          alertsSent: 0,
+          gamesStartingSoon: 0,
+          usersWithAlerts: 0,
+        };
       }
 
       const games = gamesData.data;
-      console.log(`📊 Encontrados ${games.length} jogos futuros`);
+      console.log(`[alerts] Encontrados ${games.length} jogos futuros`);
 
       // Filtrar jogos que começam em 10 minutos
       const gamesStartingSoon = games.filter((game: any) => {
@@ -88,11 +102,9 @@ export class GameAlertsService {
         return gameTime >= eightMinutesFromNow && gameTime <= tenMinutesFromNow;
       });
 
-      console.log(`⏰ ${gamesStartingSoon.length} jogos começam em 10 minutos`);
-
-      if (gamesStartingSoon.length === 0) {
-        return;
-      }
+      console.log(
+        `[alerts] ${gamesStartingSoon.length} jogos começam em 10 minutos`
+      );
 
       // Buscar usuários vinculados com alertas ativos
       const usersWithAlerts = await prisma.user.findMany({
@@ -108,29 +120,54 @@ export class GameAlertsService {
         },
       });
 
-      console.log(`👥 ${usersWithAlerts.length} usuários com alertas ativos`);
+      console.log(
+        `[alerts] ${usersWithAlerts.length} usuários com alertas ativos`
+      );
+
+      if (gamesStartingSoon.length === 0) {
+        return {
+          alertsSent: 0,
+          gamesStartingSoon: 0,
+          usersWithAlerts: usersWithAlerts.length,
+        };
+      }
+
+      let totalAlertsSent = 0;
 
       // Enviar alertas para cada jogo
       for (const game of gamesStartingSoon) {
-        await this.sendGameAlert(game, usersWithAlerts);
+        const sentForGame = await this.sendGameAlert(game, usersWithAlerts);
+        totalAlertsSent += sentForGame;
       }
+
+      return {
+        alertsSent: totalAlertsSent,
+        gamesStartingSoon: gamesStartingSoon.length,
+        usersWithAlerts: usersWithAlerts.length,
+      };
     } catch (error) {
-      console.error("❌ Erro no serviço de alertas:", error);
+      console.error("[alerts] Erro no serviço de alertas:", error);
+      return {
+        alertsSent: 0,
+        gamesStartingSoon: 0,
+        usersWithAlerts: 0,
+        error: true,
+      };
     }
   }
 
   /**
    * Envia alerta para um jogo específico
    */
-  private async sendGameAlert(game: any, users: any[]) {
+  private async sendGameAlert(game: any, users: any[]): Promise<number> {
     const alertKey = `game-${game.id}-${Math.floor(
       Date.now() / (10 * 60 * 1000)
     )}`; // Agrupar por 10min
 
     // Verificar se alerta já foi enviado recentemente
     if (this.isAlertAlreadySent(alertKey)) {
-      console.log(`⏭️ Alerta já enviado para jogo ${game.id}`);
-      return;
+      console.log(`[alerts] Alerta já enviado para jogo ${game.id}`);
+      return 0;
     }
 
     // Filtrar usuários com assinatura ativa
@@ -141,11 +178,13 @@ export class GameAlertsService {
     );
 
     console.log(
-      `📤 Enviando alerta para ${activeUsers.length} usuários - Jogo: ${game.homeTeam} vs ${game.awayTeam}`
+      `[alerts] Enviando alerta para ${activeUsers.length} usuários - Jogo: ${game.homeTeam} vs ${game.awayTeam}`
     );
 
     // Criar mensagem de alerta
     const alertMessage = this.createGameAlertMessage(game);
+
+    const telegramBot = getTelegramBot();
 
     // Enviar para cada usuário
     let sentCount = 0;
@@ -162,7 +201,7 @@ export class GameAlertsService {
         }
       } catch (error) {
         console.error(
-          `❌ Erro ao enviar alerta para ${user.telegramId}:`,
+          `[alerts] Erro ao enviar alerta para ${user.telegramId}:`,
           error
         );
       }
@@ -172,8 +211,9 @@ export class GameAlertsService {
     this.markAlertAsSent(alertKey);
 
     console.log(
-      `✅ Alerta enviado para ${sentCount}/${activeUsers.length} usuários`
+      `[alerts] Alerta enviado para ${sentCount}/${activeUsers.length} usuários`
     );
+    return sentCount;
   }
 
   /**
@@ -189,14 +229,14 @@ export class GameAlertsService {
 
     const tournament = game.tournament || game.league?.name || "Torneio";
 
-    return `⏰ *JOGO COMEÇANDO EM 10 MINUTOS!*
+    return `⚠️ *JOGO COMECANDO EM 10 MINUTOS!*
 
 🏆 *${tournament}*
-⚔️ *${game.homeTeam}* vs *${game.awayTeam}*
-🕐 *Horário:* ${timeString} (BRT)
-🎯 *Tier:* ${game.tier || "Profissional"}
+🎮 *${game.homeTeam}* vs *${game.awayTeam}*
+⏰ *Horario:* ${timeString} (BRT)
+⭐ *Tier:* ${game.tier || "Profissional"}
 
-📊 *Análise Rápida:*
+📊 *Analise Rapida:*
 • Mapas previstos: ${game.predictedMaps || "BO3"}
 • Odds aproximadas: ${
       game.odds?.moneyline
@@ -206,9 +246,9 @@ export class GameAlertsService {
         : "Em breve"
     }
 
-🎮 *Prepare-se para apostar!* O jogo está prestes a começar.
+🚀 *Prepare-se para apostar!* O jogo esta prestes a comecar.
 
-💡 *Dica:* Monitore as odds nos últimos minutos antes do início.`;
+💡 *Dica:* Monitore as odds nos ultimos minutos antes do inicio.`;
   }
 
   /**
@@ -234,6 +274,14 @@ export class GameAlertsService {
         sentAlerts.delete(oldestKey);
       }
     }
+  }
+
+  /**
+   * Limpa o cache de alertas enviados
+   */
+  clearSentAlertsCache() {
+    sentAlerts.clear();
+    console.log("[alerts] Cache de alertas limpo");
   }
 
   /**

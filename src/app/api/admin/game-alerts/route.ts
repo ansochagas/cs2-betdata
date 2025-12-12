@@ -1,10 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { GameAlertsService } from "@/lib/game-alerts";
+import { gameAlertsService } from "@/lib/game-alerts";
+
+const adminEmails = ["admin@csgoscout.com", "andersonchagas45@gmail.com"];
+
+function isAdmin(email?: string | null) {
+  return !!email && adminEmails.includes(email);
+}
 
 export async function GET(request: NextRequest) {
   try {
-    // Verificar se é admin
     const session = await getServerSession();
 
     if (!session?.user?.email) {
@@ -14,27 +19,24 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const adminEmails = ["admin@csgoscout.com", "andersonchagas45@gmail.com"];
-
-    if (!adminEmails.includes(session.user.email)) {
+    if (!isAdmin(session.user.email)) {
       return NextResponse.json(
         { success: false, error: "Acesso negado" },
         { status: 403 }
       );
     }
 
-    console.log("🎮 Verificando status dos alertas de jogos...");
+    console.log("🔎 Verificando status dos alertas de jogos...");
 
-    // Por enquanto, apenas retorna status básico
-    // TODO: Implementar estatísticas reais de alertas enviados
+    const status = gameAlertsService.getStatus();
 
     return NextResponse.json({
       success: true,
       status: {
-        serviceActive: true,
+        serviceActive: status.isRunning,
+        alertsSent: status.alertsSent,
+        nextCheck: status.nextCheck,
         lastCheck: new Date().toISOString(),
-        alertsEnabled: true,
-        checkInterval: "1 minuto",
         message: "Sistema de alertas de jogos ativo",
       },
     });
@@ -49,7 +51,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    // Verificar se é admin
     const session = await getServerSession();
 
     if (!session?.user?.email) {
@@ -59,9 +60,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const adminEmails = ["admin@csgoscout.com", "andersonchagas45@gmail.com"];
-
-    if (!adminEmails.includes(session.user.email)) {
+    if (!isAdmin(session.user.email)) {
       return NextResponse.json(
         { success: false, error: "Acesso negado" },
         { status: 403 }
@@ -71,9 +70,9 @@ export async function POST(request: NextRequest) {
     const { action } = await request.json();
 
     if (action === "check") {
-      console.log("🔍 Executando verificação manual de alertas de jogos...");
+      console.log("🔎 Executando verificação manual de alertas de jogos...");
 
-      const result = await GameAlertsService.checkAndSendAlerts();
+      const result = await gameAlertsService.checkAndSendAlerts();
 
       return NextResponse.json({
         success: true,
@@ -81,9 +80,9 @@ export async function POST(request: NextRequest) {
         message: `Verificação concluída: ${result.alertsSent} alertas enviados`,
       });
     } else if (action === "clear-cache") {
-      console.log("🗑️ Limpando cache de alertas enviados...");
+      console.log("🧹 Limpando cache de alertas enviados...");
 
-      GameAlertsService.clearSentAlertsCache();
+      gameAlertsService.clearSentAlertsCache();
 
       return NextResponse.json({
         success: true,

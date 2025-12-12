@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 const BETSAPI_BASE_URL = "https://api.b365api.com";
 const API_TOKEN = process.env.API_KEY_1;
 

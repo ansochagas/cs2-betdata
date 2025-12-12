@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { advancedCache } from "@/services/advanced-cache-service";
 
+export const dynamic = "force-dynamic";
+
 // PandaScore API (plano pago - dados reais)
 const PANDASCORE_API_KEY =
   "POciMXi8fwRIbuW3qEWvPVqGTv_Yfv55T-_mwp8DzpYOR-1mYjo";

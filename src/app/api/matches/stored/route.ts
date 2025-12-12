@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { DataCollectorService } from "@/services/data-collector";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);

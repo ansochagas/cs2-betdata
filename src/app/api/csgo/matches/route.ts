@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { DataCollectorService } from "@/services/data-collector";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const dataCollector = new DataCollectorService();

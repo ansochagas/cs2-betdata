@@ -4,20 +4,9 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import GoldCard from "@/components/GoldCard";
+import GoldCard, { GoldCardMatch } from "@/components/GoldCard";
 
-interface Match {
-  id: string;
-  league: string;
-  homeTeam: string;
-  awayTeam: string;
-  startTime: string;
-  odds?: {
-    moneyline?: {
-      home: number;
-      away: number;
-    };
-  };
+interface Match extends GoldCardMatch {
   stats?: {
     avgKillsPerMap: number;
     avgMapsPerMatch: number;

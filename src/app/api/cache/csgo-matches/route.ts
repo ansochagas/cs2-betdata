@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CacheService } from "@/services/cache-service";
 
+export const dynamic = "force-dynamic";
+
 const cacheService = new CacheService();
 
 export async function GET(request: NextRequest) {
