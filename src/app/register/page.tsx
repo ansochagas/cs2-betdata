@@ -9,10 +9,14 @@ export default function Register() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
+    otp: "",
     password: "",
     confirmPassword: "",
   });
   const [loading, setLoading] = useState(false);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -27,6 +31,7 @@ export default function Register() {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess("");
 
     // Validações básicas
     if (formData.password !== formData.confirmPassword) {
@@ -41,6 +46,18 @@ export default function Register() {
       return;
     }
 
+    if (!formData.phone) {
+      setError("Informe seu telefone para validar o cadastro");
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.otp) {
+      setError("Informe o código recebido por SMS");
+      setLoading(false);
+      return;
+    }
+
     try {
       // Para teste: criar conta diretamente no banco (sem email)
       const response = await fetch("/api/auth/register", {
@@ -51,6 +68,8 @@ export default function Register() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
+          phone: formData.phone,
+          otp: formData.otp,
           password: formData.password,
         }),
       });
@@ -77,6 +96,36 @@ export default function Register() {
       setError(error.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSendOtp = async () => {
+    if (!formData.phone) {
+      setError("Informe seu telefone com DDD");
+      return;
+    }
+    setOtpLoading(true);
+    setError("");
+    setSuccess("");
+    try {
+      const response = await fetch("/api/auth/send-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phone: formData.phone }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Erro ao enviar código");
+      }
+
+      setSuccess("Código enviado por SMS. Validade: 5 minutos.");
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setOtpLoading(false);
     }
   };
 
@@ -121,6 +170,59 @@ export default function Register() {
                 onChange={handleChange}
                 className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 placeholder="Seu nome completo"
+              />
+            </div>
+
+            {/* Phone */}
+            <div>
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-gray-300 mb-2"
+              >
+                Telefone (com DDD)
+              </label>
+              <div className="flex gap-3">
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  placeholder="11999999999"
+                />
+                <button
+                  type="button"
+                  onClick={handleSendOtp}
+                  disabled={otpLoading}
+                  className="px-4 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {otpLoading ? "Enviando..." : "Enviar código"}
+                </button>
+              </div>
+              <p className="text-xs text-gray-500 mt-2">
+                Vamos validar seu telefone para liberar o teste grátis.
+              </p>
+            </div>
+
+            {/* OTP */}
+            <div>
+              <label
+                htmlFor="otp"
+                className="block text-sm font-medium text-gray-300 mb-2"
+              >
+                Código recebido por SMS
+              </label>
+              <input
+                type="text"
+                id="otp"
+                name="otp"
+                required
+                value={formData.otp}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                placeholder="Digite o código de 6 dígitos"
               />
             </div>
 
@@ -188,6 +290,13 @@ export default function Register() {
             {error && (
               <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
                 <p className="text-red-400 text-sm">{error}</p>
+              </div>
+            )}
+
+            {/* Success Message */}
+            {success && (
+              <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                <p className="text-green-400 text-sm">{success}</p>
               </div>
             )}
 
