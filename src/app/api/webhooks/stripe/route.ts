@@ -4,6 +4,19 @@ import Stripe from "stripe";
 import { prisma } from "@/lib/prisma";
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+const pricePlanMap: Record<string, string> = {
+  [process.env.STRIPE_PRICE_MONTHLY || ""]: "plan_monthly",
+  [process.env.STRIPE_PRICE_QUARTERLY || ""]: "plan_quarterly",
+  [process.env.STRIPE_PRICE_SEMESTRAL || ""]: "plan_semestral",
+};
+
+function getPlanFromSubscription(subscription: Stripe.Subscription): string | null {
+  const priceId =
+    subscription.items?.data?.[0]?.price?.id ||
+    (subscription as any).plan?.id;
+  if (!priceId) return null;
+  return pricePlanMap[priceId] || null;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -95,6 +108,7 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
   const currentPeriodEnd = sub.current_period_end
     ? new Date(sub.current_period_end * 1000)
     : new Date();
+  const planId = getPlanFromSubscription(subscription);
 
   // Atualizar status da assinatura
   await prisma.subscription.update({
@@ -107,6 +121,7 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
       trialEndsAt: subscription.trial_end
         ? new Date(subscription.trial_end * 1000)
         : null,
+      ...(planId ? { planId } : {}),
     },
   });
 

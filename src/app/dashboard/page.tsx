@@ -83,6 +83,11 @@ export default function Dashboard() {
     signOut({ callbackUrl: "/" });
   };
 
+  const isAccessAllowed =
+    subscriptionInfo.status === "ACTIVE" ||
+    (subscriptionInfo.status === "TRIALING" &&
+      subscriptionInfo.daysRemaining > 0);
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Trial Reminder */}
@@ -212,11 +217,30 @@ export default function Dashboard() {
           <div className="lg:col-span-3">
             <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-8">
               {/* Tool Content */}
-              <div className="min-h-[600px]">
-                {activeTool === "analysis" && <AnalysisTool />}
-                {activeTool === "gold-list" && <GoldListTool />}
-                {activeTool === "live" && <LiveTool />}
-              </div>
+              {!isAccessAllowed ? (
+                <div className="min-h-[400px] flex flex-col items-center justify-center text-center space-y-4">
+                  <div className="text-4xl">ÐYsù</div>
+                  <h2 className="text-2xl font-bold">
+                    Seu trial ou plano expirou
+                  </h2>
+                  <p className="text-gray-400">
+                    Para continuar acessando jogos, estatísticas e análises,
+                    contrate um plano.
+                  </p>
+                  <Link
+                    href="/upgrade"
+                    className="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 rounded-lg font-semibold text-white transition-colors"
+                  >
+                    Contratar plano
+                  </Link>
+                </div>
+              ) : (
+                <div className="min-h-[600px]">
+                  {activeTool === "analysis" && <AnalysisTool />}
+                  {activeTool === "gold-list" && <GoldListTool />}
+                  {activeTool === "live" && <LiveTool />}
+                </div>
+              )}
             </div>
           </div>
         </div>

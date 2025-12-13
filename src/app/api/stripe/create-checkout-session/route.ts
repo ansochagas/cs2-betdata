@@ -4,6 +4,16 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
+const pricePlanMap: Record<string, string> = {
+  [process.env.STRIPE_PRICE_MONTHLY || ""]: "plan_monthly",
+  [process.env.STRIPE_PRICE_QUARTERLY || ""]: "plan_quarterly",
+  [process.env.STRIPE_PRICE_SEMESTRAL || ""]: "plan_semestral",
+};
+
+function getPlanFromPrice(priceId: string): string | null {
+  return pricePlanMap[priceId] || null;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
@@ -25,6 +35,14 @@ export async function POST(request: NextRequest) {
     if (!priceId) {
       return NextResponse.json(
         { error: "ID do preço não fornecido" },
+        { status: 400 }
+      );
+    }
+
+    const planId = getPlanFromPrice(priceId);
+    if (!planId) {
+      return NextResponse.json(
+        { error: "Preço inválido ou não configurado" },
         { status: 400 }
       );
     }
@@ -66,15 +84,21 @@ export async function POST(request: NextRequest) {
       // Atualizar o customer ID no banco
       await prisma.subscription.upsert({
         where: { userId: user.id },
-        update: { stripeCustomerId: customer.id },
+        update: { stripeCustomerId: customer.id, planId },
         create: {
           userId: user.id,
           stripeCustomerId: customer.id,
           status: "incomplete",
-          planId: "pro_plan",
+          planId,
           currentPeriodStart: new Date(),
           currentPeriodEnd: new Date(),
         },
+      });
+    } else {
+      // Garantir que o planId fique alinhado com o price selecionado
+      await prisma.subscription.updateMany({
+        where: { userId: user.id },
+        data: { planId },
       });
     }
 
