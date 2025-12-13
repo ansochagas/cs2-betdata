@@ -152,9 +152,9 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Create trial subscription (7 days - conforme marketing)
+    // Create trial subscription (2 days - conforme marketing)
     const trialEndDate = new Date();
-    trialEndDate.setDate(trialEndDate.getDate() + 7);
+    trialEndDate.setDate(trialEndDate.getDate() + 2);
 
     await prisma.subscription.create({
       data: {

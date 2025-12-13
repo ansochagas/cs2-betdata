@@ -147,7 +147,7 @@ export default function Register() {
             CS:GO INTEL
           </Link>
           <h1 className="text-3xl font-bold text-white mb-2">Criar Conta</h1>
-          <p className="text-gray-400">Comece seu teste gratuito de 7 dias</p>
+          <p className="text-gray-400">Comece seu teste gratuito de 2 dias</p>
         </div>
 
         {/* Form */}
@@ -316,7 +316,7 @@ export default function Register() {
               <div className="w-4 h-4 bg-green-500/20 rounded flex items-center justify-center">
                 <span className="text-green-400 text-xs">✓</span>
               </div>
-              <span>7 dias grátis • Sem cartão necessário</span>
+              <span>2 dias grátis • Sem cartão necessário</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-400">
               <div className="w-4 h-4 bg-green-500/20 rounded flex items-center justify-center">
