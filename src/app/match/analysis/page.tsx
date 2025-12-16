@@ -3,15 +3,7 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  BarChart3,
-  Calendar,
-  Target,
-  Trophy,
-  Users,
-  Users2,
-} from "lucide-react";
+import { ArrowLeft, BarChart3, Target, Trophy, Users, Users2 } from "lucide-react";
 import Image from "next/image";
 
 export const dynamic = "force-dynamic";
@@ -86,7 +78,7 @@ export default function MatchAnalysisPage() {
         <div className="min-h-screen bg-black text-white flex items-center justify-center">
           <div className="text-center space-y-2">
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-orange-500 mx-auto"></div>
-            <p className="text-sm text-zinc-400">Carregando análise...</p>
+            <p className="text-sm text-zinc-400">Carregando analise...</p>
           </div>
         </div>
       }
@@ -109,10 +101,7 @@ function MatchAnalysisContent() {
 
   const [activeTab, setActiveTab] = useState<TabType>("overview");
   const [matchData, setMatchData] = useState<MatchAnalysisData | null>(null);
-  const [playersData, setPlayersData] = useState<{
-    team1: PlayerStats[];
-    team2: PlayerStats[];
-  } | null>(null);
+  const [playersData, setPlayersData] = useState<{ team1: PlayerStats[]; team2: PlayerStats[] } | null>(null);
   const [loading, setLoading] = useState(false);
   const [playersLoading, setPlayersLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -128,18 +117,16 @@ function MatchAnalysisContent() {
     setError(null);
     try {
       const response = await fetch(
-        `/api/pandascore/match-analysis?team1=${encodeURIComponent(
-          team1
-        )}&team2=${encodeURIComponent(team2)}`
+        `/api/pandascore/match-analysis?team1=${encodeURIComponent(team1)}&team2=${encodeURIComponent(team2)}`
       );
       const result = await response.json();
       if (result.success) {
         setMatchData(result.data);
       } else {
-        setError(result.error || "Erro ao carregar análise");
+        setError(result.error || "Erro ao carregar analise");
       }
     } catch (err: any) {
-      setError("Erro de conexão");
+      setError("Erro de conexao");
     } finally {
       setLoading(false);
     }
@@ -186,7 +173,7 @@ function MatchAnalysisContent() {
       weekday: "long",
       day: "2-digit",
       month: "short",
-    })} • ${date.toLocaleTimeString("pt-BR", {
+    })} as ${date.toLocaleTimeString("pt-BR", {
       hour: "2-digit",
       minute: "2-digit",
     })}`;
@@ -213,10 +200,8 @@ function MatchAnalysisContent() {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center space-y-4">
-          <p className="text-xl font-semibold">Parâmetros ausentes</p>
-          <p className="text-gray-400">
-            Informe team1 e team2 para visualizar a análise.
-          </p>
+          <p className="text-xl font-semibold">Parametros ausentes</p>
+          <p className="text-gray-400">Informe team1 e team2 para visualizar a analise.</p>
           <button
             onClick={() => router.push("/dashboard")}
             className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded"
@@ -229,9 +214,9 @@ function MatchAnalysisContent() {
   }
 
   const tabs = [
-    { id: "overview" as TabType, label: "Visão Geral", icon: BarChart3 },
+    { id: "overview" as TabType, label: "Visao Geral", icon: BarChart3 },
     { id: "players" as TabType, label: "Jogadores", icon: Users },
-    { id: "predictions" as TabType, label: "Previsões", icon: Target },
+    { id: "predictions" as TabType, label: "Previsoes", icon: Target },
   ];
 
   const generateBettingTips = () => {
@@ -249,51 +234,30 @@ function MatchAnalysisContent() {
       type: avgRounds > 14 ? "Over Rounds" : "Under Rounds",
       description:
         avgRounds > 14
-          ? `Alta média de rounds (${avgRounds.toFixed(
-              1
-            )}/mapa). Sugestão: OVER 26.5 rounds.`
-          : `Média baixa de rounds (${avgRounds.toFixed(
-              1
-            )}/mapa). Sugestão: UNDER 26.5 rounds.`,
-      confidence: avgRounds > 14 ? "Alta" : "Média",
-      reasoning:
-        avgRounds > 14
-          ? "Histórico de jogos longos e disputados."
-          : "Times encerram mapas com maior rapidez.",
+          ? `Alta media de rounds (${avgRounds.toFixed(1)}/mapa). Sugestao: OVER 26.5 rounds.`
+          : `Media baixa de rounds (${avgRounds.toFixed(1)}/mapa). Sugestao: UNDER 26.5 rounds.`,
+      confidence: avgRounds > 14 ? "Alta" : "Media",
+      reasoning: avgRounds > 14 ? "Historico de jogos longos e disputados." : "Times encerram mapas com maior rapidez.",
     });
 
     tips.push({
       type: avgKills > 75 ? "Over Kills" : "Under Kills",
       description:
         avgKills > 75
-          ? `Alta média de kills (${avgKills.toFixed(
-              1
-            )}/mapa). Sugestão: OVER 145.5 kills.`
-          : `Kills moderadas (${avgKills.toFixed(
-              1
-            )}/mapa). Sugestão: UNDER 145.5 kills.`,
-      confidence: avgKills > 75 ? "Alta" : "Média",
+          ? `Alta media de kills (${avgKills.toFixed(1)}/mapa). Sugestao: OVER 145.5 kills.`
+          : `Kills moderadas (${avgKills.toFixed(1)}/mapa). Sugestao: UNDER 145.5 kills.`,
+      confidence: avgKills > 75 ? "Alta" : "Media",
       reasoning:
-        avgKills > 75
-          ? "Line-ups agressivas com bom desempenho individual."
-          : "Tendência a jogos mais controlados/defensivos.",
+        avgKills > 75 ? "Line-ups agressivas com bom desempenho individual." : "Tendencia a jogos mais controlados/defensivos.",
     });
 
-    const confidencePct =
-      analysis.confidence > 1 ? analysis.confidence : analysis.confidence * 100;
+    const confidencePct = analysis.confidence > 1 ? analysis.confidence : analysis.confidence * 100;
 
     tips.push({
       type: "Favorito",
-      description: `${analysis.expectedWinner} aparece como favorito pela análise.`,
-      confidence:
-        confidencePct >= 70
-          ? "Alta"
-          : confidencePct >= 50
-          ? "Média"
-          : "Baixa",
-      reasoning: `Confiança de ${confidencePct.toFixed(
-        0
-      )}% baseada em histórico e forma.`,
+      description: `${analysis.expectedWinner} aparece como favorito pela analise.`,
+      confidence: confidencePct >= 70 ? "Alta" : confidencePct >= 50 ? "Media" : "Baixa",
+      reasoning: `Confianca de ${confidencePct.toFixed(0)}% baseada em historico e forma.`,
     });
 
     return tips;
@@ -304,15 +268,12 @@ function MatchAnalysisContent() {
       <header className="border-b border-zinc-800 bg-zinc-900/40 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link
-              href="/dashboard"
-              className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors"
-            >
+            <Link href="/dashboard" className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors">
               <ArrowLeft size={18} />
               Voltar ao dashboard
             </Link>
           </div>
-          <div className="text-sm text-zinc-400">Análise pré-live</div>
+          <div className="text-sm text-zinc-400">Analise pre-live</div>
         </div>
       </header>
 
@@ -332,9 +293,7 @@ function MatchAnalysisContent() {
             </div>
 
             <div className="text-center space-y-1">
-              <div className="text-sm text-orange-400 uppercase tracking-wide font-semibold">
-                {tournament || "Partida CS:GO"}
-              </div>
+              <div className="text-sm text-orange-400 uppercase tracking-wide font-semibold">{tournament || "Partida CS:GO"}</div>
               <div className="text-3xl font-black">VS</div>
               <div className="text-zinc-300">{formattedDate}</div>
               {(oddsHome || oddsAway) && (
@@ -388,17 +347,14 @@ function MatchAnalysisContent() {
           {loading && (
             <div className="flex items-center justify-center py-16">
               <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-orange-500"></div>
-              <span className="ml-4 text-gray-400">Carregando análise...</span>
+              <span className="ml-4 text-gray-400">Carregando analise...</span>
             </div>
           )}
 
           {error && (
             <div className="text-center py-12 space-y-4">
               <p className="text-red-400">{error}</p>
-              <button
-                onClick={fetchAnalysisData}
-                className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded"
-              >
+              <button onClick={fetchAnalysisData} className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded">
                 Tentar novamente
               </button>
             </div>
@@ -411,16 +367,14 @@ function MatchAnalysisContent() {
                   <section className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
                     <div className="flex items-center gap-2 mb-4">
                       <Trophy size={20} className="text-orange-400" />
-                      <h3 className="text-xl font-bold text-white">
-                        Favorito & Confiança
-                      </h3>
+                      <h3 className="text-xl font-bold text-white">Favorito & Confianca</h3>
                     </div>
                     <div className="flex flex-wrap gap-4">
                       <div className="px-4 py-3 rounded-lg bg-orange-500/10 border border-orange-500/30 text-orange-300 font-semibold">
                         {matchData.analysis.expectedWinner}
                       </div>
                       <div className="px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-zinc-200">
-                        Confiança: {matchData.analysis.confidence.toFixed(0)}%
+                        Confianca: {matchData.analysis.confidence.toFixed(0)}%
                       </div>
                     </div>
                   </section>
@@ -446,16 +400,11 @@ function MatchAnalysisContent() {
                       <h3 className="text-lg font-bold text-white">Insights</h3>
                     </div>
                     <div className="grid gap-3">
-                      {matchData.analysis.insights?.map(
-                        (insight: string, idx: number) => (
-                          <div
-                            key={idx}
-                            className="p-3 rounded-lg bg-zinc-800/70 border border-zinc-700 text-sm text-zinc-200"
-                          >
-                            {insight}
-                          </div>
-                        )
-                      )}
+                      {matchData.analysis.insights?.map((insight: string, idx: number) => (
+                        <div key={idx} className="p-3 rounded-lg bg-zinc-800/70 border border-zinc-700 text-sm text-zinc-200">
+                          {insight}
+                        </div>
+                      ))}
                     </div>
                   </section>
                 </div>
@@ -465,27 +414,13 @@ function MatchAnalysisContent() {
                 <div className="space-y-6">
                   <div className="flex items-center gap-2">
                     <Users2 size={20} className="text-orange-400" />
-                    <h3 className="text-lg font-bold text-white">
-                      Line-ups & Stats
-                    </h3>
+                    <h3 className="text-lg font-bold text-white">Line-ups & Stats</h3>
                   </div>
-                  {playersLoading && (
-                    <div className="text-center py-12 text-gray-400">
-                      Carregando dados dos jogadores...
-                    </div>
-                  )}
+                  {playersLoading && <div className="text-center py-12 text-gray-400">Carregando dados dos jogadores...</div>}
                   {!playersLoading && playersData && (
                     <div className="grid md:grid-cols-2 gap-6">
-                      <PlayerColumn
-                        title={team1}
-                        logo={getTeamLogo(team1)}
-                        players={playersData.team1}
-                      />
-                      <PlayerColumn
-                        title={team2}
-                        logo={getTeamLogo(team2)}
-                        players={playersData.team2}
-                      />
+                      <PlayerColumn title={team1} logo={getTeamLogo(team1)} players={playersData.team1} />
+                      <PlayerColumn title={team2} logo={getTeamLogo(team2)} players={playersData.team2} />
                     </div>
                   )}
                 </div>
@@ -495,40 +430,32 @@ function MatchAnalysisContent() {
                 <div className="space-y-6">
                   <div className="flex items-center gap-2">
                     <Target size={20} className="text-orange-400" />
-                    <h3 className="text-lg font-bold text-white">
-                      Dicas baseadas nos dados
-                    </h3>
+                    <h3 className="text-lg font-bold text-white">Dicas baseadas nos dados</h3>
                   </div>
                   <div className="space-y-4">
                     {generateBettingTips().map((tip, idx) => (
-                      <div
-                        key={idx}
-                        className="bg-zinc-900 border border-zinc-800 rounded-xl p-4"
-                      >
+                      <div key={idx} className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
                         <div className="flex items-center justify-between mb-2">
                           <div className="font-bold text-white">{tip.type}</div>
                           <span
                             className={`text-xs px-2 py-1 rounded ${
                               tip.confidence === "Alta"
                                 ? "bg-green-500/20 text-green-400"
-                                : tip.confidence === "Média"
+                                : tip.confidence === "Media"
                                 ? "bg-yellow-500/20 text-yellow-400"
                                 : "bg-red-500/20 text-red-400"
                             }`}
                           >
-                            {tip.confidence} confiança
+                            {tip.confidence} confianca
                           </span>
                         </div>
                         <p className="text-zinc-300 text-sm">{tip.description}</p>
-                        <p className="text-zinc-500 text-xs mt-2">
-                          {tip.reasoning}
-                        </p>
+                        <p className="text-zinc-500 text-xs mt-2">{tip.reasoning}</p>
                       </div>
                     ))}
                   </div>
                   <div className="text-xs text-orange-300 bg-orange-500/10 border border-orange-500/30 rounded-lg p-3">
-                    Aviso: são apenas sugestões estatísticas. Aposte com
-                    responsabilidade.
+                    Aviso: sao apenas sugestoes estatisticas. Aposte com responsabilidade.
                   </div>
                 </div>
               )}
@@ -572,26 +499,10 @@ function TeamSummary({
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
         <StatCard label="Win Rate" value={`${Math.round(stats.winRate * 100)}%`} />
         <StatCard label="Jogos analisados" value={stats.totalMatches.toString()} />
-        <StatCard
-          label="Rounds/Mapa"
-          value={stats.avgRoundsPerMap ? stats.avgRoundsPerMap.toFixed(1) : "N/A"}
-        />
-        <StatCard
-          label="Kills/Mapa"
-          value={stats.avgKillsPerMap ? stats.avgKillsPerMap.toFixed(1) : "N/A"}
-        />
-        <StatCard
-          label="Mapas/Jogo"
-          value={stats.avgMapsPlayed ? stats.avgMapsPlayed.toFixed(1) : "N/A"}
-        />
-        <StatCard
-          label="Duração média"
-          value={
-            stats.avgMatchLength
-              ? `${Math.round(stats.avgMatchLength)} min`
-              : "N/A"
-          }
-        />
+        <StatCard label="Rounds/Mapa" value={stats.avgRoundsPerMap ? stats.avgRoundsPerMap.toFixed(1) : "N/A"} />
+        <StatCard label="Kills/Mapa" value={stats.avgKillsPerMap ? stats.avgKillsPerMap.toFixed(1) : "N/A"} />
+        <StatCard label="Mapas/Jogo" value={stats.avgMapsPlayed ? stats.avgMapsPlayed.toFixed(1) : "N/A"} />
+        <StatCard label="Duracao media" value={stats.avgMatchLength ? `${Math.round(stats.avgMatchLength)} min` : "N/A"} />
       </div>
       {stats.recentForm && (
         <div className="flex items-center gap-2 text-xs text-zinc-300">
@@ -611,7 +522,7 @@ function TeamSummary({
             ))}
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -632,9 +543,7 @@ function PlayerColumn({
         <h4 className="font-bold text-white">{title}</h4>
       </div>
       {players.length === 0 && (
-        <div className="text-center text-sm text-zinc-500 py-6">
-          Dados dos jogadores nao disponiveis.
-        </div>
+        <div className="text-center text-sm text-zinc-500 py-6">Dados dos jogadores nao disponiveis.</div>
       )}
       <div className="space-y-3">
         {players.map((player) => (
@@ -651,14 +560,10 @@ function PlayerColumn({
             />
             <div className="flex-1">
               <div className="font-semibold text-white">{player.playerName}</div>
-              <div className="text-xs text-zinc-400">
-                {player.nationality || "Nacionalidade nao informada"}
-              </div>
+              <div className="text-xs text-zinc-400">{player.nationality || "Nacionalidade nao informada"}</div>
             </div>
             <div className="text-right text-sm">
-              <div className="text-green-400 font-semibold">
-                {player.stats.rating?.toFixed(2) || "N/A"}
-              </div>
+              <div className="text-green-400 font-semibold">{player.stats.rating?.toFixed(2) || "N/A"}</div>
               <div className="text-gray-400">Rating</div>
             </div>
           </div>
