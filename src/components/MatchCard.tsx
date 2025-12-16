@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { TrendingUp, Calendar, BarChart3 } from "lucide-react";
 import { TimezoneUtils } from "@/lib/timezone-utils";
-import PreLiveAnalysisModal from "./PreLiveAnalysisModal";
 
 interface TeamStats {
   teamName: string;
@@ -74,8 +72,6 @@ interface MatchCardProps {
 }
 
 export default function MatchCard({ match, teamLogos }: MatchCardProps) {
-  const [showStatsModal, setShowStatsModal] = useState(false);
-
   const formatDate = (dateString: string) => {
     return TimezoneUtils.formatDateTimeBRT(dateString);
   };
@@ -221,13 +217,27 @@ export default function MatchCard({ match, teamLogos }: MatchCardProps) {
         </div>
 
         {/* Botão Detalhes do Jogo */}
-        <button
-          onClick={() => setShowStatsModal(true)}
+        <a
+          href={`/match/analysis?team1=${encodeURIComponent(
+            match.homeTeam
+          )}&team2=${encodeURIComponent(match.awayTeam)}&start=${encodeURIComponent(
+            match.startTime
+          )}&tournament=${encodeURIComponent(match.tournament || "")}${
+            match.odds?.moneyline?.home
+              ? `&oddsHome=${match.odds.moneyline.home}`
+              : ""
+          }${
+            match.odds?.moneyline?.away
+              ? `&oddsAway=${match.odds.moneyline.away}`
+              : ""
+          }`}
+          target="_blank"
+          rel="noreferrer"
           className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors font-semibold mb-4"
         >
           <BarChart3 size={18} />
           <span className="text-sm">DETALHES DO JOGO</span>
-        </button>
+        </a>
 
         {/* Insights */}
         {(match.premiumInsights || match.insights).length > 0 && (
@@ -265,22 +275,6 @@ export default function MatchCard({ match, teamLogos }: MatchCardProps) {
       </div>
 
       {/* Modal de Análise Pré-Live */}
-      <PreLiveAnalysisModal
-        homeTeam={match.homeTeam}
-        awayTeam={match.awayTeam}
-        matchDate={match.startTime}
-        tournament={undefined}
-        odds={
-          match.odds?.moneyline
-            ? {
-                home: match.odds.moneyline.home,
-                away: match.odds.moneyline.away,
-              }
-            : undefined
-        }
-        isOpen={showStatsModal}
-        onClose={() => setShowStatsModal(false)}
-      />
     </div>
   );
 }

@@ -255,7 +255,6 @@ function AnalysisTool() {
   const [teamLogos, setTeamLogos] = useState<Record<string, string | null>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedMatch, setSelectedMatch] = useState<any | null>(null);
 
   useEffect(() => {
     fetchMatches();
@@ -696,12 +695,30 @@ function AnalysisTool() {
 
                           {/* Actions */}
                           <div className="flex gap-3">
-                            <button
-                              onClick={() => setSelectedMatch(match)}
-                              className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-3 px-4 rounded-lg transition-all text-sm group-hover:shadow-lg group-hover:shadow-orange-500/25"
+                            <a
+                              href={`/match/analysis?team1=${encodeURIComponent(
+                                match.homeTeam
+                              )}&team2=${encodeURIComponent(
+                                match.awayTeam
+                              )}&start=${encodeURIComponent(
+                                match.startTime
+                              )}&tournament=${encodeURIComponent(
+                                match.tournament || ""
+                              )}${
+                                match.odds?.moneyline?.home
+                                  ? `&oddsHome=${match.odds.moneyline.home}`
+                                  : ""
+                              }${
+                                match.odds?.moneyline?.away
+                                  ? `&oddsAway=${match.odds.moneyline.away}`
+                                  : ""
+                              }`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-3 px-4 rounded-lg transition-all text-sm group-hover:shadow-lg group-hover:shadow-orange-500/25 text-center block"
                             >
                               🎯 ANÁLISE PRÉ-LIVE
-                            </button>
+                            </a>
                           </div>
                         </div>
                       </div>
@@ -712,14 +729,6 @@ function AnalysisTool() {
           ))}
       </div>
 
-      {/* Análise Pré-Live Modal */}
-      {selectedMatch && (
-        <PreLiveAnalysisModal
-          match={selectedMatch}
-          teamLogos={teamLogos}
-          onClose={() => setSelectedMatch(null)}
-        />
-      )}
     </div>
   );
 }
