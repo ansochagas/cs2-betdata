@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -80,6 +80,23 @@ interface PlayerStats {
 type TabType = "overview" | "players" | "predictions";
 
 export default function MatchAnalysisPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-black text-white flex items-center justify-center">
+          <div className="text-center space-y-2">
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-orange-500 mx-auto"></div>
+            <p className="text-sm text-zinc-400">Carregando análise...</p>
+          </div>
+        </div>
+      }
+    >
+      <MatchAnalysisContent />
+    </Suspense>
+  );
+}
+
+function MatchAnalysisContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
