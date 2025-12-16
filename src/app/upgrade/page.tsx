@@ -1,8 +1,6 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 const plans = [
@@ -33,16 +31,8 @@ const plans = [
 ];
 
 export default function Upgrade() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(plans[0]?.id || "");
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
-    }
-  }, [status, router]);
 
   const handleUpgrade = async () => {
     setLoading(true);
@@ -80,14 +70,6 @@ export default function Upgrade() {
       setLoading(false);
     }
   };
-
-  if (status === "loading") {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white">Carregando...</div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-black text-white">
