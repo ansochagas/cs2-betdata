@@ -1268,6 +1268,15 @@ function PreLiveAnalysisModal({
   const [loading, setLoading] = useState(true);
   // Removido: const [activeTab, setActiveTab] = useState<"overview" | "teams" | "players" | "predictions">("overview");
 
+  // Impede rolagem de fundo enquanto o modal está aberto
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
   useEffect(() => {
     const fetchAnalysis = async () => {
       try {
@@ -1331,8 +1340,8 @@ function PreLiveAnalysisModal({
   }, [match]);
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-start justify-center overflow-y-auto p-4">
-      <div className="relative mt-6 bg-zinc-900 border border-zinc-700 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto shadow-xl shadow-black/40">
+    <div className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="relative bg-zinc-900 border border-zinc-700 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto shadow-xl shadow-black/40">
         {/* Header */}
         <div className="p-6 border-b border-zinc-700">
           <div className="flex justify-between items-center mb-4">
