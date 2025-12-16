@@ -1331,11 +1331,8 @@ function PreLiveAnalysisModal({
   }, [match]);
 
   return (
-    <div
-      className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] p-4"
-      style={{ top: 0, left: 0 }}
-    >
-      <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-zinc-900 border border-zinc-700 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto z-[10000]">
+    <div className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-start justify-center overflow-y-auto p-4">
+      <div className="relative mt-6 bg-zinc-900 border border-zinc-700 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto shadow-xl shadow-black/40">
         {/* Header */}
         <div className="p-6 border-b border-zinc-700">
           <div className="flex justify-between items-center mb-4">
