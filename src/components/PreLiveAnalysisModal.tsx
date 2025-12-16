@@ -125,6 +125,16 @@ export default function PreLiveAnalysisModal({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Impede rolagem do fundo enquanto o modal estiver aberto
+  useEffect(() => {
+    if (!isOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
+
   useEffect(() => {
     if (isOpen && homeTeam && awayTeam) {
       fetchAnalysisData();
@@ -298,8 +308,8 @@ export default function PreLiveAnalysisModal({
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-zinc-900 border border-zinc-700 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[10000] flex items-center justify-center p-4">
+      <div className="bg-zinc-900 border border-zinc-700 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-hidden shadow-2xl shadow-black/40">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-zinc-700">
           <div className="flex items-center gap-4">
