@@ -81,7 +81,11 @@ export async function GET(request: NextRequest) {
     const matchesResponse = await fetch(
       `${
         process.env.NEXTAUTH_URL || "http://localhost:3000"
-      }/api/pandascore/upcoming-matches?days=1`
+      }/api/pandascore/upcoming-matches?days=1`,
+      {
+        // Evita usar resposta cacheada do build; sempre busca dados frescos
+        cache: "no-store",
+      }
     );
 
     if (!matchesResponse.ok) {
@@ -105,6 +109,19 @@ export async function GET(request: NextRequest) {
     console.log(`✅ Encontrados ${todayMatches.length} jogos para hoje`);
 
     if (todayMatches.length === 0) {
+      // Se já temos cache válido, não sobrescrever com vazio
+      if (cachedData) {
+        console.warn(
+          "Sem jogos para hoje, retornando cache diário anterior em vez de cachear vazio."
+        );
+        return NextResponse.json({
+          success: true,
+          data: cachedData,
+          cached: true,
+          fallbackFromCache: true,
+        });
+      }
+
       const emptyResponse: GoldListResponse = {
         date: dateString,
         categories: {
@@ -151,7 +168,10 @@ export async function GET(request: NextRequest) {
             process.env.NEXTAUTH_URL || "http://localhost:3000"
           }/api/pandascore/match-analysis?team1=${encodeURIComponent(
             match.homeTeam
-          )}&team2=${encodeURIComponent(match.awayTeam)}`
+          )}&team2=${encodeURIComponent(match.awayTeam)}`,
+          {
+            cache: "no-store",
+          }
         );
 
         if (!analysisResponse.ok) {
@@ -259,6 +279,24 @@ export async function GET(request: NextRequest) {
         dataSource: "PandaScore API (plano pago)",
       },
     };
+
+    const hasOpportunities =
+      opportunities.overKills.length > 0 ||
+      opportunities.overRounds.length > 0 ||
+      opportunities.moneyline.length > 0;
+
+    // Evitar sobrescrever um cache bom com resposta vazia (ex.: rate limit ou falha na anÇ­lise)
+    if (analyzedCount === 0 && cachedData) {
+      console.warn(
+        "Nenhuma partida analisada (possÇ­vel rate limit). Retornando cache diÇ­rio anterior."
+      );
+      return NextResponse.json({
+        success: true,
+        data: cachedData,
+        cached: true,
+        fallbackFromCache: true,
+      });
+    }
 
     // Salvar no cache diário (24 horas)
     console.log(`💾 Salvando no cache diário: ${cacheKey}`);
