@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const plans = [
@@ -31,10 +33,21 @@ const plans = [
 ];
 
 export default function Upgrade() {
+  const router = useRouter();
+  const { status } = useSession();
   const [loading, setLoading] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(plans[0]?.id || "");
 
   const handleUpgrade = async () => {
+    // Garantir que o usuário esteja autenticado antes de criar o checkout
+    if (status === "unauthenticated") {
+      alert("É preciso estar logado para contratar um plano.");
+      router.push("/login?callbackUrl=/upgrade");
+      return;
+    }
+
+    if (status === "loading") return;
+
     setLoading(true);
     try {
       const plan = plans.find((p) => p.id === selectedPlan);
