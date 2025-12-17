@@ -486,7 +486,29 @@ async function main() {
     console.error("[telegram-worker] Falha ao validar token (getMe):", error);
   }
 
-  await bot.launch({ dropPendingUpdates: true });
+  console.log("[telegram-worker] Iniciando long polling (getUpdates)...");
+
+  let launchCompleted = false;
+  const launchWatchdog = setTimeout(() => {
+    if (!launchCompleted) {
+      console.warn(
+        "[telegram-worker] Aviso: bot.launch ainda não confirmou. Se o bot não responder, verifique conectividade/Firewall para api.telegram.org (getUpdates)."
+      );
+    }
+  }, 20000);
+
+  bot
+    .launch({ dropPendingUpdates: true })
+    .then(() => {
+      launchCompleted = true;
+      clearTimeout(launchWatchdog);
+      console.log("[telegram-worker] Bot iniciado (polling ativo).");
+    })
+    .catch((error) => {
+      clearTimeout(launchWatchdog);
+      console.error("[telegram-worker] Falha ao iniciar bot (launch):", error);
+      process.exit(1);
+    });
 
   if (ENABLE_GAME_ALERTS) {
     await checkAndSendGameAlerts();
@@ -524,4 +546,3 @@ main().catch((error) => {
   console.error("[telegram-worker] Erro fatal:", error);
   process.exit(1);
 });
-
