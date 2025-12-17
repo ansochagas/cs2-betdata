@@ -1,96 +1,63 @@
 const { spawn } = require("child_process");
 const path = require("path");
-require("dotenv").config({ path: path.join(__dirname, "..", ".env.local") });
 
-// Iniciar o bot Telegram
-async function startBot() {
-  console.log("🤖 Iniciando bot Telegram...");
-  console.log(
-    "Token configurado:",
-    process.env.TELEGRAM_BOT_TOKEN ? "✅ Sim" : "❌ Não"
-  );
+const PROJECT_ROOT = path.join(__dirname, "..");
 
-  try {
-    // Importar e iniciar o bot
-    const { getTelegramBot } = await import("../src/lib/telegram-bot.ts");
-    const telegramBot = getTelegramBot();
-
-    // Aguardar um pouco para garantir que o Next.js esteja rodando
-    setTimeout(async () => {
-      await telegramBot.launch();
-
-      // Iniciar scheduler de alertas após o bot estar pronto
-      setTimeout(() => {
-        startAlertScheduler();
-      }, 2000);
-    }, 3000);
-  } catch (error) {
-    console.error("❌ Erro ao iniciar bot Telegram:", error);
-  }
-}
-
-// Scheduler para alertas automáticos de jogos
-async function startAlertScheduler() {
-  console.log("⏰ Iniciando scheduler de alertas de jogos...");
-
-  try {
-    const { gameAlertsService } = await import("../src/lib/game-alerts.ts");
-
-    // Iniciar o serviço de alertas
-    await gameAlertsService.start();
-
-    console.log("✅ Serviço de alertas de jogos iniciado com sucesso");
-  } catch (error) {
-    console.error("❌ Erro ao iniciar scheduler de alertas:", error);
-  }
-}
-
-// Iniciar Next.js
-function startNextJS() {
-  console.log("🚀 Iniciando Next.js...");
-
-  const nextProcess = spawn("npm", ["run", "dev"], {
+function spawnProcess(command, args, label) {
+  const child = spawn(command, args, {
     stdio: "inherit",
-    cwd: path.join(__dirname, ".."),
+    cwd: PROJECT_ROOT,
     shell: true,
   });
 
-  nextProcess.on("close", (code) => {
-    console.log(`Next.js process exited with code ${code}`);
+  child.on("close", (code) => {
+    console.log(`[start-with-bot] ${label} saiu com code ${code}`);
   });
 
-  return nextProcess;
+  return child;
 }
 
-// Função principal
+function inferNextMode() {
+  const lifecycle = String(process.env.npm_lifecycle_event || "");
+  if (lifecycle.includes("start")) return "start";
+  return "dev";
+}
+
 async function main() {
-  console.log("🎮 Iniciando CS:GO Scout com bot Telegram...");
-  console.log("=====================================");
+  console.log("[start-with-bot] Iniciando Next.js + Telegram worker...");
 
-  // Iniciar Next.js
-  const nextProcess = startNextJS();
+  const mode = inferNextMode();
+  console.log(`[start-with-bot] Modo Next.js: ${mode}`);
 
-  // Iniciar bot após um delay
-  setTimeout(() => {
-    startBot();
-  }, 2000);
+  const nextProcess = spawnProcess("npm", ["run", mode], "next");
 
-  // Graceful shutdown
-  process.on("SIGINT", () => {
-    console.log("\n🛑 Recebido SIGINT, encerrando processos...");
-    nextProcess.kill("SIGINT");
+  let workerProcess = null;
+
+  const workerStart = setTimeout(() => {
+    workerProcess = spawnProcess(
+      "node",
+      ["scripts/telegram-worker.js"],
+      "telegram-worker"
+    );
+  }, 2500);
+
+  function shutdown(signal) {
+    console.log(`[start-with-bot] Recebido ${signal}. Encerrando...`);
+
+    clearTimeout(workerStart);
+
+    if (workerProcess) {
+      workerProcess.kill(signal);
+    }
+    nextProcess.kill(signal);
     process.exit(0);
-  });
+  }
 
-  process.on("SIGTERM", () => {
-    console.log("\n🛑 Recebido SIGTERM, encerrando processos...");
-    nextProcess.kill("SIGTERM");
-    process.exit(0);
-  });
+  process.on("SIGINT", () => shutdown("SIGINT"));
+  process.on("SIGTERM", () => shutdown("SIGTERM"));
 }
 
-// Executar
 main().catch((error) => {
-  console.error("❌ Erro fatal:", error);
+  console.error("[start-with-bot] Erro fatal:", error);
   process.exit(1);
 });

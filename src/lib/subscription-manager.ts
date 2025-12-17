@@ -1,5 +1,10 @@
 import { prisma } from "@/lib/prisma";
 
+function normalizeStatus(value: unknown): string {
+  if (!value) return "";
+  return String(value).trim().toLowerCase();
+}
+
 export interface SubscriptionData {
   id: string;
   userId: string;
@@ -66,14 +71,17 @@ export class SubscriptionManager {
       result.planId = subscription.planId;
 
       // Determinar status
-      if (subscription.status === "CANCELLED") {
+      const status = normalizeStatus(subscription.status);
+
+      if (status === "cancelled" || status === "canceled") {
         result.status = "CANCELLED";
         result.isValid = false;
-      } else if (subscription.status === "TRIALING") {
-        if (
-          subscription.trialEndsAt &&
-          new Date(subscription.trialEndsAt) > now
-        ) {
+      } else if (status === "trialing") {
+        const trialEndDate = subscription.trialEndsAt
+          ? new Date(subscription.trialEndsAt)
+          : endDate;
+
+        if (trialEndDate > now) {
           result.status = "TRIALING";
           result.isValid = true;
         } else {
@@ -81,7 +89,7 @@ export class SubscriptionManager {
           result.isValid = false;
           result.errors.push("Trial expirado");
         }
-      } else if (subscription.status === "ACTIVE") {
+      } else if (status === "active") {
         if (endDate > now) {
           result.status = "ACTIVE";
           result.isValid = true;

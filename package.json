@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "start:with-bot": "node scripts/start-with-bot.js",
+    "telegram:worker": "node scripts/telegram-worker.js",
     "lint": "eslint"
   },
   "dependencies": {

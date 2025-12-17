@@ -3,6 +3,35 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+function normalizeSubscriptionStatus(status: unknown): string {
+  if (!status) return "";
+  return String(status).trim().toLowerCase();
+}
+
+function isSubscriptionAccessAllowed(subscription: any): boolean {
+  if (!subscription) return false;
+
+  const status = normalizeSubscriptionStatus(subscription.status);
+  const now = new Date();
+
+  if (status === "active") {
+    return subscription.currentPeriodEnd
+      ? new Date(subscription.currentPeriodEnd) > now
+      : false;
+  }
+
+  if (status === "trialing") {
+    const trialEnd = subscription.trialEndsAt
+      ? new Date(subscription.trialEndsAt)
+      : subscription.currentPeriodEnd
+        ? new Date(subscription.currentPeriodEnd)
+        : null;
+    return trialEnd ? trialEnd > now : false;
+  }
+
+  return false;
+}
+
 // Token do bot (vai vir das env vars)
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 
@@ -111,8 +140,18 @@ class TelegramBot {
       }
 
       const subscription = user.subscription;
-      const status = subscription?.status || "INATIVA";
       const plan = subscription?.planId || "Nenhum";
+      const normalizedStatus = normalizeSubscriptionStatus(subscription?.status);
+      const statusLabel =
+        normalizedStatus === "active"
+          ? "Ativo"
+          : normalizedStatus === "trialing"
+            ? "Trial"
+            : subscription?.status || "Inativa";
+      const status = statusLabel;
+      const isAllowed = subscription
+        ? isSubscriptionAccessAllowed(subscription)
+        : false;
 
       await ctx.reply(
         `📊 *Status da sua conta:*\n\n` +
@@ -121,7 +160,7 @@ class TelegramBot {
           `💎 *Plano:* ${plan}\n` +
           `📅 *Status:* ${status}\n\n` +
           `${
-            status === "ACTIVE"
+            isAllowed
               ? "✅ *Alertas ativos!*"
               : "❌ *Renove seu plano para receber alertas*"
           }`,
@@ -309,7 +348,7 @@ class TelegramBot {
       if (!user) return false;
 
       const subscription = user.subscription;
-      return subscription?.status === "ACTIVE";
+      return isSubscriptionAccessAllowed(subscription);
     } catch (error) {
       console.error("Erro ao verificar assinatura:", error);
       return false;

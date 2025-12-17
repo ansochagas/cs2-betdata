@@ -7,6 +7,35 @@ const prisma = new PrismaClient();
 const sentAlerts = new Map<string, number>();
 const ALERT_CACHE_DURATION = 60 * 60 * 1000; // 1 hora
 
+function normalizeSubscriptionStatus(status: unknown): string {
+  if (!status) return "";
+  return String(status).trim().toLowerCase();
+}
+
+function isSubscriptionAccessAllowed(subscription: any): boolean {
+  if (!subscription) return false;
+
+  const status = normalizeSubscriptionStatus(subscription.status);
+  const now = new Date();
+
+  if (status === "active") {
+    return subscription.currentPeriodEnd
+      ? new Date(subscription.currentPeriodEnd) > now
+      : false;
+  }
+
+  if (status === "trialing") {
+    const trialEnd = subscription.trialEndsAt
+      ? new Date(subscription.trialEndsAt)
+      : subscription.currentPeriodEnd
+        ? new Date(subscription.currentPeriodEnd)
+        : null;
+    return trialEnd ? trialEnd > now : false;
+  }
+
+  return false;
+}
+
 type CheckResult = {
   alertsSent: number;
   gamesStartingSoon: number;
@@ -171,10 +200,8 @@ export class GameAlertsService {
     }
 
     // Filtrar usuários com assinatura ativa
-    const activeUsers = users.filter(
-      (user) =>
-        user.subscription?.status === "ACTIVE" ||
-        user.subscription?.status === "TRIALING"
+    const activeUsers = users.filter((user) =>
+      isSubscriptionAccessAllowed(user.subscription)
     );
 
     console.log(
@@ -190,11 +217,14 @@ export class GameAlertsService {
     let sentCount = 0;
     for (const user of activeUsers) {
       try {
-        const success = await telegramBot.sendMessage(
-          user.telegramId,
-          alertMessage,
-          { parse_mode: "Markdown" }
-        );
+          const destinationChatId =
+            user.telegramConfig?.chatId || user.telegramId;
+
+          const success = await telegramBot.sendMessage(
+            destinationChatId,
+            alertMessage,
+            { parse_mode: "Markdown" }
+          );
 
         if (success) {
           sentCount++;

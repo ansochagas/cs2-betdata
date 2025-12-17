@@ -1,6 +1,8 @@
 const { Telegraf } = require("telegraf");
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, ".env.local") });
 
-const BOT_TOKEN = "8300243291:AAHlc9KRg6nd-Q-Z9_ElZM1qP3vFn4LBqmA";
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 
 console.log("🧪 Testando bot Telegram...");
 
