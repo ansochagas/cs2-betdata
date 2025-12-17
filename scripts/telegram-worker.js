@@ -488,27 +488,12 @@ async function main() {
 
   console.log("[telegram-worker] Iniciando long polling (getUpdates)...");
 
-  let launchCompleted = false;
-  const launchWatchdog = setTimeout(() => {
-    if (!launchCompleted) {
-      console.warn(
-        "[telegram-worker] Aviso: bot.launch ainda não confirmou. Se o bot não responder, verifique conectividade/Firewall para api.telegram.org (getUpdates)."
-      );
-    }
-  }, 20000);
-
-  bot
-    .launch({ dropPendingUpdates: true })
-    .then(() => {
-      launchCompleted = true;
-      clearTimeout(launchWatchdog);
-      console.log("[telegram-worker] Bot iniciado (polling ativo).");
-    })
-    .catch((error) => {
-      clearTimeout(launchWatchdog);
-      console.error("[telegram-worker] Falha ao iniciar bot (launch):", error);
-      process.exit(1);
-    });
+  // Observação: no Telegraf v4, `launch()` fica "pendurado" no loop do polling.
+  // Portanto, não devemos aguardar o resolve para considerar o bot operacional.
+  void bot.launch({ dropPendingUpdates: true }).catch((error) => {
+    console.error("[telegram-worker] Falha ao iniciar bot (launch):", error);
+    process.exit(1);
+  });
 
   if (ENABLE_GAME_ALERTS) {
     await checkAndSendGameAlerts();

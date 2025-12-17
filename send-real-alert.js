@@ -1,38 +1,48 @@
-const BOT_TOKEN = "8300243291:AAHlc9KRg6nd-Q-Z9_ElZM1qP3vFn4LBqmA";
+const path = require("path");
+
+require("dotenv").config({ path: path.join(__dirname, ".env.local") });
+
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const CHAT_ID = process.env.TELEGRAM_TEST_CHAT_ID || process.argv[2];
+
+if (!BOT_TOKEN) {
+  console.error("❌ TELEGRAM_BOT_TOKEN não configurado no .env.local");
+  process.exit(1);
+}
+
+if (!CHAT_ID) {
+  console.error(
+    "❌ Informe o chat_id via TELEGRAM_TEST_CHAT_ID no .env.local ou como argumento: node send-real-alert.js <chat_id>"
+  );
+  process.exit(1);
+}
 
 async function sendRealAlert() {
   try {
-    console.log("🚀 Enviando alerta real via Telegram API...");
+    console.log("📨 Enviando alerta real via Telegram API...");
 
-    const message = `🔔 *ALERTA DE TESTE REAL - CS:GO Intel*
+    const message = `🧪 *ALERTA DE TESTE REAL - CS:GO Intel*
 
-Olá Anderson!
+Olá!
 
 Este é um alerta REAL enviado diretamente via API do Telegram para testar se a vinculação está funcionando.
 
-✅ Se você recebeu esta mensagem, a vinculação está 100% funcional!
+✅ Se você recebeu esta mensagem, o envio do bot está funcional.
 
-📊 *Status da vinculação:*
-- Telegram ID: 662586857
-- Chat ID: Verificado
-- Status: Ativo
-
-🎯 *Próximos passos:*
+🚀 Próximos passos:
+- Vincule sua conta no site (código LINK_...)
 - Configure seus alertas no dashboard
 - Receba notificações automáticas
-- Monitore jogos em tempo real
 
-_Boa sorte nas apostas!_ 🚀`;
+Boa sorte nas apostas!`;
 
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
     const response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        chat_id: "662586857", // Telegram ID do usuário
+        chat_id: String(CHAT_ID),
         text: message,
         parse_mode: "Markdown",
       }),
@@ -41,13 +51,12 @@ _Boa sorte nas apostas!_ 🚀`;
     const data = await response.json();
 
     if (data.ok) {
-      console.log("✅ Alerta enviado com sucesso!");
-      console.log("📱 Verifique seu Telegram para ver a mensagem");
+      console.log("✅ Alerta enviado com sucesso! Verifique seu Telegram.");
     } else {
-      console.log("❌ Erro ao enviar alerta:", data.description);
+      console.log("❌ Erro ao enviar alerta:", data.description || data);
     }
   } catch (error) {
-    console.error("❌ Erro:", error.message);
+    console.error("❌ Erro:", error?.message || error);
   }
 }
 
