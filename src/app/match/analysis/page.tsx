@@ -400,7 +400,12 @@ function MatchAnalysisContent() {
                       <h3 className="text-lg font-bold text-white">Insights</h3>
                     </div>
                     <div className="grid gap-3">
-                      {matchData.analysis.insights?.map((insight: string, idx: number) => (
+                      {matchData.analysis.insights
+                        ?.filter(
+                          (insight: string) =>
+                            !insight.toLowerCase().includes("forma recente")
+                        )
+                        .map((insight: string, idx: number) => (
                         <div key={idx} className="p-3 rounded-lg bg-zinc-800/70 border border-zinc-700 text-sm text-zinc-200">
                           {insight}
                         </div>
@@ -504,25 +509,6 @@ function TeamSummary({
         <StatCard label="Mapas/Jogo" value={stats.avgMapsPlayed ? stats.avgMapsPlayed.toFixed(1) : "N/A"} />
         <StatCard label="Duracao media" value={stats.avgMatchLength ? `${Math.round(stats.avgMatchLength)} min` : "N/A"} />
       </div>
-      {stats.recentForm && (
-        <div className="flex items-center gap-2 text-xs text-zinc-300">
-          <span className="text-zinc-400">Forma recente:</span>
-          <div className="flex gap-1">
-            {stats.recentForm.split("").map((ch, idx) => (
-              <span
-                key={`${name}-form-${idx}`}
-                className={`px-2 py-1 rounded ${
-                  ch.toUpperCase() === "W"
-                    ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                    : "bg-red-500/20 text-red-400 border border-red-500/30"
-                }`}
-              >
-                {ch.toUpperCase()}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
