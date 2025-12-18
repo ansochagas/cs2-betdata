@@ -92,13 +92,31 @@ export default function MinhaContaPage() {
       const data = await response.json();
 
       if (data.success) {
-        // Copiar código para clipboard
-        navigator.clipboard.writeText(data.data.linkCode);
+        const linkCode = data.data.linkCode as string;
+        let copied = false;
 
-        // Mostrar instruções
-        alert(
-          `Código copiado: ${data.data.linkCode}\n\nEnvie este código para o bot @CsgoScoutBot no Telegram para vincular sua conta!`
-        );
+        if (
+          typeof navigator !== "undefined" &&
+          navigator.clipboard &&
+          typeof navigator.clipboard.writeText === "function"
+        ) {
+          try {
+            await navigator.clipboard.writeText(linkCode);
+            copied = true;
+          } catch (error) {
+            console.warn("Falha ao copiar código para clipboard:", error);
+          }
+        }
+
+        if (copied) {
+          alert(
+            `Código copiado: ${linkCode}\n\nEnvie este código para o bot @CsgoScoutBot no Telegram para vincular sua conta!`
+          );
+        } else {
+          alert(
+            `Código gerado: ${linkCode}\n\nCopie manualmente e envie para o bot @CsgoScoutBot no Telegram para vincular sua conta.`
+          );
+        }
 
         // Recarregar dados
         fetchAccountData();
