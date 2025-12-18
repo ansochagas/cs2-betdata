@@ -18,6 +18,7 @@ export default function MinhaContaPage() {
   const [subscription, setSubscription] = useState<any>(null);
   const [telegramLinked, setTelegramLinked] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [unlinkingTelegram, setUnlinkingTelegram] = useState(false);
 
   useEffect(() => {
     fetchAccountData();
@@ -107,6 +108,39 @@ export default function MinhaContaPage() {
     } catch (error) {
       console.error("Erro:", error);
       alert("Erro ao gerar código de vinculação");
+    }
+  };
+
+  const handleTelegramUnlink = async () => {
+    const confirmed = window.confirm(
+      "Tem certeza que deseja desvincular seu Telegram?\n\nVocê vai parar de receber alertas até vincular novamente."
+    );
+
+    if (!confirmed) return;
+
+    try {
+      setUnlinkingTelegram(true);
+
+      const response = await fetch("/api/telegram/unlink", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert("Telegram desvinculado com sucesso!");
+        await fetchAccountData();
+      } else {
+        alert("Erro ao desvincular Telegram: " + (data.error || "Erro"));
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro ao desvincular Telegram");
+    } finally {
+      setUnlinkingTelegram(false);
     }
   };
 
@@ -330,12 +364,30 @@ export default function MinhaContaPage() {
                   </div>
 
                   {telegramLinked ? (
-                    <div className="bg-green-500/20 border border-green-500/50 rounded-lg p-4">
+                    <>
+                      <div className="bg-green-500/20 border border-green-500/50 rounded-lg p-4">
                       <p className="text-green-400 text-sm">
                         ✅ Conta vinculada! Você receberá alertas automáticos
                         quando jogos começarem.
                       </p>
                     </div>
+
+                    <div className="mt-3 space-y-2">
+                      <button
+                        onClick={handleTelegramUnlink}
+                        disabled={unlinkingTelegram}
+                        className="w-full bg-zinc-800 hover:bg-zinc-700 disabled:bg-zinc-800/50 disabled:text-zinc-500 text-white font-semibold py-3 px-6 rounded-lg transition-all flex items-center justify-center gap-2 border border-zinc-700 disabled:cursor-not-allowed"
+                      >
+                        {unlinkingTelegram
+                          ? "Desvinculando..."
+                          : "Desvincular Telegram"}
+                      </button>
+                      <p className="text-xs text-zinc-400">
+                        Use isso caso vocÇ¦ tenha trocado de conta no Telegram ou
+                        precise refazer o vÇðnculo.
+                      </p>
+                    </div>
+                    </>
                   ) : (
                     <div className="space-y-4">
                       <div className="bg-blue-500/20 border border-blue-500/50 rounded-lg p-4">

@@ -55,6 +55,11 @@ export default function AdminDashboard() {
   const [gameAlertsStatus, setGameAlertsStatus] = useState<any>(null);
   const [checkingGameAlerts, setCheckingGameAlerts] = useState(false);
   const [gameAlertResult, setGameAlertResult] = useState<string | null>(null);
+  const [telegramUnlinkEmail, setTelegramUnlinkEmail] = useState("");
+  const [telegramUnlinking, setTelegramUnlinking] = useState(false);
+  const [telegramUnlinkResult, setTelegramUnlinkResult] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     // Verificar se usuário é admin
@@ -127,6 +132,50 @@ export default function AdminDashboard() {
       setBroadcastResult("❌ Erro ao enviar mensagem");
     } finally {
       setSendingBroadcast(false);
+    }
+  };
+
+  const handleAdminTelegramUnlink = async () => {
+    const email = telegramUnlinkEmail.trim();
+
+    if (!email) {
+      alert("Informe o email do usuÇ­rio");
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `Desvincular Telegram do usuÇ­rio ${email}?\n\nEssa aÇõÇœo remove o vÇðnculo e o usuÇ­rio precisarÇ­ vincular novamente.`
+    );
+
+    if (!confirmed) return;
+
+    try {
+      setTelegramUnlinking(true);
+      setTelegramUnlinkResult(null);
+
+      const response = await fetch("/api/telegram/unlink", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setTelegramUnlinkResult(
+          `ƒo. Telegram desvinculado: ${data.data?.email || email}`
+        );
+        setTelegramUnlinkEmail("");
+        fetchAdminStats();
+      } else {
+        setTelegramUnlinkResult(`ƒ?O Erro: ${data.error || "Erro"}`);
+      }
+    } catch (error) {
+      setTelegramUnlinkResult("ƒ?O Erro ao desvincular Telegram");
+    } finally {
+      setTelegramUnlinking(false);
     }
   };
 
@@ -880,6 +929,49 @@ export default function AdminDashboard() {
                   </p>
                   <p>• Mensagens são enviadas em lote para evitar sobrecarga</p>
                   <p>• Use com responsabilidade</p>
+                </div>
+              </div>
+
+              <div className="mt-6 pt-6 border-t border-zinc-800">
+                <h3 className="text-sm font-medium mb-3">
+                  Desvincular Telegram (Admin)
+                </h3>
+
+                <div className="space-y-3">
+                  <input
+                    type="email"
+                    value={telegramUnlinkEmail}
+                    onChange={(e) => setTelegramUnlinkEmail(e.target.value)}
+                    className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:border-orange-500 focus:outline-none"
+                    placeholder="Email do usuário (ex: cliente@email.com)"
+                  />
+
+                  {telegramUnlinkResult && (
+                    <div
+                      className={`p-3 rounded-lg text-sm ${
+                        telegramUnlinkResult.includes("ƒo.")
+                          ? "bg-green-500/20 border border-green-500/50 text-green-400"
+                          : "bg-red-500/20 border border-red-500/50 text-red-400"
+                      }`}
+                    >
+                      {telegramUnlinkResult}
+                    </div>
+                  )}
+
+                  <button
+                    onClick={handleAdminTelegramUnlink}
+                    disabled={telegramUnlinking || !telegramUnlinkEmail.trim()}
+                    className="w-full bg-zinc-800 hover:bg-zinc-700 disabled:bg-zinc-800/50 disabled:text-zinc-500 text-white font-semibold py-3 px-4 rounded-lg transition-all border border-zinc-700 disabled:cursor-not-allowed"
+                  >
+                    {telegramUnlinking
+                      ? "Desvinculando..."
+                      : "Desvincular Telegram"}
+                  </button>
+
+                  <p className="text-xs text-zinc-400">
+                    Remove o vínculo atual (telegramId/config/códigos) para o
+                    usuário poder vincular novamente.
+                  </p>
                 </div>
               </div>
             </div>
