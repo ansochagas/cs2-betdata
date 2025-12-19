@@ -242,10 +242,12 @@ class TelegramBot {
             );
             await ctx.reply(
               `✅ *Conta vinculada com sucesso!*\n\n` +
-                `Olá ${firstName}, sua conta do CS:GO Scout foi vinculada ao Telegram!\n\n` +
-                `Agora você receberá alertas de jogos, mudanças de odds e análises em tempo real.\n\n` +
-                `Use /status para ver seu plano atual.\n` +
-                `Use /alerts para ver suas configurações.`,
+                `Olá ${firstName}! Sua conta na *CS2 BETDATA* agora está conectada ao nosso bot.\n` +
+                `Você começará a receber alertas exclusivos de jogos, odds e análises diretamente aqui.\n\n` +
+                `Comandos úteis:\n` +
+                `• /status – ver seu plano e situação\n` +
+                `• /alerts – revisar suas configurações de alertas\n\n` +
+                `Bom proveito e bons greens!`,
               { parse_mode: "Markdown" }
             );
           } else {

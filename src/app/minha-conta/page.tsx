@@ -110,12 +110,19 @@ export default function MinhaContaPage() {
 
         if (copied) {
           alert(
-            `Código copiado: ${linkCode}\n\nEnvie este código para o bot @CsgoScoutBot no Telegram para vincular sua conta!`
+            `Código copiado: ${linkCode}\n\nCOPIE ESTE CÓDIGO E COLE NA JANELA DO BOT @CsgoScoutBot NO TELEGRAM PARA CONCLUIR A VINCULAÇÃO.\n\nSe preferir, o código também está exibido aqui para você copiar manualmente.`
           );
         } else {
-          alert(
-            `Código gerado: ${linkCode}\n\nCopie manualmente e envie para o bot @CsgoScoutBot no Telegram para vincular sua conta.`
-          );
+          // Exibir prompt que permite copiar manualmente
+          const promptMsg =
+            "COPIE ESTE CÓDIGO E COLE NA JANELA DO BOT @CsgoScoutBot NO TELEGRAM PARA CONCLUIR A VINCULAÇÃO.";
+          const accepted = window.prompt(promptMsg, linkCode);
+
+          if (!accepted) {
+            alert(
+              `Código gerado: ${linkCode}\n\nCopie e cole no bot @CsgoScoutBot no Telegram para vincular sua conta.`
+            );
+          }
         }
 
         // Recarregar dados
