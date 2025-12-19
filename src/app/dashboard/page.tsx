@@ -1370,6 +1370,52 @@ function LiveTool() {
     }
   };
 
+  const getFavoriteInfo = (match: LiveMatch) => {
+    const home = match.scores?.home ?? 0;
+    const away = match.scores?.away ?? 0;
+    const diff = Math.abs(home - away);
+
+    if (home === away) {
+      return { team: null, confidence: "Baixa", reason: "Placar empatado" };
+    }
+
+    const leader = home > away ? match.home.name : match.away.name;
+    let confidence = "Baixa";
+    if (diff >= 6) confidence = "Alta";
+    else if (diff >= 3) confidence = "Média";
+
+    return {
+      team: leader,
+      confidence,
+      reason: `Diferença de ${diff} round(s)`,
+    };
+  };
+
+  const getLineSuggestion = (match: LiveMatch) => {
+    const total = (match.scores?.home ?? 0) + (match.scores?.away ?? 0);
+
+    // Heurística simples baseada no total de rounds já jogados.
+    if (total >= 24) {
+      return {
+        label: "Tendência Over 26.5 rounds",
+        color: "text-green-400",
+        reason: "Jogo longo, times trocando rounds",
+      };
+    }
+    if (total <= 10) {
+      return {
+        label: "Tendência Under 26.5 rounds",
+        color: "text-yellow-300",
+        reason: "Jogo curto até agora",
+      };
+    }
+    return {
+      label: "Equilíbrio — aguardar mais dados",
+      color: "text-zinc-300",
+      reason: "Placar ainda não indica linha clara",
+    };
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
@@ -1508,6 +1554,49 @@ function LiveTool() {
                   <Users className="w-4 h-4" />
                   {match.league.name}
                 </div>
+              </div>
+
+              {/* Insights rápidos */}
+              <div className="border-t border-zinc-800 pt-3">
+                <div className="flex flex-col gap-2 text-sm text-zinc-300">
+                  {(() => {
+                    const fav = getFavoriteInfo(match);
+                    return (
+                      <div className="flex items-center gap-2">
+                        <span className="px-2 py-1 rounded bg-zinc-800 border border-zinc-700 text-xs font-semibold">
+                          Favorito ao vivo
+                        </span>
+                        <span className="font-semibold">
+                          {fav.team ? fav.team : "Sem favorito claro"}
+                        </span>
+                        <span className="text-xs text-zinc-500">
+                          Confiança: {fav.confidence} ({fav.reason})
+                        </span>
+                      </div>
+                    );
+                  })()}
+
+                  {(() => {
+                    const line = getLineSuggestion(match);
+                    return (
+                      <div className="flex items-center gap-2">
+                        <span className="px-2 py-1 rounded bg-zinc-800 border border-zinc-700 text-xs font-semibold">
+                          Linha sugerida
+                        </span>
+                        <span className={`font-semibold ${line.color}`}>
+                          {line.label}
+                        </span>
+                        <span className="text-xs text-zinc-500">
+                          {line.reason}
+                        </span>
+                      </div>
+                    );
+                  })()}
+                </div>
+                <p className="text-[11px] text-zinc-500 mt-2">
+                  Sugestões indicativas baseadas no placar ao vivo. Não é
+                  recomendação de aposta.
+                </p>
               </div>
             </div>
           </div>
