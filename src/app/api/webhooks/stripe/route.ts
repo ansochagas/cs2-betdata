@@ -18,6 +18,19 @@ function getPlanFromSubscription(subscription: Stripe.Subscription): string | nu
   return pricePlanMap[priceId] || null;
 }
 
+function getPlanDurationDays(planId: string | null): number {
+  switch (planId) {
+    case "plan_monthly":
+      return 30;
+    case "plan_quarterly":
+      return 90;
+    case "plan_semestral":
+      return 180;
+    default:
+      return 0;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.text();
@@ -103,13 +116,26 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
 
   const status = subscription.status;
   const sub = subscription as any; // Type assertion para acessar propriedades não tipadas
+  const planId = getPlanFromSubscription(subscription);
+  const planDays = getPlanDurationDays(planId);
+
   const currentPeriodStart = sub.current_period_start
     ? new Date(sub.current_period_start * 1000)
     : new Date();
-  const currentPeriodEnd = sub.current_period_end
+
+  let currentPeriodEnd = sub.current_period_end
     ? new Date(sub.current_period_end * 1000)
-    : new Date();
-  const planId = getPlanFromSubscription(subscription);
+    : new Date(currentPeriodStart);
+
+  // Fallback: se vier sem current_period_end ou igual/menor que o start, estende conforme o plano
+  if (
+    (!sub.current_period_end || currentPeriodEnd <= currentPeriodStart) &&
+    planDays > 0
+  ) {
+    const end = new Date(currentPeriodStart);
+    end.setDate(end.getDate() + planDays);
+    currentPeriodEnd = end;
+  }
 
   // Atualizar status da assinatura
   await prisma.subscription.update({
