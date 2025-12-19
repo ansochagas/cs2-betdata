@@ -102,16 +102,23 @@ function mapToLiveMatch(raw: any): LiveMatch {
     awayScore = Number(raw.scores?.away || 0);
   }
 
-  const status =
+  const timerValue =
+    raw?.timer && typeof raw.timer === "object"
+      ? raw.timer.tt || raw.timer.ts || String(raw.timer.tm ?? "")
+      : raw?.timer || raw?.time_str || undefined;
+
+  const status = String(
     raw?.time_status ||
-    raw?.status ||
-    raw?.timer ||
-    raw?.time ||
-    "desconhecido";
+      raw?.status ||
+      raw?.time ||
+      raw?.time_str ||
+      raw?.timer ||
+      "desconhecido"
+  );
 
   return {
     id: String(raw?.id || raw?.ID || Math.random()),
-    time: raw?.time || raw?.time_str || "",
+    time: String(raw?.time || raw?.time_str || ""),
     league: {
       name: raw?.league?.name || raw?.league_name || "League",
       id: String(raw?.league?.id || raw?.league_id || ""),
@@ -129,7 +136,7 @@ function mapToLiveMatch(raw: any): LiveMatch {
       home: homeScore,
       away: awayScore,
     },
-    timer: raw?.timer || raw?.time_str || undefined,
+    timer: timerValue || undefined,
   };
 }
 
