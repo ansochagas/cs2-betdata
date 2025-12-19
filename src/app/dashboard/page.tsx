@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
+import { RefreshCw, Play, Clock, Users, ExternalLink } from "lucide-react";
 import TrialReminder from "@/components/TrialReminder";
 import MatchCard from "@/components/MatchCard";
 import GoldCard from "@/components/GoldCard";
@@ -1253,12 +1254,265 @@ function PlayerStatsSection({
 }
 
 function LiveTool() {
+  interface LiveMatch {
+    id: string;
+    time: string;
+    league: {
+      name: string;
+      id?: string;
+    };
+    home: { name: string; id?: string };
+    away: { name: string; id?: string };
+    status: string;
+    scores?: { home: number; away: number };
+    timer?: string;
+  }
+
+  interface APIResponse {
+    success: boolean;
+    data: LiveMatch[];
+    totalLiveMatches?: number;
+    metadata?: { recommendations?: string[] };
+  }
+
+  const [liveMatches, setLiveMatches] = useState<LiveMatch[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+
+  const fetchLiveMatches = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await fetch("/api/live-matches");
+      const data: APIResponse = await response.json();
+
+      if (data.success) {
+        setLiveMatches(data.data || []);
+        setLastUpdate(new Date());
+      } else {
+        setLiveMatches([]);
+        setError(
+          data.metadata?.recommendations?.[0] ||
+            "Nenhum jogo ao vivo encontrado"
+        );
+      }
+    } catch (err) {
+      console.error("Erro ao buscar jogos ao vivo:", err);
+      setError("Erro ao carregar jogos ao vivo");
+      setLiveMatches([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchLiveMatches();
+    const interval = setInterval(fetchLiveMatches, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const getTeamLogo = (teamName: string) => {
+    const logoMap: { [key: string]: string } = {
+      FURIA: "/logos/furia.png",
+      Fluxo: "/logos/fluxo.png",
+      "Ninjas In Pyjamas": "/logos/nip.png",
+      "FaZe Clan": "/logos/faze.png",
+      "Natus Vincere": "/logos/navi.png",
+      "G2 Esports": "/logos/g2.png",
+      "Team Vitality": "/logos/vitality.png",
+      Astralis: "/logos/astralis.png",
+      MIBR: "/logos/mibr.png",
+    };
+    return logoMap[teamName] || "/icons/counterstrike.svg";
+  };
+
+  const formatTime = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "live":
+      case "1":
+        return "bg-red-500";
+      case "scheduled":
+      case "0":
+        return "bg-blue-500";
+      case "finished":
+      case "2":
+        return "bg-green-500";
+      default:
+        return "bg-gray-500";
+    }
+  };
+
+  const getStatusText = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "live":
+      case "1":
+        return "AO VIVO";
+      case "scheduled":
+      case "0":
+        return "AGENDADO";
+      case "finished":
+      case "2":
+        return "FINALIZADO";
+      default:
+        return "DESCONHECIDO";
+    }
+  };
+
   return (
-    <div>
-      <h2 className="text-xl font-bold mb-4">Dashboard LIVE</h2>
-      <p className="text-zinc-400 mb-6">
-        Em desenvolvimento - acompanhamento em tempo real em breve
-      </p>
+    <div className="space-y-6">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <h2 className="text-2xl font-bold">Dashboard LIVE</h2>
+          <p className="text-sm text-zinc-400">
+            Jogos de CS ao vivo em tempo real
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={fetchLiveMatches}
+            disabled={loading}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 disabled:opacity-60 text-sm border border-zinc-700"
+          >
+            <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
+            Atualizar
+          </button>
+          <Link
+            href="/jogoslive"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 text-sm font-semibold"
+          >
+            Abrir em tela cheia
+            <ExternalLink className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+
+      {lastUpdate && (
+        <div className="text-xs text-zinc-500">
+          Atualizado em: {lastUpdate.toLocaleString("pt-BR")}
+        </div>
+      )}
+
+      {error && (
+        <div className="bg-red-900/20 border border-red-500 rounded-lg p-4">
+          <div className="flex items-center gap-2 text-red-300 font-semibold mb-2">
+            Atenção
+          </div>
+          <p className="text-red-200 text-sm">{error}</p>
+        </div>
+      )}
+
+      {loading && liveMatches.length === 0 && (
+        <div className="bg-zinc-800/50 border border-zinc-700 rounded-lg p-6 text-center">
+          <div className="flex items-center justify-center gap-2 text-zinc-300">
+            <RefreshCw className="w-5 h-5 animate-spin" />
+            Buscando jogos ao vivo...
+          </div>
+        </div>
+      )}
+
+      {!loading && liveMatches.length === 0 && !error && (
+        <div className="bg-zinc-800/50 border border-zinc-700 rounded-lg p-6 text-center">
+          <p className="text-zinc-300 font-semibold">
+            Nenhum jogo ao vivo agora
+          </p>
+          <p className="text-zinc-500 text-sm mt-1">
+            Volte em alguns minutos ou durante horários de torneios.
+          </p>
+        </div>
+      )}
+
+      <div className="space-y-4">
+        {liveMatches.map((match) => (
+          <div
+            key={match.id}
+            className="border border-zinc-800 rounded-xl bg-zinc-900/60 overflow-hidden"
+          >
+            <div className={`h-1 ${getStatusColor(match.status)}`}></div>
+            <div className="p-4 space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-bold text-white ${getStatusColor(
+                      match.status
+                    )}`}
+                  >
+                    {getStatusText(match.status)}
+                  </span>
+                  <span className="text-sm text-zinc-400">
+                    {match.league.name}
+                  </span>
+                </div>
+                {match.timer && (
+                  <div className="flex items-center gap-1 text-orange-400 text-sm font-mono">
+                    <Clock className="w-4 h-4" />
+                    {match.timer}
+                  </div>
+                )}
+              </div>
+
+              <div className="grid grid-cols-3 gap-3 items-center">
+                <div className="text-center space-y-2">
+                  <div className="w-14 h-14 mx-auto rounded-lg bg-zinc-800 flex items-center justify-center border border-zinc-700 overflow-hidden">
+                    <img
+                      src={getTeamLogo(match.home.name)}
+                      alt={match.home.name}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div className="text-sm font-semibold">{match.home.name}</div>
+                  <div className="text-2xl font-mono font-bold text-orange-400">
+                    {match.scores?.home ?? 0}
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <div className="text-lg font-bold text-zinc-400 mb-2">VS</div>
+                  {match.status === "1" && (
+                    <Play className="mx-auto text-red-500 animate-pulse" />
+                  )}
+                </div>
+
+                <div className="text-center space-y-2">
+                  <div className="w-14 h-14 mx-auto rounded-lg bg-zinc-800 flex items-center justify-center border border-zinc-700 overflow-hidden">
+                    <img
+                      src={getTeamLogo(match.away.name)}
+                      alt={match.away.name}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div className="text-sm font-semibold">{match.away.name}</div>
+                  <div className="text-2xl font-mono font-bold text-orange-400">
+                    {match.scores?.away ?? 0}
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 text-xs text-zinc-400 border-t border-zinc-800 pt-3">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  {formatTime(match.time)}
+                </div>
+                <div className="flex items-center gap-2">
+                  <Users className="w-4 h-4" />
+                  {match.league.name}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
