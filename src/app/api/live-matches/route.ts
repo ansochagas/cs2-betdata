@@ -180,7 +180,7 @@ export async function GET(request: NextRequest) {
     const liveData = await liveResponse.json();
     const results = Array.isArray(liveData?.results) ? liveData.results : [];
     const mapped = results.map(mapToLiveMatch);
-    const filtered = mapped.filter((m) => checkIfCsgoMatch(m));
+    const filtered = mapped.filter((m: LiveMatch) => checkIfCsgoMatch(m));
 
     return NextResponse.json({
       success: true,
