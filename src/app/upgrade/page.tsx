@@ -12,7 +12,9 @@ const plans = [
     priceDisplay: "R$ 39,90/mês",
     description: "Acesso completo com cobrança mensal",
     priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_MONTHLY,
+    pixPriceId: process.env.NEXT_PUBLIC_STRIPE_PIX_PRICE_MONTHLY,
     savings: null,
+    periodDays: 30,
   },
   {
     id: "plan_quarterly",
@@ -21,6 +23,8 @@ const plans = [
     description: "Melhor custo trimestral",
     priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_QUARTERLY,
     savings: "Economize vs. mensal",
+    pixPriceId: process.env.NEXT_PUBLIC_STRIPE_PIX_PRICE_QUARTERLY,
+    periodDays: 90,
   },
   {
     id: "plan_semestral",
@@ -29,6 +33,8 @@ const plans = [
     description: "Economia máxima no semestre",
     priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_SEMESTRAL,
     savings: "Mais barato por mês",
+    pixPriceId: process.env.NEXT_PUBLIC_STRIPE_PIX_PRICE_SEMESTRAL,
+    periodDays: 180,
   },
 ];
 
@@ -36,6 +42,7 @@ export default function Upgrade() {
   const router = useRouter();
   const { status } = useSession();
   const [loading, setLoading] = useState(false);
+  const [loadingPix, setLoadingPix] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(plans[0]?.id || "");
 
   const handleUpgrade = async () => {
@@ -81,6 +88,51 @@ export default function Upgrade() {
       alert(`Erro ao processar pagamento: ${error.message}`);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleUpgradePix = async () => {
+    if (status === "unauthenticated") {
+      alert("É preciso estar logado para contratar um plano.");
+      router.push("/login?callbackUrl=/upgrade");
+      return;
+    }
+
+    if (status === "loading") return;
+
+    setLoadingPix(true);
+    try {
+      const plan = plans.find((p) => p.id === selectedPlan);
+      if (!plan || !plan.pixPriceId) {
+        throw new Error("Plano PIX não configurado. Verifique as variáveis NEXT_PUBLIC_STRIPE_PIX_PRICE_*.");
+      }
+
+      const response = await fetch("/api/stripe/create-checkout-session-pix", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          priceId: plan.pixPriceId,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `Erro ${response.status}`);
+      }
+
+      const { url } = await response.json();
+      if (url) {
+        window.location.href = url;
+      } else {
+        throw new Error("URL de checkout PIX não recebida");
+      }
+    } catch (error: any) {
+      console.error("Erro ao criar checkout PIX:", error);
+      alert(`Erro ao processar pagamento PIX: ${error.message}`);
+    } finally {
+      setLoadingPix(false);
     }
   };
 
@@ -169,8 +221,21 @@ export default function Upgrade() {
             {loading ? "Processando..." : "Confirmar pagamento"}
           </button>
           <p className="text-center text-xs text-gray-500 mt-4">
-            Cancele quando quiser • Sem taxas ocultas
+            Cartão (recorrente) • Cancele quando quiser
           </p>
+
+          <div className="mt-4">
+            <button
+              onClick={handleUpgradePix}
+              disabled={loadingPix}
+              className="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border border-zinc-700"
+            >
+              {loadingPix ? "Gerando PIX..." : "Pagar com Pix (pré-pago)"}
+            </button>
+            <p className="text-center text-xs text-gray-500 mt-2">
+              Pix pré-pago: acesso por {plans.find((p) => p.id === selectedPlan)?.periodDays ?? "X"} dias
+            </p>
+          </div>
         </div>
       </div>
     </div>

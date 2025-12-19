@@ -228,30 +228,85 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
 }
 
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
-  const customerId = session.customer as string;
+  // Assinatura (cartão): mantém fluxo anterior
+  if (session.mode === "subscription") {
+    const customerId = session.customer as string;
 
-  const userSubscription = await prisma.subscription.findFirst({
-    where: { stripeCustomerId: customerId },
-  });
+    const userSubscription = await prisma.subscription.findFirst({
+      where: { stripeCustomerId: customerId },
+    });
 
-  if (!userSubscription) {
-    console.error(
-      `No subscription found for customer ${customerId} in checkout completion`
+    if (!userSubscription) {
+      console.error(
+        `No subscription found for customer ${customerId} in checkout completion`
+      );
+      return;
+    }
+
+    await prisma.subscription.update({
+      where: { id: userSubscription.id },
+      data: {
+        status: "active",
+      },
+    });
+
+    console.log(
+      `Checkout completed for customer ${customerId} - subscription activated`
     );
     return;
   }
 
-  // Marcar como ativa após checkout bem-sucedido
-  await prisma.subscription.update({
-    where: { id: userSubscription.id },
-    data: {
-      status: "active",
-    },
-  });
+  // Pagamento avulso (Pix): aplicar período manualmente usando metadata
+  if (session.mode === "payment") {
+    const metadata = session.metadata || {};
+    const userId = metadata.userId as string | undefined;
+    const planId = (metadata.planId as string | undefined) || "plan_monthly";
+    const periodDays = metadata.periodDays
+      ? Number(metadata.periodDays)
+      : getPlanDurationDays(planId);
 
-  console.log(
-    `Checkout completed for customer ${customerId} - subscription activated`
-  );
+    if (!userId || !periodDays) {
+      console.error(
+        "Pix checkout completed sem userId ou periodDays na metadata"
+      );
+      return;
+    }
+
+    const start = new Date();
+    const end = new Date(start);
+    end.setDate(end.getDate() + periodDays);
+
+    await prisma.subscription.upsert({
+      where: { userId },
+      update: {
+        status: "active",
+        planId,
+        currentPeriodStart: start,
+        currentPeriodEnd: end,
+        cancelAtPeriodEnd: false,
+        trialEndsAt: null,
+        ...(session.customer
+          ? { stripeCustomerId: session.customer as string }
+          : {}),
+      },
+      create: {
+        userId,
+        status: "active",
+        planId,
+        currentPeriodStart: start,
+        currentPeriodEnd: end,
+        cancelAtPeriodEnd: false,
+        trialEndsAt: null,
+        ...(session.customer
+          ? { stripeCustomerId: session.customer as string }
+          : {}),
+      },
+    });
+
+    console.log(
+      `Checkout PIX completed for user ${userId} - plan ${planId} ativo até ${end.toISOString()}`
+    );
+  }
 }
 
 function mapStripeStatus(stripeStatus: string): string {
