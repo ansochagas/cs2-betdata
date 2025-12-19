@@ -7,7 +7,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://neondb_owner:npg_gs7zOba8xZfK@ep-fragrant-breeze-adsmrqfz-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+  // Use variável de ambiente para evitar expor credenciais
+  url      = env("DATABASE_URL")
 }
 
 model User {

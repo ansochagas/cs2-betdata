@@ -27,7 +27,8 @@ export async function POST(request: NextRequest) {
 
     // Inicializar Stripe apenas quando necessário
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-      apiVersion: "2025-11-17.clover",
+      // Usar versÃ£o suportada pelo Stripe
+      apiVersion: "2022-11-15" as Stripe.LatestApiVersion,
     });
 
     const { priceId } = await request.json();

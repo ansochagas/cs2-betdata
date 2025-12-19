@@ -42,6 +42,10 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url);
     const forceRecalculate = searchParams.get("force") === "true";
+    const baseUrl =
+      process.env.INTERNAL_APP_URL ||
+      process.env.NEXTAUTH_URL ||
+      "http://localhost:3000";
 
     const today = new Date();
     const dateString = today.toISOString().split("T")[0]; // YYYY-MM-DD
@@ -79,9 +83,7 @@ export async function GET(request: NextRequest) {
     // 2. Buscar jogos do dia atual
     console.log("📅 Buscando jogos do dia atual...");
     const matchesResponse = await fetch(
-      `${
-        process.env.NEXTAUTH_URL || "http://localhost:3000"
-      }/api/pandascore/upcoming-matches?days=1`,
+      `${baseUrl}/api/pandascore/upcoming-matches?days=1`,
       {
         // Evita usar resposta cacheada do build; sempre busca dados frescos
         cache: "no-store",
@@ -164,9 +166,7 @@ export async function GET(request: NextRequest) {
 
         // Buscar análise detalhada do jogo
         const analysisResponse = await fetch(
-          `${
-            process.env.NEXTAUTH_URL || "http://localhost:3000"
-          }/api/pandascore/match-analysis?team1=${encodeURIComponent(
+          `${baseUrl}/api/pandascore/match-analysis?team1=${encodeURIComponent(
             match.homeTeam
           )}&team2=${encodeURIComponent(match.awayTeam)}`,
           {

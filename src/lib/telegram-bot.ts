@@ -1,7 +1,5 @@
 import { Telegraf } from "telegraf";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
 
 function normalizeSubscriptionStatus(status: unknown): string {
   if (!status) return "";
@@ -34,6 +32,11 @@ function isSubscriptionAccessAllowed(subscription: any): boolean {
 
 // Token do bot (vai vir das env vars)
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+// Base interna para chamadas de API sem depender de DNS/HTTPS externo
+const INTERNAL_BASE_URL =
+  process.env.INTERNAL_APP_URL ||
+  process.env.NEXTAUTH_URL ||
+  "http://localhost:3000";
 
 if (!BOT_TOKEN) {
   console.warn("⚠️ TELEGRAM_BOT_TOKEN não configurado. Bot não será iniciado.");
@@ -214,9 +217,7 @@ class TelegramBot {
 
         try {
           // Fazer requisição para API de vinculação
-          const apiUrl = `${
-            process.env.NEXTAUTH_URL || "http://localhost:3000"
-          }/api/telegram/link`;
+          const apiUrl = `${INTERNAL_BASE_URL}/api/telegram/link`;
           console.log(`🌐 Fazendo requisição para: ${apiUrl}`);
 
           const response = await fetch(apiUrl, {
