@@ -26,10 +26,9 @@ interface LiveMatch {
     away: number;
   };
   timer?: string;
-  raw: any;
 }
 
-// Função para detectar se um jogo é de CS:GO/CS2
+// Detecta se um jogo é de CS:GO/CS2 por palavras-chave
 function checkIfCsgoMatch(match: any): boolean {
   if (!match) return false;
 
@@ -41,7 +40,6 @@ function checkIfCsgoMatch(match: any): boolean {
   const homeName = (match.home?.name || match.home_name || "").toLowerCase();
   const awayName = (match.away?.name || match.away_name || "").toLowerCase();
 
-  // Palavras-chave que indicam CS:GO/CS2
   const csgoKeywords = [
     "counter",
     "strike",
@@ -53,9 +51,6 @@ function checkIfCsgoMatch(match: any): boolean {
     "esports",
     "e-sports",
     "cct",
-    "sharks",
-    "gaimin",
-    "gladiators",
     "blast",
     "iem",
     "esl",
@@ -89,20 +84,61 @@ function checkIfCsgoMatch(match: any): boolean {
   ];
 
   const allText = `${leagueName} ${homeName} ${awayName}`;
-
   return csgoKeywords.some((keyword) => allText.includes(keyword));
+}
+
+// Mapeia o resultado cru da BetsAPI para o shape usado no front
+function mapToLiveMatch(raw: any): LiveMatch {
+  let homeScore = 0;
+  let awayScore = 0;
+
+  // scores podem vir como "ss": "12-8"
+  if (typeof raw?.ss === "string" && raw.ss.includes("-")) {
+    const [h, a] = raw.ss.split("-").map((n: string) => parseInt(n, 10));
+    homeScore = Number.isFinite(h) ? h : 0;
+    awayScore = Number.isFinite(a) ? a : 0;
+  } else if (raw?.scores) {
+    homeScore = Number(raw.scores?.home || 0);
+    awayScore = Number(raw.scores?.away || 0);
+  }
+
+  const status =
+    raw?.time_status ||
+    raw?.status ||
+    raw?.timer ||
+    raw?.time ||
+    "desconhecido";
+
+  return {
+    id: String(raw?.id || raw?.ID || Math.random()),
+    time: raw?.time || raw?.time_str || "",
+    league: {
+      name: raw?.league?.name || raw?.league_name || "League",
+      id: String(raw?.league?.id || raw?.league_id || ""),
+    },
+    home: {
+      name: raw?.home?.name || raw?.home_name || "Time A",
+      id: String(raw?.home?.id || raw?.home_id || ""),
+    },
+    away: {
+      name: raw?.away?.name || raw?.away_name || "Time B",
+      id: String(raw?.away?.id || raw?.away_id || ""),
+    },
+    status: String(status),
+    scores: {
+      home: homeScore,
+      away: awayScore,
+    },
+    timer: raw?.timer || raw?.time_str || undefined,
+  };
 }
 
 export async function GET(request: NextRequest) {
   if (!API_TOKEN || API_TOKEN === "YOUR_BETSAPI_TOKEN_HERE") {
     return NextResponse.json(
       {
-        error: "API token not configured. Please set API_KEY_1 in .env file",
-        setup: {
-          step1: "Add your BETSAPI token to .env file",
-          step2: "Set API_KEY_1=your_token_here",
-          step3: "Restart the development server",
-        },
+        success: false,
+        error: "API token não configurado. Defina API_KEY_1 no .env",
       },
       { status: 400 }
     );
@@ -110,19 +146,18 @@ export async function GET(request: NextRequest) {
 
   try {
     const { searchParams } = new URL(request.url);
-    const sportId = searchParams.get("sport_id") || "151";
-    const eventId = searchParams.get("event_id"); // ID específico do BET365
+    const sportId = searchParams.get("sport_id") || "151"; // e-sports (ajustar se houver ID específico de CS2)
+    const eventId = searchParams.get("event_id");
 
     console.log(
-      `🔴 Buscando jogos AO VIVO no sport_id=${sportId} (eSports)...`
+      `🔴 Buscando jogos AO VIVO na BetsAPI sport_id=${sportId}${
+        eventId ? ` event_id=${eventId}` : ""
+      }`
     );
 
     let apiUrl = `${BETSAPI_BASE_URL}/v3/events/inplay?sport_id=${sportId}&token=${API_TOKEN}`;
-
-    // Se especificar um event_id, buscar apenas esse jogo
     if (eventId) {
-      console.log(`🎯 Buscando jogo específico: ${eventId}`);
-      apiUrl = `${BETSAPI_BASE_URL}/v3/events/inplay?sport_id=${sportId}&token=${API_TOKEN}&event_id=${eventId}`;
+      apiUrl += `&event_id=${eventId}`;
     }
 
     const liveResponse = await fetch(apiUrl, {
@@ -137,29 +172,26 @@ export async function GET(request: NextRequest) {
         {
           success: false,
           error: `Erro na API BETSAPI: ${liveResponse.status}`,
-          sportId: 151,
         },
         { status: liveResponse.status }
       );
     }
 
     const liveData = await liveResponse.json();
-    const matchCount = liveData.results?.length || 0;
+    const results = Array.isArray(liveData?.results) ? liveData.results : [];
+    const mapped = results.map(mapToLiveMatch);
+    const filtered = mapped.filter((m) => checkIfCsgoMatch(m));
 
-    console.log(`📊 Resposta completa da API para sport_id=151:`);
-    console.log(JSON.stringify(liveData, null, 2));
-
-    // Retornar a resposta INTEGRA da API
     return NextResponse.json({
       success: true,
-      sportId: 151,
-      totalMatches: matchCount,
-      rawApiResponse: liveData,
-      matches: liveData.results || [],
+      data: filtered,
+      totalLiveMatches: filtered.length,
+      csgoSportIds: [Number(sportId)],
+      testedSports: [],
       metadata: {
-        apiStatus: "success",
-        sportId: 151,
-        matchesFound: matchCount,
+        csgoLiveMatchesFound: filtered.length,
+        sportIdsTested: 1,
+        workingSportIds: filtered.length > 0 ? 1 : 0,
         timestamp: new Date().toISOString(),
       },
     });
@@ -170,8 +202,6 @@ export async function GET(request: NextRequest) {
         success: false,
         error: "Erro ao buscar jogos ao vivo",
         details: error.message,
-        sportId: 151,
-        date: new Date().toISOString().split("T")[0],
       },
       { status: 500 }
     );
