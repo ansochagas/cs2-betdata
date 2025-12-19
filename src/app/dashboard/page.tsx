@@ -1266,6 +1266,10 @@ function LiveTool() {
     status: string;
     scores?: { home: number; away: number };
     timer?: string;
+    totalRounds?: number;
+    scoreDiff?: number;
+    momentum?: "equilibrado" | "vantagem_home" | "vantagem_away";
+    statusText?: string;
   }
 
   interface APIResponse {
@@ -1558,7 +1562,7 @@ function LiveTool() {
 
               {/* Insights rápidos */}
               <div className="border-t border-zinc-800 pt-3">
-                <div className="flex flex-col gap-2 text-sm text-zinc-300">
+                <div className="flex flex-col gap-3 text-sm text-zinc-300">
                   {(() => {
                     const fav = getFavoriteInfo(match);
                     return (
@@ -1592,6 +1596,29 @@ function LiveTool() {
                       </div>
                     );
                   })()}
+
+                  <div className="grid grid-cols-2 gap-2 text-xs text-zinc-400">
+                    <div className="px-3 py-2 rounded bg-zinc-800/50 border border-zinc-800">
+                      <div className="text-[11px] uppercase tracking-wide text-zinc-500">
+                        Total de rounds
+                      </div>
+                      <div className="text-zinc-200 font-semibold">
+                        {match.totalRounds ?? (match.scores?.home ?? 0) + (match.scores?.away ?? 0)}
+                      </div>
+                    </div>
+                    <div className="px-3 py-2 rounded bg-zinc-800/50 border border-zinc-800">
+                      <div className="text-[11px] uppercase tracking-wide text-zinc-500">
+                        Momentum
+                      </div>
+                      <div className="text-zinc-200 font-semibold">
+                        {match.momentum === "vantagem_home"
+                          ? `Vantagem ${match.home.name}`
+                          : match.momentum === "vantagem_away"
+                          ? `Vantagem ${match.away.name}`
+                          : "Equilibrado"}
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <p className="text-[11px] text-zinc-500 mt-2">
                   Sugestões indicativas baseadas no placar ao vivo. Não é

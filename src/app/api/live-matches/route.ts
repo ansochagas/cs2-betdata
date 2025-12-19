@@ -26,6 +26,10 @@ interface LiveMatch {
     away: number;
   };
   timer?: string;
+  totalRounds?: number;
+  scoreDiff?: number;
+  momentum?: "equilibrado" | "vantagem_home" | "vantagem_away";
+  statusText?: string;
 }
 
 // Detecta se um jogo é de CS:GO/CS2 por palavras-chave
@@ -116,6 +120,13 @@ function mapToLiveMatch(raw: any): LiveMatch {
       "desconhecido"
   );
 
+  const totalRounds = homeScore + awayScore;
+  const scoreDiff = homeScore - awayScore;
+  let momentum: "equilibrado" | "vantagem_home" | "vantagem_away" =
+    "equilibrado";
+  if (scoreDiff > 0) momentum = "vantagem_home";
+  if (scoreDiff < 0) momentum = "vantagem_away";
+
   return {
     id: String(raw?.id || raw?.ID || Math.random()),
     time: String(raw?.time || raw?.time_str || ""),
@@ -137,6 +148,10 @@ function mapToLiveMatch(raw: any): LiveMatch {
       away: awayScore,
     },
     timer: timerValue || undefined,
+    totalRounds,
+    scoreDiff,
+    momentum,
+    statusText: status,
   };
 }
 
