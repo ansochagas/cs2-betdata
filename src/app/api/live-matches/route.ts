@@ -103,8 +103,12 @@ function isFreshEvent(raw: any, nowSeconds: number): boolean {
   if (!Number.isFinite(eventTime)) return true; // sem tempo confiável, não filtra
 
   const ageHours = (nowSeconds - eventTime) / 3600;
-  if (ageHours > 12) return false; // mais de 12h no passado
-  if (ageHours < -4) return false; // mais de 4h no futuro, improvável estar ao vivo
+
+  // Aceita eventos até 24h no passado e 6h no futuro (janelas mais tolerantes).
+  // Evita descartar jogos recém-encerrados que ainda aparecem como "inplay".
+  if (ageHours > 24) return false;
+  if (ageHours < -6) return false;
+
   return true;
 }
 
