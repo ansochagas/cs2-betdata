@@ -44,6 +44,11 @@ function checkIfCsgoMatch(match: any): boolean {
   const homeName = (match.home?.name || match.home_name || "").toLowerCase();
   const awayName = (match.away?.name || match.away_name || "").toLowerCase();
 
+  // Filtros para evitar ligas de outros jogos (dota, lol etc.)
+  const blacklist = ["dota", "dota2", "lol", "league of legends", "valorant"];
+  const combined = `${leagueName} ${homeName} ${awayName}`;
+  if (blacklist.some((word) => combined.includes(word))) return false;
+
   const csgoKeywords = [
     "counter",
     "strike",
