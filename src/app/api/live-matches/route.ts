@@ -224,6 +224,16 @@ export async function GET(request: NextRequest) {
     const mapped = freshResults.map(mapToLiveMatch);
     const filtered = mapped.filter((m: LiveMatch) => checkIfCsgoMatch(m));
 
+    console.log(
+      "LIVE-MATCHES DEBUG",
+      JSON.stringify({
+        raw: results.length,
+        fresh: freshResults.length,
+        filtered: filtered.length,
+        sample: filtered.slice(0, 3),
+      })
+    );
+
     return NextResponse.json({
       success: true,
       data: filtered,
