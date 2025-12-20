@@ -355,6 +355,47 @@ async function getTeamRecentStats(
   teamId: number,
   teamName: string
 ): Promise<TeamRecentStats> {
+  // Helper: tenta buscar stats detalhadas no endpoint CS:GO e, se falhar, no endpoint CS2.
+  async function fetchTeamStats(matchId: number) {
+    const endpoints = [
+      `${PANDASCORE_BASE_URL}/csgo/matches/${matchId}/teams/${teamId}/stats`,
+      `${PANDASCORE_BASE_URL}/cs2/matches/${matchId}/teams/${teamId}/stats`,
+    ];
+
+    for (const url of endpoints) {
+      try {
+        const statsResponse = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${PANDASCORE_API_KEY}`,
+            Accept: "application/json",
+          },
+        });
+
+        if (statsResponse.ok) {
+          const json = await statsResponse.json();
+          console.log(
+            `✅ Stats detalhadas obtidas (${url.includes("/cs2/") ? "CS2" : "CSGO"}): jogo ${matchId}, time ${teamId}`
+          );
+          return json;
+        }
+
+        const errorText = await statsResponse.text();
+        console.log(
+          `⚠️ Stats não retornadas (${url.includes("/cs2/") ? "CS2" : "CSGO"}) para jogo ${matchId}, time ${teamId} - status ${statsResponse.status}, body: ${errorText.slice(
+            0,
+            200
+          )}`
+        );
+      } catch (statsError) {
+        console.log(
+          `⚠️ Erro de rede ao buscar stats (${url.includes("/cs2/") ? "CS2" : "CSGO"}): jogo ${matchId}, time ${teamId} - ${statsError}`
+        );
+      }
+    }
+
+    return null;
+  }
+
   try {
     console.log(
       `📊 Buscando últimos 6 jogos OFICIAIS de: ${teamName} (ID: ${teamId})`
@@ -402,32 +443,8 @@ async function getTeamRecentStats(
     console.log(`📊 Analisando ${matches.length} jogos de ${teamName}:`);
 
     for (const match of matches) {
-      // Buscar estatísticas detalhadas do time neste jogo específico
-      let detailedStats = null;
-      try {
-        const statsResponse = await fetch(
-          `${PANDASCORE_BASE_URL}/csgo/matches/${match.id}/teams/${teamId}/stats`,
-          {
-            headers: {
-              Authorization: `Bearer ${PANDASCORE_API_KEY}`,
-              Accept: "application/json",
-            },
-          }
-        );
-
-        if (statsResponse.ok) {
-          detailedStats = await statsResponse.json();
-          console.log(
-            `✅ Estatísticas detalhadas encontradas para ${teamName} no jogo ${match.id}`
-          );
-        } else {
-          console.log(
-            `⚠️ Estatísticas detalhadas não disponíveis para jogo ${match.id}`
-          );
-        }
-      } catch (statsError) {
-        console.log(`⚠️ Erro ao buscar stats detalhadas: ${statsError}`);
-      }
+      // Buscar estat?sticas detalhadas do time neste jogo espec?fico
+      const detailedStats = await fetchTeamStats(match.id);
       const teamOpponent = match.opponents.find(
         (opp) => opp.opponent.id === teamId
       );
@@ -502,7 +519,7 @@ async function getTeamRecentStats(
         );
       } else {
         // Fallback para estimativas
-        const killsPerMap = result === "win" ? 25 : 20;
+        const killsPerMap = result === "win" ? 55 : 45;
         totalKills = killsPerMap * mapsPlayed;
 
         const roundsPerMap = result === "win" ? 16 : 8;
