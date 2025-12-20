@@ -519,7 +519,7 @@ async function getTeamRecentStats(
         );
       } else {
         // Fallback para estimativas
-        const killsPerMap = result === "win" ? 55 : 45;
+        const killsPerMap = result === "win" ? 75 : 65;
         totalKills = killsPerMap * mapsPlayed;
 
         const roundsPerMap = result === "win" ? 16 : 8;
