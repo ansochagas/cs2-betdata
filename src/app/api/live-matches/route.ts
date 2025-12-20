@@ -220,7 +220,7 @@ export async function GET(request: NextRequest) {
     const liveData = await liveResponse.json();
     const results = Array.isArray(liveData?.results) ? liveData.results : [];
     const nowSeconds = Math.floor(Date.now() / 1000);
-    const freshResults = results.filter((r) => isFreshEvent(r, nowSeconds));
+    const freshResults = results.filter((r: any) => isFreshEvent(r, nowSeconds));
     const mapped = freshResults.map(mapToLiveMatch);
     const filtered = mapped.filter((m: LiveMatch) => checkIfCsgoMatch(m));
 
