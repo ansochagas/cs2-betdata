@@ -9,7 +9,6 @@ import MatchCard from "@/components/MatchCard";
 import GoldCard from "@/components/GoldCard";
 import GoldListTool from "@/components/GoldListTool";
 import { TeamService } from "@/lib/team-service";
-import { TimezoneUtils } from "@/lib/timezone-utils";
 import { CacheService } from "@/services/cache-service";
 import { useRef } from "react";
 
@@ -20,6 +19,14 @@ interface SubscriptionInfo {
 }
 
 type Tool = "analysis" | "gold-list" | "live";
+
+const toBRTDate = (dateInput: string | Date): Date => {
+  const base =
+    typeof dateInput === "string" ? new Date(dateInput) : new Date(dateInput);
+  return new Date(
+    base.toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
+  );
+};
 
 export default function Dashboard() {
   const { data: session } = useSession();
@@ -331,22 +338,29 @@ function AnalysisTool() {
   };
 
   const formatTime = (dateString: string) => {
-    return TimezoneUtils.formatTimeBRT(dateString);
+    const date = toBRTDate(dateString);
+    return date.toLocaleTimeString("pt-BR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: "America/Sao_Paulo",
+    });
   };
 
   const formatDate = (dateString: string) => {
     // Se já é uma data em BRT (vem do agrupamento), converte diretamente
-    const date = new Date(dateString);
+    const date = toBRTDate(dateString);
     return date.toLocaleDateString("pt-BR", {
       weekday: "long",
       day: "2-digit",
       month: "short",
+      timeZone: "America/Sao_Paulo",
     });
   };
 
   const getMatchStatus = (startTime: string | Date) => {
     const now = new Date();
-    const matchTimeBRT = TimezoneUtils.utcToBRT(startTime);
+    const matchTimeBRT = toBRTDate(startTime);
 
     if (matchTimeBRT < now) {
       return {
@@ -413,7 +427,7 @@ function AnalysisTool() {
 
     // Encontrar melhor horário (mais jogos)
     const hourGroups = dateMatches.reduce((groups, match) => {
-      const hour = TimezoneUtils.utcToBRT(match.startTime).getHours();
+      const hour = toBRTDate(match.startTime).getHours();
       groups[hour] = (groups[hour] || 0) + 1;
       return groups;
     }, {} as Record<number, number>);
@@ -483,7 +497,7 @@ function AnalysisTool() {
         {(
           Object.entries(
             matches.reduce((groups, match) => {
-              const startTimeBRT = TimezoneUtils.utcToBRT(match.startTime);
+              const startTimeBRT = toBRTDate(match.startTime);
               const dateKey = startTimeBRT.toDateString();
               if (!groups[dateKey]) {
                 groups[dateKey] = [];
@@ -522,8 +536,8 @@ function AnalysisTool() {
                 {dateMatches
                   .sort(
                     (a, b) =>
-                      TimezoneUtils.utcToBRT(a.startTime).getTime() -
-                      TimezoneUtils.utcToBRT(b.startTime).getTime()
+                      toBRTDate(a.startTime).getTime() -
+                      toBRTDate(b.startTime).getTime()
                   )
                   .map((match) => {
                     const status = getMatchStatus(match.startTime);
@@ -1333,12 +1347,14 @@ function LiveTool() {
   };
 
   const formatTime = (dateString: string) => {
-    const date = new Date(dateString);
+    const date = toBRTDate(dateString);
     return date.toLocaleString("pt-BR", {
       day: "2-digit",
       month: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
+      hour12: false,
+      timeZone: "America/Sao_Paulo",
     });
   };
 
@@ -1646,6 +1662,7 @@ function PreLiveAnalysisModal({
   const [analyzingMatch, setAnalyzingMatch] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   // Removido: const [activeTab, setActiveTab] = useState<"overview" | "teams" | "players" | "predictions">("overview");
+  const startTimeBRT = toBRTDate(match.startTime);
 
   // Impede rolagem de fundo enquanto o modal está aberto
   useEffect(() => {
@@ -1755,16 +1772,18 @@ function PreLiveAnalysisModal({
             <div className="text-center">
               <div className="text-4xl font-bold text-orange-400 mb-2">VS</div>
               <div className="text-sm text-zinc-400">
-                {new Date(match.startTime).toLocaleDateString("pt-BR", {
+                {startTimeBRT.toLocaleDateString("pt-BR", {
                   weekday: "long",
                   day: "2-digit",
                   month: "short",
+                  timeZone: "America/Sao_Paulo",
                 })}
               </div>
               <div className="text-lg font-bold text-orange-400">
-                {new Date(match.startTime).toLocaleTimeString("pt-BR", {
+                {startTimeBRT.toLocaleTimeString("pt-BR", {
                   hour: "2-digit",
                   minute: "2-digit",
+                  timeZone: "America/Sao_Paulo",
                 })}
               </div>
             </div>
