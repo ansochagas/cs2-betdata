@@ -99,7 +99,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/" className="text-2xl font-bold text-white">
-              CSGO - DATABET
+              CS2 BETDATA
             </Link>
             <span className="text-zinc-400">•</span>
             <span className="text-zinc-400">Dashboard</span>

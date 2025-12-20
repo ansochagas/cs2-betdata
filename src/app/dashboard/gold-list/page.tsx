@@ -258,7 +258,7 @@ export default function GoldListPage() {
                 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-orange-500 bg-clip-text text-transparent"
               >
                 <span className="text-2xl font-bold text-white">
-                  CSGO - DATABET
+                  CS2 BETDATA
                 </span>
               </Link>
               <span className="text-zinc-400">•</span>

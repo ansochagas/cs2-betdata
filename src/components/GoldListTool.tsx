@@ -229,7 +229,7 @@ export default function GoldListTool() {
       {/* Footer */}
       <div className="bg-zinc-900/50 border border-zinc-700 rounded-lg p-6 text-center">
         <p className="text-gray-400 text-sm">
-          TODOS DIREITOS RESERVADOS À CSGO DATABET
+            TODOS DIREITOS RESERVADOS À CS2 BETDATA
         </p>
       </div>
     </div>

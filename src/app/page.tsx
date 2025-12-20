@@ -13,7 +13,7 @@ export default function Home() {
       <header className="absolute top-0 left-0 right-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
           <Link href="/" className="text-2xl font-bold text-white">
-            CSGO - DATABET
+            CS2 BETDATA
           </Link>
           <div className="flex items-center gap-4">
             {session ? (
@@ -59,7 +59,7 @@ export default function Home() {
             Eleve seu Jogo.
           </h1>
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8">
-            A CSGO Intel transforma dados brutos em vantagem competitiva.
+            A CS2 BETDATA transforma dados brutos em vantagem competitiva.
             Antecipe resultados, estude jogadores e domine suas apostas.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

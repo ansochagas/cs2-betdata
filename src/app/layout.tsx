@@ -5,9 +5,9 @@ import { SessionProvider } from "@/components/SessionProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CSGO - DATABET | Inteligência para apostas em CS:GO",
+  title: "CS2 BETDATA | Inteligencia para apostas em CS2",
   description:
-    "Algoritmos avançados e estatísticas em tempo real para apostar com confiança no cenário competitivo de CS:GO.",
+    "Algoritmos avancados e estatisticas em tempo real para apostar com confianca no cenario competitivo de CS2.",
 };
 
 export default function RootLayout({
