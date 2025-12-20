@@ -8,6 +8,7 @@ const API_TOKEN = process.env.API_KEY_1;
 interface LiveMatch {
   id: string;
   time: string;
+  eventTimestamp?: number;
   league: {
     name: string;
     id: string;
@@ -96,6 +97,17 @@ function checkIfCsgoMatch(match: any): boolean {
   return csgoKeywords.some((keyword) => allText.includes(keyword));
 }
 
+// Filtra eventos muito antigos ou muito futuros
+function isFreshEvent(raw: any, nowSeconds: number): boolean {
+  const eventTime = Number(raw?.time || raw?.time_str);
+  if (!Number.isFinite(eventTime)) return true; // sem tempo confiável, não filtra
+
+  const ageHours = (nowSeconds - eventTime) / 3600;
+  if (ageHours > 12) return false; // mais de 12h no passado
+  if (ageHours < -4) return false; // mais de 4h no futuro, improvável estar ao vivo
+  return true;
+}
+
 // Mapeia o resultado cru da BetsAPI para o shape usado no front
 function mapToLiveMatch(raw: any): LiveMatch {
   let homeScore = 0;
@@ -135,6 +147,7 @@ function mapToLiveMatch(raw: any): LiveMatch {
   return {
     id: String(raw?.id || raw?.ID || Math.random()),
     time: String(raw?.time || raw?.time_str || ""),
+    eventTimestamp: Number(raw?.time || raw?.time_str) || undefined,
     league: {
       name: raw?.league?.name || raw?.league_name || "League",
       id: String(raw?.league?.id || raw?.league_id || ""),
@@ -206,7 +219,9 @@ export async function GET(request: NextRequest) {
 
     const liveData = await liveResponse.json();
     const results = Array.isArray(liveData?.results) ? liveData.results : [];
-    const mapped = results.map(mapToLiveMatch);
+    const nowSeconds = Math.floor(Date.now() / 1000);
+    const freshResults = results.filter((r) => isFreshEvent(r, nowSeconds));
+    const mapped = freshResults.map(mapToLiveMatch);
     const filtered = mapped.filter((m: LiveMatch) => checkIfCsgoMatch(m));
 
     return NextResponse.json({
