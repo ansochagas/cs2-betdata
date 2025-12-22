@@ -350,32 +350,20 @@ function calculateOverKillsOpportunity(
       return null;
     }
 
-    // Estimar número de mapas (baseado em histórico)
-    const avgMapsPlayed = Math.max(
-      team1Stats.stats.avgMapsPlayed || 2.3,
-      team2Stats.stats.avgMapsPlayed || 2.3
-    );
-
-    // Calcular ações esperadas POR MAPA (kills + deaths = volume total do jogo)
-    // Em CS:GO, cada time tem ~70 ações por mapa (kills + deaths), totalizando ~140 ações por mapa
+    // Linha base: 141 kills/mapa (soma dos dois times). <141 = under; >141 = over.
+    const LINE_KILLS = 141;
     const team1Kills = team1Stats.stats.avgKillsPerMap || 0;
     const team2Kills = team2Stats.stats.avgKillsPerMap || 0;
 
-    // Cálculo correto: cada time ~70 ações = total ~140 ações por mapa
-    // As kills atuais representam parte das ações, multiplicamos para chegar ao total real
-    const expectedKillsPerMap = Math.round((team1Kills + team2Kills) * 3.07); // ~140 ações por mapa
+    const combinedKillsPerMap = team1Kills + team2Kills;
+    const tip = combinedKillsPerMap >= LINE_KILLS ? "OVER 141" : "UNDER 141";
+    const distanceFromLine = Math.abs(combinedKillsPerMap - LINE_KILLS);
 
-    // Thresholds realistas baseados no formato (total de ações por mapa):
-    // Best-of-1: 70+ ações/mapa
-    // Best-of-3: 140+ ações/mapa (média real de CS:GO ~140 ações)
-    // Best-of-5: 210+ ações/mapa
-    const minThresholdPerMap = 120; // Threshold mínimo por mapa (~140 ações)
-
-    if (expectedKillsPerMap < minThresholdPerMap) {
+    if (combinedKillsPerMap <= 0) {
       return null;
     }
 
-    // Calcular confiança baseada na consistência dos dados
+    // Calcular confian??a baseada na consist??ncia dos dados
     const team1Games = team1Stats.stats.totalMatches;
     const team2Games = team2Stats.stats.totalMatches;
     const confidence = Math.min((team1Games + team2Games) / 20, 1) * 0.85; // Max 85%
@@ -398,9 +386,11 @@ function calculateOverKillsOpportunity(
         tournament: match.tournament,
         scheduledAt: match.scheduledAt,
       },
-      expectedValue: expectedKillsPerMap,
+      expectedValue: distanceFromLine, // quanto se afasta da linha 141 (maior = sinal mais forte)
       confidence: finalConfidence,
-      reasoning: `${expectedKillsPerMap} ações esperadas por mapa. Times com ${team1Stats.stats.avgKillsPerMap.toFixed(
+      reasoning: `${combinedKillsPerMap.toFixed(
+        1
+      )} kills/mapa somados. Linha base 141 ? sugest?o ${tip}. Times: ${team1Stats.stats.avgKillsPerMap.toFixed(
         1
       )} + ${team2Stats.stats.avgKillsPerMap.toFixed(1)} kills/mapa`,
       analysis: {

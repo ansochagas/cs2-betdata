@@ -123,21 +123,29 @@ export default function GoldListPage() {
   const calculateGoldPicks = (matches: Match[]): GoldPick[] => {
     const goldPicks: GoldPick[] = [];
 
-    // 1. Melhor do dia para OVER KILLS (maior média de kills por mapa)
-    const overKillsMatch = matches
+    // 1. KILLS POR MAPA (soma das m??dias dos dois times)
+    // Linha base: 141 kills/mapa. <141 sugere UNDER; >141 sugere OVER.
+    const LINE_KILLS = 141;
+    const killsMatches = matches
       .filter((m) => m.stats?.avgKillsPerMap)
-      .sort(
-        (a, b) =>
-          (b.stats?.avgKillsPerMap || 0) - (a.stats?.avgKillsPerMap || 0)
-      )[0];
+      .map((m) => {
+        const team1Kills = m.stats?.avgKillsPerMap || 0;
+        const team2Kills = m.stats?.avgKillsPerMap || 0;
+        const combined = team1Kills + team2Kills;
+        const tip = combined >= LINE_KILLS ? "OVER 141" : "UNDER 141";
+        const distance = Math.abs(combined - LINE_KILLS);
+        return { match: m, combined, tip, distance };
+      })
+      .sort((a, b) => b.distance - a.distance);
 
-    if (overKillsMatch) {
+    if (killsMatches.length > 0) {
+      const best = killsMatches[0];
       goldPicks.push({
-        title: "OVER KILLS",
-        description: "Maior média de kills por mapa",
-        match: overKillsMatch,
-        value: `${overKillsMatch.stats?.avgKillsPerMap.toFixed(1)} kills/mapa`,
-        icon: "🔥",
+        title: "KILLS POR MAPA",
+        description: "Soma das m??dias dos dois times vs linha 141",
+        match: best.match,
+        value: `${best.combined.toFixed(1)} kills/mapa ? Sugest??o: ${best.tip}`,
+        icon: "????",
         color: "from-red-500 to-orange-500",
       });
     }
