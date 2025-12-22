@@ -39,6 +39,7 @@ export default function Dashboard() {
     planId: "trial",
   });
   const fetchedSubscription = useRef(false);
+  const postCheckoutRef = useRef(false);
 
   const tools = [
     {
