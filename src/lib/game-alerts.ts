@@ -282,6 +282,197 @@ export class GameAlertsService {
   }
 
   /**
+   * Envia alertas de jogos da Lista de Ouro (tips de aposta)
+   */
+  private async sendGoldListAlerts(users: any[]): Promise<number> {
+    try {
+      const baseUrl =
+        process.env.NEXTAUTH_URL ||
+        process.env.INTERNAL_APP_URL ||
+        "http://localhost:3000";
+
+      const goldResponse = await fetch(`${baseUrl}/api/gold-list`, {
+        cache: "no-store",
+      });
+
+      if (!goldResponse.ok) {
+        console.warn("[alerts] Não foi possível buscar Lista de Ouro para tips");
+        return 0;
+      }
+
+      const goldData = await goldResponse.json();
+      const categories = goldData?.data?.categories;
+      if (!categories) return 0;
+
+      const now = new Date();
+      const maxAhead = new Date(now.getTime() + 120 * 60 * 1000); // próximas 2h
+      const minWindow = new Date(now.getTime() - 15 * 60 * 1000); // evitar jogo já muito iniciado
+
+      const opportunities: Array<{
+        category: "overKills" | "overRounds" | "moneyline";
+        data: any;
+      }> = [];
+
+      for (const cat of ["overKills", "overRounds", "moneyline"] as const) {
+        (categories[cat] || []).forEach((opp: any) =>
+          opportunities.push({ category: cat, data: opp })
+        );
+      }
+
+      const validOpps = opportunities.filter(({ data }) => {
+        if (!data?.match?.scheduledAt) return false;
+        const gameTime = new Date(data.match.scheduledAt);
+        return gameTime >= minWindow && gameTime <= maxAhead;
+      });
+
+      if (validOpps.length === 0) return 0;
+
+      const activeUsers = users.filter((user) =>
+        isSubscriptionAccessAllowed(user.subscription)
+      );
+      if (activeUsers.length === 0) return 0;
+
+      const telegramBot = getTelegramBot();
+      let sent = 0;
+
+      for (const opp of validOpps) {
+        const alertKey = `gold-${opp.category}-${opp.data.match.id}-${new Date()
+          .toISOString()
+          .split("T")[0]}`;
+        if (this.isAlertAlreadySent(alertKey)) {
+          continue;
+        }
+
+        const message = this.createGoldTipMessage(opp.data, opp.category);
+        if (!message) continue;
+
+        for (const user of activeUsers) {
+          try {
+            const destinationChatId =
+              user.telegramConfig?.chatId || user.telegramId;
+            const success = await telegramBot.sendMessage(
+              destinationChatId,
+              message,
+              { parse_mode: "Markdown" }
+            );
+            if (success) sent++;
+          } catch (error) {
+            console.error(
+              `[alerts] Erro ao enviar tip da Lista de Ouro para ${user.telegramId}:`,
+              error
+            );
+          }
+        }
+
+        this.markAlertAsSent(alertKey);
+      }
+
+      return sent;
+    } catch (error) {
+      console.error("[alerts] Erro ao enviar tips da Lista de Ouro:", error);
+      return 0;
+    }
+  }
+
+  /**
+   * Cria mensagem para tip da Lista de Ouro
+   */
+  private createGoldTipMessage(
+    opportunity: any,
+    category: "overKills" | "overRounds" | "moneyline"
+  ): string | null {
+    const match = opportunity.match;
+    if (!match) return null;
+
+    const gameTime = match.scheduledAt ? new Date(match.scheduledAt) : null;
+    const timeString = gameTime
+      ? gameTime.toLocaleTimeString("pt-BR", {
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZone: "America/Sao_Paulo",
+        })
+      : "Em breve";
+
+    const home = match.homeTeam || "Time A";
+    const away = match.awayTeam || "Time B";
+    const tournament = match.tournament || match.league?.name || "Torneio";
+
+    if (category === "overKills") {
+      const team1Kills =
+        opportunity.analysis?.team1Stats?.stats?.avgKillsPerMap || 0;
+      const team2Kills =
+        opportunity.analysis?.team2Stats?.stats?.avgKillsPerMap || 0;
+      const combined = team1Kills + team2Kills;
+      const tip = combined >= 141 ? "OVER 141 KILLS" : "UNDER 141 KILLS";
+
+      return `🚨 *JOGO DA LISTA DE OURO*
+${home} vs ${away}
+${tournament} — ${timeString} (BRT)
+
+💡 *Tip:* ${tip}
+📊 Média combinada: ${combined.toFixed(
+        1
+      )} kills/mapa
+
+Aproveite o início do jogo para buscar a linha!`;
+    }
+
+    if (category === "overRounds") {
+      const team1Rounds =
+        opportunity.analysis?.team1Stats?.stats?.avgRoundsPerMap || 0;
+      const team2Rounds =
+        opportunity.analysis?.team2Stats?.stats?.avgRoundsPerMap || 0;
+      const expectedRounds = team1Rounds + team2Rounds;
+
+      return `🚨 *JOGO DA LISTA DE OURO*
+${home} vs ${away}
+${tournament} — ${timeString} (BRT)
+
+💡 *Tip:* OVER ROUNDS
+📊 Média estimada: ${expectedRounds.toFixed(
+        1
+      )} rounds/mapa
+
+Jogo equilibrado e disputado — boa chance de linhas altas.`;
+    }
+
+    if (category === "moneyline") {
+      const t1 = opportunity.analysis?.team1Stats?.stats;
+      const t2 = opportunity.analysis?.team2Stats?.stats;
+      if (!t1 || !t2) return null;
+
+      const team1Score =
+        (t1.winRate || 0) * 0.4 +
+        (((t1.recentForm?.split("W").length || 1) - 1) / 5) * 0.3 +
+        (t1.avgKillsPerMap / 100) * 0.3;
+      const team2Score =
+        (t2.winRate || 0) * 0.4 +
+        (((t2.recentForm?.split("W").length || 1) - 1) / 5) * 0.3 +
+        (t2.avgKillsPerMap / 100) * 0.3;
+
+      const predictedWinner = team1Score >= team2Score ? home : away;
+      const confidence = Math.min(
+        Math.abs(team1Score - team2Score) * 0.8,
+        0.95
+      );
+
+      return `🚨 *JOGO DA LISTA DE OURO*
+${home} vs ${away}
+${tournament} — ${timeString} (BRT)
+
+💡 *Tip:* ${predictedWinner} para vencer
+📈 Confiança: ${(confidence * 100).toFixed(
+        0
+      )}%
+
+Acompanhe as odds antes do início para capturar valor.`;
+    }
+
+    return null;
+  }
+
+
+  /**
    * Verifica se alerta já foi enviado
    */
   private isAlertAlreadySent(alertKey: string): boolean {
