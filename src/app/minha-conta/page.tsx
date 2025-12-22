@@ -91,60 +91,44 @@ export default function MinhaContaPage() {
 
       const data = await response.json();
 
-            if (data.success) {
-        const linkCode = data.data.linkCode as string;
+      if (!data.success) {
+        alert("Erro ao gerar código: " + data.error);
+        return;
+      }
 
-        // Texto de instru??es
-        const instructions = `?? Vincular ao Telegram
+      const linkCode = data.data.linkCode as string;
+
+      const instructions = `🚀 Vincular ao Telegram
 
 Passo 1: Abra o bot @CSGOScoutbot (https://t.me/CSGOScoutbot)
-Passo 2: Copie o c?digo abaixo e envie no chat do bot
-C?digo: ${linkCode}
+Passo 2: Copie o código abaixo e envie no chat do bot
+Código: ${linkCode}
 
-Depois de enviar, aguarde a confirma??o no bot.`;
+Depois de enviar, aguarde a confirmação no bot.`;
 
-        // Tentar copiar automaticamente
-        let copied = false;
-        if (
-          typeof navigator !== "undefined" &&
-          navigator.clipboard &&
-          typeof navigator.clipboard.writeText === "function"
-        ) {
-          try {
-            await navigator.clipboard.writeText(linkCode);
-            copied = true;
-          } catch (error) {
-            console.warn("Falha ao copiar c?digo para clipboard:", error);
-          }
+      let copied = false;
+      if (
+        typeof navigator !== "undefined" &&
+        navigator.clipboard &&
+        typeof navigator.clipboard.writeText === "function"
+      ) {
+        try {
+          await navigator.clipboard.writeText(linkCode);
+          copied = true;
+        } catch (error) {
+          console.warn("Falha ao copiar código para clipboard:", error);
         }
-
-        // Alerta com texto selecion?vel (mostra link do bot e o c?digo)
-        if (copied) {
-          alert(`${instructions}
-
-? C?digo copiado automaticamente.`);
-        } else {
-          alert(
-            `${instructions}
-
-?? Se n?o copiou automaticamente, selecione o c?digo acima e copie.`
-          );
-        }
-
-        // Recarregar dados
-        fetchAccountData();
-      } else {
-        alert("Erro ao gerar c?digo: " + data.error);
       }
-    } catch (error) {
-      console.error("Erro:", error);
-      alert("Erro ao gerar c?digo de vincula??o");
-    }
-// Recarregar dados
-        fetchAccountData();
+
+      if (copied) {
+        alert(`${instructions}\n\n✅ Código copiado automaticamente.`);
       } else {
-        alert("Erro ao gerar código: " + data.error);
+        alert(
+          `${instructions}\n\n⚠️ Se não copiou automaticamente, selecione o código acima e copie.`
+        );
       }
+
+      fetchAccountData();
     } catch (error) {
       console.error("Erro:", error);
       alert("Erro ao gerar código de vinculação");
