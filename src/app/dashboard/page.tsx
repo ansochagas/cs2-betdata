@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -29,7 +29,7 @@ const toBRTDate = (dateInput: string | Date): Date => {
   );
 };
 
-export default function Dashboard() {
+function DashboardContent() {
   const { data: session } = useSession();
   const searchParams = useSearchParams();
   const [activeTool, setActiveTool] = useState<Tool>("analysis");
@@ -268,6 +268,14 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <Suspense fallback={null}>
+      <DashboardContent />
+    </Suspense>
   );
 }
 
