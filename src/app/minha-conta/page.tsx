@@ -91,10 +91,20 @@ export default function MinhaContaPage() {
 
       const data = await response.json();
 
-      if (data.success) {
+            if (data.success) {
         const linkCode = data.data.linkCode as string;
-        let copied = false;
 
+        // Texto de instru??es
+        const instructions = `?? Vincular ao Telegram
+
+Passo 1: Abra o bot @CSGOScoutbot (https://t.me/CSGOScoutbot)
+Passo 2: Copie o c?digo abaixo e envie no chat do bot
+C?digo: ${linkCode}
+
+Depois de enviar, aguarde a confirma??o no bot.`;
+
+        // Tentar copiar automaticamente
+        let copied = false;
         if (
           typeof navigator !== "undefined" &&
           navigator.clipboard &&
@@ -104,28 +114,33 @@ export default function MinhaContaPage() {
             await navigator.clipboard.writeText(linkCode);
             copied = true;
           } catch (error) {
-            console.warn("Falha ao copiar código para clipboard:", error);
+            console.warn("Falha ao copiar c?digo para clipboard:", error);
           }
         }
 
+        // Alerta com texto selecion?vel (mostra link do bot e o c?digo)
         if (copied) {
-          alert(
-            `Código copiado: ${linkCode}\n\nCOPIE ESTE CÓDIGO E COLE NA JANELA DO BOT @CsgoScoutBot NO TELEGRAM PARA CONCLUIR A VINCULAÇÃO.\n\nSe preferir, o código também está exibido aqui para você copiar manualmente.`
-          );
-        } else {
-          // Exibir prompt que permite copiar manualmente
-          const promptMsg =
-            "COPIE ESTE CÓDIGO E COLE NA JANELA DO BOT @CsgoScoutBot NO TELEGRAM PARA CONCLUIR A VINCULAÇÃO.";
-          const accepted = window.prompt(promptMsg, linkCode);
+          alert(`${instructions}
 
-          if (!accepted) {
-            alert(
-              `Código gerado: ${linkCode}\n\nCopie e cole no bot @CsgoScoutBot no Telegram para vincular sua conta.`
-            );
-          }
+? C?digo copiado automaticamente.`);
+        } else {
+          alert(
+            `${instructions}
+
+?? Se n?o copiou automaticamente, selecione o c?digo acima e copie.`
+          );
         }
 
         // Recarregar dados
+        fetchAccountData();
+      } else {
+        alert("Erro ao gerar c?digo: " + data.error);
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro ao gerar c?digo de vincula??o");
+    }
+// Recarregar dados
         fetchAccountData();
       } else {
         alert("Erro ao gerar código: " + data.error);
