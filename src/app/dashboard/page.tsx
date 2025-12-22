@@ -31,6 +31,7 @@ const toBRTDate = (dateInput: string | Date): Date => {
 
 export default function Dashboard() {
   const { data: session } = useSession();
+  const searchParams = useSearchParams();
   const [activeTool, setActiveTool] = useState<Tool>("analysis");
   const [subscriptionInfo, setSubscriptionInfo] = useState<SubscriptionInfo>({
     status: "TRIALING",
