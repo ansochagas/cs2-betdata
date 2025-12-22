@@ -173,10 +173,13 @@ class CSGOAPI {
   private isWithinRange(timestamp: number) {
     const matchDate = new Date(timestamp * 1000);
     const now = new Date();
+
+    // Permitir jogos em andamento (não filtrar por estar no passado recente)
+    // Janela: aceita jogos até LOOKAHEAD_DAYS no futuro
     const maxDate = new Date(now);
     maxDate.setDate(now.getDate() + LOOKAHEAD_DAYS);
 
-    return matchDate >= now && matchDate <= maxDate;
+    return matchDate <= maxDate;
   }
 
   private looksLikeCsgo(match: any) {
