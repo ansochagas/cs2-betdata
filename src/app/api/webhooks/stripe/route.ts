@@ -226,9 +226,9 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
     },
   });
 
-  console.log(
-    `Updated subscription for user ${userSubscription.user.email}: ${status}`
-  );
+  const userEmail =
+    (userSubscription as any)?.user?.email || userSubscription.userId || customerId;
+  console.log(`Updated subscription for customer ${customerId} (${userEmail}): ${status}`);
 }
 
 async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
