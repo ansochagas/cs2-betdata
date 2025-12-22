@@ -123,15 +123,14 @@ export default function GoldListPage() {
   const calculateGoldPicks = (matches: Match[]): GoldPick[] => {
     const goldPicks: GoldPick[] = [];
 
-    // 1. KILLS POR MAPA (soma das m??dias dos dois times)
+    // 1. KILLS POR MAPA (soma das medias dos dois times)
     // Linha base: 141 kills/mapa. <141 sugere UNDER; >141 sugere OVER.
     const LINE_KILLS = 141;
     const killsMatches = matches
       .filter((m) => m.stats?.avgKillsPerMap)
       .map((m) => {
-        const team1Kills = m.stats?.avgKillsPerMap || 0;
-        const team2Kills = m.stats?.avgKillsPerMap || 0;
-        const combined = team1Kills + team2Kills;
+        // stats.avgKillsPerMap ja vem combinado (time A + time B)
+        const combined = m.stats?.avgKillsPerMap || 0;
         const tip = combined >= LINE_KILLS ? "OVER 141" : "UNDER 141";
         const distance = Math.abs(combined - LINE_KILLS);
         return { match: m, combined, tip, distance };
@@ -142,10 +141,10 @@ export default function GoldListPage() {
       const best = killsMatches[0];
       goldPicks.push({
         title: "KILLS POR MAPA",
-        description: "Soma das m??dias dos dois times vs linha 141",
+        description: "Soma das medias dos dois times vs linha 141",
         match: best.match,
-        value: `${best.combined.toFixed(1)} kills/mapa ? Sugest??o: ${best.tip}`,
-        icon: "????",
+        value: `${best.combined.toFixed(1)} kills/mapa - Sugestao: ${best.tip}`,
+        icon: "🔥",
         color: "from-red-500 to-orange-500",
       });
     }

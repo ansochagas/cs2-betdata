@@ -390,7 +390,7 @@ function calculateOverKillsOpportunity(
       confidence: finalConfidence,
       reasoning: `${combinedKillsPerMap.toFixed(
         1
-      )} kills/mapa somados. Linha base 141 ? sugest?o ${tip}. Times: ${team1Stats.stats.avgKillsPerMap.toFixed(
+      )} kills/mapa somados. Linha base 141 -> sugestao ${tip}. Times: ${team1Stats.stats.avgKillsPerMap.toFixed(
         1
       )} + ${team2Stats.stats.avgKillsPerMap.toFixed(1)} kills/mapa`,
       analysis: {
