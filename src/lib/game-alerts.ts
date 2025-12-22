@@ -40,6 +40,7 @@ type CheckResult = {
   alertsSent: number;
   gamesStartingSoon: number;
   usersWithAlerts: number;
+  goldTipsSent?: number;
   error?: boolean;
 };
 
@@ -153,26 +154,25 @@ export class GameAlertsService {
         `[alerts] ${usersWithAlerts.length} usuários com alertas ativos`
       );
 
-      if (gamesStartingSoon.length === 0) {
-        return {
-          alertsSent: 0,
-          gamesStartingSoon: 0,
-          usersWithAlerts: usersWithAlerts.length,
-        };
-      }
-
       let totalAlertsSent = 0;
 
-      // Enviar alertas para cada jogo
+      // Enviar alertas para jogos prestes a começar (fluxo existente)
       for (const game of gamesStartingSoon) {
-        const sentForGame = await this.sendGameAlert(game, usersWithAlerts);
+        const sentForGame = await this.sendGameAlert(
+          game,
+          usersWithAlerts
+        );
         totalAlertsSent += sentForGame;
       }
+
+      // Enviar alertas da Lista de Ouro (novos tips)
+      const goldTipsSent = await this.sendGoldListAlerts(usersWithAlerts);
 
       return {
         alertsSent: totalAlertsSent,
         gamesStartingSoon: gamesStartingSoon.length,
         usersWithAlerts: usersWithAlerts.length,
+        goldTipsSent,
       };
     } catch (error) {
       console.error("[alerts] Erro no serviço de alertas:", error);
