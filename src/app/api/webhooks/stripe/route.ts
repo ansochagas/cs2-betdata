@@ -4,6 +4,9 @@ import Stripe from "stripe";
 import { prisma } from "@/lib/prisma";
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: "2022-11-15" as Stripe.LatestApiVersion,
+});
 const pricePlanMap: Record<string, string> = {
   [process.env.STRIPE_PRICE_MONTHLY || ""]: "plan_monthly",
   [process.env.STRIPE_PRICE_QUARTERLY || ""]: "plan_quarterly",
@@ -28,6 +31,75 @@ function getPlanDurationDays(planId: string | null): number {
       return 180;
     default:
       return 0;
+  }
+}
+
+async function ensureSubscriptionByCustomer(
+  customerId: string,
+  planId?: string | null,
+  status?: string,
+  periodStart?: Date,
+  periodEnd?: Date,
+  trialEndsAt?: Date | null
+) {
+  const existing = await prisma.subscription.findFirst({
+    where: { stripeCustomerId: customerId },
+  });
+  if (existing) return existing;
+
+  try {
+    const customer = await stripeClient.customers.retrieve(customerId);
+    const userId =
+      (customer as any)?.metadata?.userId ||
+      (customer as any)?.metadata?.userid ||
+      null;
+
+    if (!userId) {
+      console.warn(
+        `⚠️ Não foi possível associar customer ${customerId} a um userId (sem metadata)`
+      );
+      return null;
+    }
+
+    const start = periodStart || new Date();
+    const end =
+      periodEnd ||
+      (() => {
+        const d = new Date(start);
+        if (planId) d.setDate(d.getDate() + getPlanDurationDays(planId));
+        return d;
+      })();
+
+    const sub = await prisma.subscription.upsert({
+      where: { userId },
+      update: {
+        stripeCustomerId: customerId,
+        planId: planId || undefined,
+        status: status || "active",
+        currentPeriodStart: start,
+        currentPeriodEnd: end,
+        trialEndsAt: trialEndsAt ?? null,
+      },
+      create: {
+        userId,
+        stripeCustomerId: customerId,
+        planId: planId || "plan_monthly",
+        status: status || "active",
+        currentPeriodStart: start,
+        currentPeriodEnd: end,
+        trialEndsAt: trialEndsAt ?? null,
+      },
+    });
+
+    console.log(
+      `✅ Assinatura criada/atualizada via fallback para user ${userId} (customer ${customerId})`
+    );
+    return sub;
+  } catch (err: any) {
+    console.error(
+      `Erro ao recuperar/associar customer ${customerId}: ${err.message}`
+    );
+    return null;
   }
 }
 
@@ -104,10 +176,12 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
   const customerId = subscription.customer as string;
 
   // Buscar usuário pelo customer ID
-  const userSubscription = await prisma.subscription.findFirst({
-    where: { stripeCustomerId: customerId },
-    include: { user: true },
-  });
+  const userSubscription =
+    (await prisma.subscription.findFirst({
+      where: { stripeCustomerId: customerId },
+      include: { user: true },
+    })) ||
+    (await ensureSubscriptionByCustomer(customerId, getPlanFromSubscription(subscription), undefined, undefined, undefined, subscription.trial_end ? new Date(subscription.trial_end * 1000) : null));
 
   if (!userSubscription) {
     console.error(`No subscription found for customer ${customerId}`);
@@ -160,9 +234,10 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
 async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   const customerId = subscription.customer as string;
 
-  const userSubscription = await prisma.subscription.findFirst({
-    where: { stripeCustomerId: customerId },
-  });
+  const userSubscription =
+    (await prisma.subscription.findFirst({
+      where: { stripeCustomerId: customerId },
+    })) || (await ensureSubscriptionByCustomer(customerId));
 
   if (!userSubscription) {
     console.error(`No subscription found for customer ${customerId}`);
@@ -184,9 +259,10 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
   const customerId = invoice.customer as string;
 
-  const userSubscription = await prisma.subscription.findFirst({
-    where: { stripeCustomerId: customerId },
-  });
+  const userSubscription =
+    (await prisma.subscription.findFirst({
+      where: { stripeCustomerId: customerId },
+    })) || (await ensureSubscriptionByCustomer(customerId));
 
   if (!userSubscription) {
     console.error(`No subscription found for customer ${customerId}`);
@@ -232,9 +308,11 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   if (session.mode === "subscription") {
     const customerId = session.customer as string;
 
-    const userSubscription = await prisma.subscription.findFirst({
-      where: { stripeCustomerId: customerId },
-    });
+    const userSubscription =
+      (await prisma.subscription.findFirst({
+        where: { stripeCustomerId: customerId },
+      })) ||
+      (await ensureSubscriptionByCustomer(customerId, null, "active"));
 
     if (!userSubscription) {
       console.error(
