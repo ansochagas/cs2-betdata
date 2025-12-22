@@ -66,14 +66,15 @@ export async function GET(request: NextRequest) {
       avgMaps: Math.round(
         ((team1Stats.avgMaps || 1) + (team2Stats.avgMaps || 1)) / 2
       ),
+      // Para a Lista de Ouro, precisamos da soma das kills por mapa dos dois times
+      // Ex.: 70 + 70 ~ 140 kills/mapa combinados (linha base 141).
       avgKillsPerMap: Math.round(
-        ((team1Stats.avgKillsPerMap || 15) +
-          (team2Stats.avgKillsPerMap || 15)) /
-          2
+        (team1Stats.avgKillsPerMap || 70) + (team2Stats.avgKillsPerMap || 70)
       ),
+      // Rounds podem permanecer como média entre os dois times
       avgRoundsPerMap: Math.round(
-        ((team1Stats.avgRoundsPerMap || 25) +
-          (team2Stats.avgRoundsPerMap || 25)) /
+        ((team1Stats.avgRoundsPerMap || 26) +
+          (team2Stats.avgRoundsPerMap || 26)) /
           2
       ),
     };
@@ -153,8 +154,8 @@ function getBaseStatsForTeam(teamName: string): {
     return {
       totalMatches: 45,
       avgMaps: 2,
-      avgKillsPerMap: 18,
-      avgRoundsPerMap: 28,
+      avgKillsPerMap: 72,
+      avgRoundsPerMap: 26,
     };
   }
 
@@ -170,8 +171,8 @@ function getBaseStatsForTeam(teamName: string): {
     return {
       totalMatches: 35,
       avgMaps: 2,
-      avgKillsPerMap: 16,
-      avgRoundsPerMap: 26,
+      avgKillsPerMap: 68,
+      avgRoundsPerMap: 25,
     };
   }
 
@@ -179,7 +180,7 @@ function getBaseStatsForTeam(teamName: string): {
   return {
     totalMatches: 25,
     avgMaps: 1,
-    avgKillsPerMap: 14,
+    avgKillsPerMap: 64,
     avgRoundsPerMap: 24,
   };
 }
