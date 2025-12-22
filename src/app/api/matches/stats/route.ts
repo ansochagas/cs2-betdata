@@ -36,20 +36,21 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const team1Id = searchParams.get("team1");
     const team2Id = searchParams.get("team2");
-    const team1Name = searchParams.get("team1Name");
-    const team2Name = searchParams.get("team2Name");
+    const team1Name = searchParams.get("team1Name") || team1Id;
+    const team2Name = searchParams.get("team2Name") || team2Id;
 
-    if (!team1Id || !team2Id || !team1Name || !team2Name) {
+    // Aceita nomes mesmo sem IDs (para não quebrar a Lista de Ouro)
+    if (!team1Name || !team2Name) {
       return NextResponse.json(
         {
-          error: "Parâmetros obrigatórios: team1, team2, team1Name, team2Name",
+          error: "Parâmetros obrigatórios: informe team1 e team2 (nome ou id)",
         },
         { status: 400 }
       );
     }
 
     // Verificar cache
-    const cacheKey = `${team1Id}-${team2Id}`;
+    const cacheKey = `${team1Name}-${team2Name}`;
     const cached = statsCache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
       return NextResponse.json(cached.data);
@@ -57,8 +58,8 @@ export async function GET(request: NextRequest) {
 
     // Buscar estatísticas dos times
     const [team1Stats, team2Stats] = await Promise.all([
-      calculateTeamStats(team1Id, team1Name),
-      calculateTeamStats(team2Id, team2Name),
+      calculateTeamStats(team1Id || team1Name, team1Name),
+      calculateTeamStats(team2Id || team2Name, team2Name),
     ]);
 
     // Calcular médias combinadas (baseado em confrontos diretos se possível)
