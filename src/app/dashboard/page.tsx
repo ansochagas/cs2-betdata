@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { RefreshCw, Play, Clock, Users, ExternalLink } from "lucide-react";
 import TrialReminder from "@/components/TrialReminder";
 import MatchCard from "@/components/MatchCard";
@@ -10,7 +11,7 @@ import GoldCard from "@/components/GoldCard";
 import GoldListTool from "@/components/GoldListTool";
 import { TeamService } from "@/lib/team-service";
 import { CacheService } from "@/services/cache-service";
-import { useRef } from "react";
+
 
 interface SubscriptionInfo {
   status: string;
@@ -62,30 +63,41 @@ export default function Dashboard() {
     },
   ];
 
-  // Buscar informações da assinatura (uma vez por sessão)
-  useEffect(() => {
-    const fetchSubscriptionInfo = async () => {
-      try {
-        const response = await fetch("/api/user/subscription");
-        const data = await response.json();
+  // Buscar informações da assinatura
+  const fetchSubscriptionInfo = useCallback(async () => {
+    try {
+      const response = await fetch("/api/user/subscription");
+      const data = await response.json();
 
-        if (data.success && data.validation) {
-          setSubscriptionInfo({
-            status: data.validation.status,
-            daysRemaining: data.validation.daysRemaining,
-            planId: data.subscription?.planId || "trial",
-          });
-        }
-      } catch (error) {
-        console.error("Erro ao buscar informações da assinatura:", error);
+      if (data.success && data.validation) {
+        setSubscriptionInfo({
+          status: data.validation.status,
+          daysRemaining: data.validation.daysRemaining,
+          planId: data.subscription?.planId || "trial",
+        });
       }
-    };
+    } catch (error) {
+      console.error("Erro ao buscar informações da assinatura:", error);
+    }
+  }, []);
 
+  // Buscar uma vez por sessão
+  useEffect(() => {
     if (session?.user && !fetchedSubscription.current) {
       fetchedSubscription.current = true;
       fetchSubscriptionInfo();
     }
-  }, [session]);
+  }, [session, fetchSubscriptionInfo]);
+
+  // Pós-checkout: se voltar com success=true e session_id, forçar refresh
+  useEffect(() => {
+    const success = searchParams.get("success");
+    const sessionId = searchParams.get("session_id");
+    if (success === "true" && sessionId && !postCheckoutRef.current) {
+      postCheckoutRef.current = true;
+      fetchSubscriptionInfo();
+    }
+  }, [searchParams, fetchSubscriptionInfo]);
 
   const handleSignOut = () => {
     signOut({ callbackUrl: "/" });
