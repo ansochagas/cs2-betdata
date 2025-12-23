@@ -22,6 +22,8 @@ interface GoldListOpportunity {
   expectedValue: number;
   confidence: number;
   reasoning: string;
+  tip?: string;
+  deltaFromLine?: number;
   analysis: {
     team1Stats: any;
     team2Stats: any;
@@ -366,6 +368,15 @@ function CategorySection({
                     className={`text-2xl font-bold ${colorClasses.text} mb-1`}
                   >
                     {formatValue(opportunity.expectedValue)}
+                  </div>
+                )}
+                {opportunity.tip && (
+                  <div className="text-xs text-gray-400">
+                    Sugestão: {opportunity.tip}
+                    {typeof opportunity.deltaFromLine === "number" &&
+                    !Number.isNaN(opportunity.deltaFromLine)
+                      ? ` (Δ ${opportunity.deltaFromLine.toFixed(1)})`
+                      : ""}
                   </div>
                 )}
                 <div

@@ -15,6 +15,8 @@ interface GoldListOpportunity {
   expectedValue: number;
   confidence: number;
   reasoning: string;
+  tip?: string;
+  deltaFromLine?: number;
   analysis: {
     team1Stats: any;
     team2Stats: any;
@@ -234,8 +236,13 @@ export async function GET(request: NextRequest) {
     }
 
     // 4. Ordenar e limitar resultados (TOP 5 por categoria)
-    opportunities.overKills.sort((a, b) => b.expectedValue - a.expectedValue);
     opportunities.overKills = opportunities.overKills
+      .sort((a, b) => {
+        const deltaA = Math.abs(a.deltaFromLine ?? 0);
+        const deltaB = Math.abs(b.deltaFromLine ?? 0);
+        if (deltaB !== deltaA) return deltaB - deltaA;
+        return b.expectedValue - a.expectedValue;
+      })
       .slice(0, 5)
       .map((opp, index) => ({
         ...opp,
@@ -355,9 +362,9 @@ function calculateOverKillsOpportunity(
     const team1Kills = team1Stats.stats.avgKillsPerMap || 0;
     const team2Kills = team2Stats.stats.avgKillsPerMap || 0;
 
-    const combinedKillsPerMap = team1Kills + team2Kills;
+    const combinedKillsPerMap = Number((team1Kills + team2Kills).toFixed(1));
+    const deltaFromLine = Number((combinedKillsPerMap - LINE_KILLS).toFixed(1));
     const tip = combinedKillsPerMap >= LINE_KILLS ? "OVER 141" : "UNDER 141";
-    const distanceFromLine = Math.abs(combinedKillsPerMap - LINE_KILLS);
 
     if (combinedKillsPerMap <= 0) {
       return null;
@@ -386,13 +393,17 @@ function calculateOverKillsOpportunity(
         tournament: match.tournament,
         scheduledAt: match.scheduledAt,
       },
-      expectedValue: distanceFromLine, // quanto se afasta da linha 141 (maior = sinal mais forte)
+      expectedValue: combinedKillsPerMap, // valor exibido: kills combinadas por mapa
+      deltaFromLine, // desvio em relaÇõÇœo Çÿ linha 141
+      tip,
       confidence: finalConfidence,
       reasoning: `${combinedKillsPerMap.toFixed(
         1
-      )} kills/mapa somados. Linha base 141 -> sugestao ${tip}. Times: ${team1Stats.stats.avgKillsPerMap.toFixed(
+      )} kills/mapa somados. Linha base 141 -> sugestÇõÇœo ${tip}. Times: ${team1Stats.stats.avgKillsPerMap.toFixed(
         1
-      )} + ${team2Stats.stats.avgKillsPerMap.toFixed(1)} kills/mapa`,
+      )} + ${team2Stats.stats.avgKillsPerMap.toFixed(1)} kills/mapa (Δ=${deltaFromLine.toFixed(
+        1
+      )})`,
       analysis: {
         team1Stats,
         team2Stats,
