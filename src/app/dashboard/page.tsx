@@ -1529,7 +1529,7 @@ function LiveTool() {
           >
             <div className={`h-1 ${getStatusColor(match.status)}`}></div>
             <div className="p-4 space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-bold text-white ${getStatusColor(
@@ -1550,7 +1550,7 @@ function LiveTool() {
                 )}
               </div>
 
-              <div className="grid grid-cols-3 gap-3 items-center">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
                 <div className="text-center space-y-2">
                   <div className="w-14 h-14 mx-auto rounded-lg bg-zinc-800 flex items-center justify-center border border-zinc-700 overflow-hidden">
                     <img
@@ -1587,7 +1587,7 @@ function LiveTool() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 text-xs text-zinc-400 border-t border-zinc-800 pt-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-zinc-400 border-t border-zinc-800 pt-3">
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
                   {formatTime(match.time)}
@@ -1604,7 +1604,7 @@ function LiveTool() {
                   {(() => {
                     const fav = getFavoriteInfo(match);
                     return (
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                         <span className="px-2 py-1 rounded bg-zinc-800 border border-zinc-700 text-xs font-semibold">
                           Favorito ao vivo
                         </span>
@@ -1621,7 +1621,7 @@ function LiveTool() {
                   {(() => {
                     const line = getLineSuggestion(match);
                     return (
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                         <span className="px-2 py-1 rounded bg-zinc-800 border border-zinc-700 text-xs font-semibold">
                           Linha sugerida
                         </span>

@@ -122,9 +122,9 @@ export default function MatchCard({ match, teamLogos }: MatchCardProps) {
       <div className="p-6">
         <div className="space-y-4">
           {/* Times */}
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4">
             {/* Time Casa */}
-            <div className="flex items-center gap-3 flex-1">
+            <div className="flex items-center gap-3 flex-1 w-full sm:w-auto">
               <Image
                 src={getTeamLogo(match.homeTeam)}
                 alt={match.homeTeam}
@@ -153,7 +153,7 @@ export default function MatchCard({ match, teamLogos }: MatchCardProps) {
             </div>
 
             {/* Time Visitante */}
-            <div className="flex items-center gap-3 flex-1 justify-end">
+            <div className="flex items-center gap-3 flex-1 w-full sm:w-auto sm:justify-end justify-between sm:justify-between">
               <div className="flex-1 text-right">
                 <span className="font-bold text-white text-lg block">
                   {match.awayTeam}
@@ -177,7 +177,7 @@ export default function MatchCard({ match, teamLogos }: MatchCardProps) {
                   Cotações Moneyline
                 </span>
               </div>
-              <div className="flex justify-center gap-8">
+              <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-orange-400 mb-1">
                     {match.odds.moneyline.home.toFixed(2)}
