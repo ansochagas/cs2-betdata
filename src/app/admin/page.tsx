@@ -18,6 +18,9 @@ import {
   Settings,
   HelpCircle,
   Activity,
+  Shield,
+  RefreshCw,
+  Lock,
 } from "lucide-react";
 
 interface AdminStats {
@@ -60,6 +63,20 @@ export default function AdminDashboard() {
   const [telegramUnlinkResult, setTelegramUnlinkResult] = useState<string | null>(
     null
   );
+  const [subSearchEmail, setSubSearchEmail] = useState("");
+  const [subsList, setSubsList] = useState<any[]>([]);
+  const [loadingSubs, setLoadingSubs] = useState(false);
+  const [updatingSub, setUpdatingSub] = useState(false);
+  const [subForm, setSubForm] = useState({
+    email: "",
+    planId: "",
+    status: "",
+    currentPeriodEnd: "",
+  });
+  const [subResult, setSubResult] = useState<string | null>(null);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetResult, setResetResult] = useState<string | null>(null);
+  const [resetLoading, setResetLoading] = useState(false);
 
   useEffect(() => {
     // Verificar se usuário é admin
@@ -286,6 +303,94 @@ export default function AdminDashboard() {
       }
     } catch (error) {
       console.error("Erro ao carregar status dos alertas de jogos:", error);
+    }
+  };
+
+  const handleLoadSubscriptions = async () => {
+    try {
+      setLoadingSubs(true);
+      setSubResult(null);
+      const query = subSearchEmail ? `?email=${encodeURIComponent(subSearchEmail)}` : "";
+      const response = await fetch(`/api/admin/subscriptions${query}`);
+      const data = await response.json();
+      if (data.success) {
+        setSubsList(data.data || []);
+      } else {
+        setSubResult(data.error || "Erro ao carregar assinaturas");
+      }
+    } catch (error) {
+      setSubResult("Erro ao carregar assinaturas");
+    } finally {
+      setLoadingSubs(false);
+    }
+  };
+
+  const handleSelectSub = (sub: any) => {
+    setSubForm({
+      email: sub.email,
+      planId: sub.subscription?.planId || "",
+      status: sub.subscription?.status || "",
+      currentPeriodEnd: sub.subscription?.currentPeriodEnd
+        ? new Date(sub.subscription.currentPeriodEnd).toISOString().slice(0, 10)
+        : "",
+    });
+  };
+
+  const handleUpdateSub = async () => {
+    if (!subForm.email) {
+      setSubResult("Informe o email");
+      return;
+    }
+    try {
+      setUpdatingSub(true);
+      setSubResult(null);
+      const payload: any = { email: subForm.email };
+      if (subForm.planId) payload.planId = subForm.planId;
+      if (subForm.status) payload.status = subForm.status;
+      if (subForm.currentPeriodEnd) payload.currentPeriodEnd = subForm.currentPeriodEnd;
+
+      const response = await fetch("/api/admin/subscriptions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json();
+      if (data.success) {
+        setSubResult("Assinatura atualizada");
+        handleLoadSubscriptions();
+      } else {
+        setSubResult(data.error || "Erro ao atualizar");
+      }
+    } catch (error) {
+      setSubResult("Erro ao atualizar");
+    } finally {
+      setUpdatingSub(false);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    if (!resetEmail) {
+      setResetResult("Informe o email");
+      return;
+    }
+    try {
+      setResetLoading(true);
+      setResetResult(null);
+      const response = await fetch("/api/admin/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: resetEmail }),
+      });
+      const data = await response.json();
+      if (data.success) {
+        setResetResult(`Senha temporária: ${data.tempPassword}`);
+      } else {
+        setResetResult(data.error || "Erro ao resetar");
+      }
+    } catch (error) {
+      setResetResult("Erro ao resetar senha");
+    } finally {
+      setResetLoading(false);
     }
   };
 
@@ -817,6 +922,209 @@ export default function AdminDashboard() {
                   </div>
                 </div>
               )}
+            </div>
+
+            {/* Gestão de Assinaturas */}
+            <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <Shield className="text-green-400" size={24} />
+                  <h3 className="text-lg font-semibold">
+                    Gestão de Assinaturas (Admin)
+                  </h3>
+                </div>
+                <button
+                  onClick={handleLoadSubscriptions}
+                  disabled={loadingSubs}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-50"
+                >
+                  <RefreshCw className={`w-4 h-4 ${loadingSubs ? "animate-spin" : ""}`} />
+                  Carregar
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div className="md:col-span-2">
+                  <label className="block text-sm text-zinc-300 mb-1">
+                    Buscar por email
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="email"
+                      value={subSearchEmail}
+                      onChange={(e) => setSubSearchEmail(e.target.value)}
+                      className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:border-orange-500 focus:outline-none"
+                      placeholder="cliente@email.com"
+                    />
+                    <button
+                      onClick={handleLoadSubscriptions}
+                      disabled={loadingSubs}
+                      className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg disabled:opacity-50"
+                    >
+                      Buscar
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {subResult && (
+                <div
+                  className={`mb-4 p-3 rounded-lg text-sm ${
+                    subResult.toLowerCase().includes("erro")
+                      ? "bg-red-500/20 border border-red-500/50 text-red-300"
+                      : "bg-green-500/20 border border-green-500/50 text-green-300"
+                  }`}
+                >
+                  {subResult}
+                </div>
+              )}
+
+              {subsList.length > 0 && (
+                <div className="space-y-3 mb-4 max-h-64 overflow-y-auto">
+                  {subsList.map((u) => (
+                    <button
+                      key={u.id}
+                      onClick={() => handleSelectSub(u)}
+                      className="w-full text-left p-3 rounded-lg border border-zinc-800 bg-zinc-900 hover:border-orange-500/50 transition-colors"
+                    >
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="font-semibold text-white">{u.email}</p>
+                          <p className="text-xs text-zinc-400">{u.name || ""}</p>
+                        </div>
+                        <div className="text-right text-xs text-zinc-400">
+                          <div>{u.subscription?.planId || "sem plano"}</div>
+                          <div>{u.subscription?.status || "N/A"}</div>
+                          {u.subscription?.currentPeriodEnd && (
+                            <div>
+                              até{" "}
+                              {new Date(
+                                u.subscription.currentPeriodEnd
+                              ).toLocaleDateString("pt-BR")}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="md:col-span-1">
+                  <label className="block text-sm text-zinc-300 mb-1">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    value={subForm.email}
+                    onChange={(e) =>
+                      setSubForm((prev) => ({ ...prev, email: e.target.value }))
+                    }
+                    className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:border-orange-500 focus:outline-none"
+                    placeholder="cliente@email.com"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-zinc-300 mb-1">
+                    Plano
+                  </label>
+                  <select
+                    value={subForm.planId}
+                    onChange={(e) =>
+                      setSubForm((prev) => ({ ...prev, planId: e.target.value }))
+                    }
+                    className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:border-orange-500 focus:outline-none"
+                  >
+                    <option value="">(manter)</option>
+                    <option value="plan_monthly">Mensal</option>
+                    <option value="plan_quarterly">Trimestral</option>
+                    <option value="plan_semestral">Semestral</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm text-zinc-300 mb-1">
+                    Status
+                  </label>
+                  <select
+                    value={subForm.status}
+                    onChange={(e) =>
+                      setSubForm((prev) => ({ ...prev, status: e.target.value }))
+                    }
+                    className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:border-orange-500 focus:outline-none"
+                  >
+                    <option value="">(manter)</option>
+                    <option value="active">ACTIVE</option>
+                    <option value="trialing">TRIALING</option>
+                    <option value="past_due">PAST_DUE</option>
+                    <option value="canceled">CANCELED</option>
+                    <option value="expired">EXPIRED</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm text-zinc-300 mb-1">
+                    Fim do período
+                  </label>
+                  <input
+                    type="date"
+                    value={subForm.currentPeriodEnd}
+                    onChange={(e) =>
+                      setSubForm((prev) => ({
+                        ...prev,
+                        currentPeriodEnd: e.target.value,
+                      }))
+                    }
+                    className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:border-orange-500 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-4">
+                <button
+                  onClick={handleUpdateSub}
+                  disabled={updatingSub || !subForm.email}
+                  className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg disabled:opacity-50"
+                >
+                  {updatingSub ? "Salvando..." : "Salvar alterações"}
+                </button>
+              </div>
+            </div>
+
+            {/* Reset de senha (admin) */}
+            <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <Lock className="text-orange-400" size={22} />
+                <h3 className="text-lg font-semibold">Reset de senha (admin)</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+                <div className="md:col-span-2">
+                  <label className="block text-sm text-zinc-300 mb-1">
+                    Email do usuário
+                  </label>
+                  <input
+                    type="email"
+                    value={resetEmail}
+                    onChange={(e) => setResetEmail(e.target.value)}
+                    className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:border-orange-500 focus:outline-none"
+                    placeholder="cliente@email.com"
+                  />
+                </div>
+                <button
+                  onClick={handleResetPassword}
+                  disabled={resetLoading || !resetEmail}
+                  className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg disabled:opacity-50"
+                >
+                  {resetLoading ? "Gerando..." : "Gerar senha temporária"}
+                </button>
+              </div>
+              {resetResult && (
+                <div className="mt-3 p-3 rounded-lg bg-zinc-800 border border-zinc-700 text-sm text-zinc-200">
+                  {resetResult}
+                </div>
+              )}
+              <p className="text-xs text-zinc-500 mt-2">
+                A senha temporária é exibida aqui para você entregar ao cliente. Recomende que ele altere imediatamente após o login.
+              </p>
             </div>
           </div>
 
