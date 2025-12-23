@@ -581,12 +581,12 @@ function AnalysisTool() {
                         )}
 
                         <div className="p-6">
-                          <div className="flex items-center justify-between mb-6">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                             {/* Teams */}
-                            <div className="flex items-center justify-center gap-8 flex-1">
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 flex-1 w-full">
                               {/* Home Team */}
-                              <div className="flex flex-col items-center gap-2 min-w-[120px]">
-                                <div className="w-12 h-12 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-xl flex items-center justify-center border border-orange-500/30 overflow-hidden">
+                              <div className="flex flex-col items-center gap-2 min-w-[110px] sm:min-w-[130px] w-full sm:w-auto">
+                                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-xl flex items-center justify-center border border-orange-500/30 overflow-hidden">
                                   {teamLogos[match.homeTeam] ? (
                                     <img
                                       src={teamLogos[match.homeTeam]!}
@@ -597,8 +597,8 @@ function AnalysisTool() {
                                     <span className="text-2xl">🏆</span>
                                   )}
                                 </div>
-                                <div className="text-center">
-                                  <div className="font-bold text-white text-sm leading-tight">
+                                <div className="text-center min-w-0">
+                                  <div className="font-bold text-white text-sm leading-tight break-words">
                                     {match.homeTeam}
                                   </div>
                                   <div className="text-xs text-zinc-400 mt-1">
@@ -612,14 +612,14 @@ function AnalysisTool() {
                                 <div className="text-3xl font-bold text-orange-400 mb-1 group-hover:scale-110 transition-transform">
                                   VS
                                 </div>
-                                <div className="text-xs text-zinc-400 font-medium">
+                                <div className="text-xs text-zinc-400 font-medium break-words">
                                   {match.league}
                                 </div>
                               </div>
 
                               {/* Away Team */}
-                              <div className="flex flex-col items-center gap-2 min-w-[120px]">
-                                <div className="w-12 h-12 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-xl flex items-center justify-center border border-cyan-500/30 overflow-hidden">
+                              <div className="flex flex-col items-center gap-2 min-w-[110px] sm:min-w-[130px] w-full sm:w-auto">
+                                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-xl flex items-center justify-center border border-cyan-500/30 overflow-hidden">
                                   {teamLogos[match.awayTeam] ? (
                                     <img
                                       src={teamLogos[match.awayTeam]!}
@@ -630,8 +630,8 @@ function AnalysisTool() {
                                     <span className="text-2xl">🎯</span>
                                   )}
                                 </div>
-                                <div className="text-center">
-                                  <div className="font-bold text-white text-sm leading-tight">
+                                <div className="text-center min-w-0">
+                                  <div className="font-bold text-white text-sm leading-tight break-words">
                                     {match.awayTeam}
                                   </div>
                                   <div className="text-xs text-zinc-400 mt-1">
@@ -642,7 +642,7 @@ function AnalysisTool() {
                             </div>
 
                             {/* Time and Status */}
-                            <div className="text-right">
+                            <div className="text-left sm:text-right w-full sm:w-auto">
                               <div className="text-xl font-bold text-orange-400 mb-1">
                                 {formatTime(match.startTime)}
                               </div>
@@ -662,12 +662,12 @@ function AnalysisTool() {
                                   Cotações Moneyline
                                 </span>
                               </div>
-                              <div className="flex justify-center gap-6">
+                              <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
                                 <div className="text-center">
                                   <div className="text-2xl font-bold text-orange-400 mb-1">
                                     {match.odds.moneyline.home.toFixed(2)}
                                   </div>
-                                  <div className="text-xs text-gray-400">
+                                  <div className="text-xs text-gray-400 break-words">
                                     {match.homeTeam}
                                   </div>
                                 </div>
@@ -684,7 +684,7 @@ function AnalysisTool() {
                                   <div className="text-2xl font-bold text-cyan-400 mb-1">
                                     {match.odds.moneyline.away.toFixed(2)}
                                   </div>
-                                  <div className="text-xs text-gray-400">
+                                  <div className="text-xs text-gray-400 break-words">
                                     {match.awayTeam}
                                   </div>
                                 </div>
