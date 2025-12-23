@@ -62,11 +62,13 @@ async function ensureSubscriptionByCustomer(
     }
 
     const start = periodStart || new Date();
+    const durationDays =
+      getPlanDurationDays(planId || null) || 30; // fallback seguro de 30 dias
     const end =
       periodEnd ||
       (() => {
         const d = new Date(start);
-        if (planId) d.setDate(d.getDate() + getPlanDurationDays(planId));
+        d.setDate(d.getDate() + durationDays);
         return d;
       })();
 
@@ -191,7 +193,7 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
   const status = subscription.status;
   const sub = subscription as any; // Type assertion para acessar propriedades não tipadas
   const planId = getPlanFromSubscription(subscription);
-  const planDays = getPlanDurationDays(planId);
+  const planDays = getPlanDurationDays(planId) || 30; // fallback seguro
 
   const currentPeriodStart = sub.current_period_start
     ? new Date(sub.current_period_start * 1000)
@@ -308,28 +310,22 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   if (session.mode === "subscription") {
     const customerId = session.customer as string;
 
-    const userSubscription =
-      (await prisma.subscription.findFirst({
-        where: { stripeCustomerId: customerId },
-      })) ||
-      (await ensureSubscriptionByCustomer(customerId, null, "active"));
-
-    if (!userSubscription) {
+    if (!session.subscription) {
       console.error(
         `No subscription found for customer ${customerId} in checkout completion`
       );
       return;
     }
 
-    await prisma.subscription.update({
-      where: { id: userSubscription.id },
-      data: {
-        status: "active",
-      },
-    });
+    // Buscar assinatura real na Stripe para usar datas/status corretos
+    const stripeSub = await stripeClient.subscriptions.retrieve(
+      session.subscription as string
+    );
+
+    await handleSubscriptionChange(stripeSub);
 
     console.log(
-      `Checkout completed for customer ${customerId} - subscription activated`
+      `Checkout completed for customer ${customerId} - subscription synced via Stripe data`
     );
     return;
   }
