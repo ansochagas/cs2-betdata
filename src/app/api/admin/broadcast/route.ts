@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { PrismaClient } from "@prisma/client";
-import { alertService } from "@/lib/alert-service";
 
 const prisma = new PrismaClient();
 
@@ -13,20 +12,20 @@ interface BroadcastRequest {
 
 export async function POST(request: NextRequest) {
   try {
-    // Verificar se usuário é admin
+    // Verificar se usuario e admin
     const session = await getServerSession();
 
     if (!session?.user?.email) {
       return NextResponse.json(
-        { success: false, error: "Não autenticado" },
+        { success: false, error: "Nao autenticado" },
         { status: 401 }
       );
     }
 
-    // Verificar se é admin
+    // Verificar se e admin
     const adminEmails = [
       "admin@csgoscout.com",
-      "andersonchagas45@gmail.com", // Conta admin criada
+      "andersonchagas45@gmail.com",
     ];
 
     if (!adminEmails.includes(session.user.email)) {
@@ -40,12 +39,12 @@ export async function POST(request: NextRequest) {
 
     if (!title || !message) {
       return NextResponse.json(
-        { success: false, error: "Título e mensagem são obrigatórios" },
+        { success: false, error: "Titulo e mensagem sao obrigatorios" },
         { status: 400 }
       );
     }
 
-    // Construir filtro baseado no target (aceitando maiúsculas/minúsculas)
+    // Construir filtro baseado no target (aceitando maiusculas/minusculas)
     let subscriptionFilter: any = {};
 
     switch (target) {
@@ -57,11 +56,11 @@ export async function POST(request: NextRequest) {
         break;
       case "all":
       default:
-        // Para "all", não aplicamos filtro de subscription
+        // Para "all", nao aplicamos filtro de subscription
         break;
     }
 
-    // Buscar usuários com Telegram vinculado baseado no target
+    // Buscar usuarios com Telegram vinculado baseado no target
     let usersWithTelegram;
 
     if (target === "all") {
@@ -88,13 +87,13 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(
-      `?? Broadcast para ${usersWithTelegram.length} usuários (${target})`
+      `Broadcast para ${usersWithTelegram.length} usuarios (${target})`
     );
 
     if (usersWithTelegram.length === 0) {
       return NextResponse.json({
         success: false,
-        error: `Nenhum usuário encontrado para o target "${target}"`,
+        error: `Nenhum usuario encontrado para o target "${target}"`,
       });
     }
 
@@ -106,11 +105,11 @@ export async function POST(request: NextRequest) {
       message +
       "\n\nCS2 BETDATA | Bot: @CSGOScoutbot";
 
-    // Enviar para cada usuário
+    // Enviar para cada usuario
     let successCount = 0;
     let errorCount = 0;
 
-    // Importar telegramBot dinamicamente para evitar problemas de inicialização
+    // Importar telegramBot dinamicamente para evitar problemas de inicializacao
     const { getTelegramBot } = await import("@/lib/telegram-bot");
     const telegramBot = getTelegramBot();
 
@@ -135,16 +134,16 @@ export async function POST(request: NextRequest) {
           errorCount++;
         }
 
-        // Pequena pausa para não sobrecarregar a API
+        // Pequena pausa para nao sobrecarregar a API
         await new Promise((resolve) => setTimeout(resolve, 200));
       } catch (error) {
         errorCount++;
-        console.error(`? Erro ao enviar broadcast para ${user.name}:`, error);
+        console.error(`Erro ao enviar broadcast para ${user.name}:`, error);
       }
     }
 
     console.log(
-      `?? Broadcast concluído: ${successCount} sucesso, ${errorCount} erros`
+      `Broadcast concluido: ${successCount} sucesso, ${errorCount} erros`
     );
 
     return NextResponse.json({
@@ -152,7 +151,7 @@ export async function POST(request: NextRequest) {
       sentCount: successCount,
       errorCount,
       totalTargeted: usersWithTelegram.length,
-      message: `Mensagem enviada para ${successCount} de ${usersWithTelegram.length} usuários`,
+      message: `Mensagem enviada para ${successCount} de ${usersWithTelegram.length} usuarios`,
     });
   } catch (error: any) {
     console.error("Erro no broadcast:", error);
