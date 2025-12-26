@@ -9,6 +9,8 @@ import TrialReminder from "@/components/TrialReminder";
 import MatchCard from "@/components/MatchCard";
 import GoldCard from "@/components/GoldCard";
 import GoldListTool from "@/components/GoldListTool";
+import OnboardingCard from "@/components/OnboardingCard";
+import { isOnboardingEnabled } from "@/lib/feature-flags";
 import { TeamService } from "@/lib/team-service";
 import { CacheService } from "@/services/cache-service";
 
@@ -147,6 +149,12 @@ function DashboardContent() {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        {isOnboardingEnabled() && (
+          <div className="mb-8">
+            <OnboardingCard />
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar - Tools Navigation */}
           <div className="lg:col-span-1">
