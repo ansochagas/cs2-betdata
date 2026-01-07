@@ -45,6 +45,46 @@ const EFFECTIVE_GAME_ALERT_WINDOW_END_MINUTES =
     ? GAME_ALERT_WINDOW_END_MINUTES
     : 10;
 
+const ENABLE_PRELIVE_SEEDER =
+  (process.env.ENABLE_PRELIVE_SEEDER || "true") === "true";
+const PRELIVE_SEED_INTERVAL_MS = Number.parseInt(
+  process.env.PRELIVE_SEED_INTERVAL_MS || "",
+  10
+);
+const PRELIVE_SEED_LOOKAHEAD_DAYS = Number.parseInt(
+  process.env.PRELIVE_SEED_LOOKAHEAD_DAYS || "",
+  10
+);
+const PRELIVE_SEED_MAX_MATCHES_PER_RUN = Number.parseInt(
+  process.env.PRELIVE_SEED_MAX_MATCHES_PER_RUN || "",
+  10
+);
+const PRELIVE_SEED_DELAY_MS = Number.parseInt(
+  process.env.PRELIVE_SEED_DELAY_MS || "",
+  10
+);
+
+const EFFECTIVE_PRELIVE_SEED_INTERVAL_MS =
+  Number.isFinite(PRELIVE_SEED_INTERVAL_MS) &&
+  PRELIVE_SEED_INTERVAL_MS > 0
+    ? PRELIVE_SEED_INTERVAL_MS
+    : 60 * 60 * 1000; // 1 hora
+const EFFECTIVE_PRELIVE_SEED_LOOKAHEAD_DAYS =
+  Number.isFinite(PRELIVE_SEED_LOOKAHEAD_DAYS) &&
+  PRELIVE_SEED_LOOKAHEAD_DAYS > 0
+    ? PRELIVE_SEED_LOOKAHEAD_DAYS
+    : 1;
+const EFFECTIVE_PRELIVE_SEED_MAX_MATCHES =
+  Number.isFinite(PRELIVE_SEED_MAX_MATCHES_PER_RUN) &&
+  PRELIVE_SEED_MAX_MATCHES_PER_RUN > 0
+    ? PRELIVE_SEED_MAX_MATCHES_PER_RUN
+    : 50;
+const EFFECTIVE_PRELIVE_SEED_DELAY_MS =
+  Number.isFinite(PRELIVE_SEED_DELAY_MS) && PRELIVE_SEED_DELAY_MS >= 0
+    ? PRELIVE_SEED_DELAY_MS
+    : 300;
+
+
 const prisma = new PrismaClient();
 
 function normalizeSubscriptionStatus(status) {
@@ -352,8 +392,12 @@ function formatGameAlertMessage(game) {
 }
 
 async function fetchUpcomingMatches() {
+  return fetchUpcomingMatchesByDays(1);
+}
+
+async function fetchUpcomingMatchesByDays(days) {
   const response = await fetch(
-    `${INTERNAL_APP_URL}/api/pandascore/upcoming-matches?days=1`,
+    `${INTERNAL_APP_URL}/api/pandascore/upcoming-matches?days=${days}`,
     { headers: { Accept: "application/json" } }
   );
   if (!response.ok) {
@@ -363,9 +407,92 @@ async function fetchUpcomingMatches() {
   }
   const data = await response.json();
   if (!data?.success || !Array.isArray(data.data)) {
-    throw new Error("Resposta inválida da API de jogos.");
+    throw new Error("Resposta invalida da API de jogos.");
   }
   return data.data;
+}
+
+
+let preliveIntervalHandle = null;
+let isPreliveSeeding = false;
+
+async function seedPrelivePredictions() {
+  if (!ENABLE_PRELIVE_SEEDER || isPreliveSeeding) return;
+
+  isPreliveSeeding = true;
+  try {
+    const matches = await fetchUpcomingMatchesByDays(
+      EFFECTIVE_PRELIVE_SEED_LOOKAHEAD_DAYS
+    );
+
+    if (!matches.length) {
+      return;
+    }
+
+    const matchIds = matches.map((match) => String(match.id));
+    const existing = await prisma.matchPrediction.findMany({
+      where: {
+        source: "prelive",
+        matchId: { in: matchIds },
+      },
+      select: { matchId: true },
+    });
+    const existingIds = new Set(existing.map((item) => item.matchId));
+    const pending = matches.filter(
+      (match) => !existingIds.has(String(match.id))
+    );
+
+    if (pending.length === 0) {
+      return;
+    }
+
+    const toProcess = pending.slice(0, EFFECTIVE_PRELIVE_SEED_MAX_MATCHES);
+    console.log(
+      `[telegram-worker] Seed prelive: ${toProcess.length}/${pending.length} jogos pendentes`
+    );
+
+    for (const match of toProcess) {
+      const params = new URLSearchParams();
+      params.set("team1", match.homeTeam);
+      params.set("team2", match.awayTeam);
+      params.set("matchId", String(match.id));
+      params.set("source", "prelive");
+      if (match.scheduledAt) {
+        params.set("scheduledAt", match.scheduledAt);
+      }
+      if (match.tournament) {
+        params.set("tournament", match.tournament);
+      }
+      if (match.homeTeamId) {
+        params.set("homeTeamId", String(match.homeTeamId));
+      }
+      if (match.awayTeamId) {
+        params.set("awayTeamId", String(match.awayTeamId));
+      }
+
+      const url = `${INTERNAL_APP_URL}/api/pandascore/match-analysis?${params.toString()}`;
+      const response = await fetch(url, { headers: { Accept: "application/json" } });
+      const data = await safeJson(response);
+
+      if (!response.ok || !data?.success) {
+        console.log(
+          `[telegram-worker] Seed prelive falhou para match ${match.id} (${match.homeTeam} vs ${match.awayTeam})`
+        );
+      } else {
+        console.log(
+          `[telegram-worker] Seed prelive ok para match ${match.id} (${match.homeTeam} vs ${match.awayTeam})`
+        );
+      }
+
+      if (EFFECTIVE_PRELIVE_SEED_DELAY_MS > 0) {
+        await sleep(EFFECTIVE_PRELIVE_SEED_DELAY_MS);
+      }
+    }
+  } catch (error) {
+    console.error("[telegram-worker] Erro no seed prelive:", error);
+  } finally {
+    isPreliveSeeding = false;
+  }
 }
 
 async function getUsersToAlert() {
@@ -473,8 +600,12 @@ async function main() {
   console.log("[telegram-worker] Iniciando worker do Telegram...");
   console.log(`[telegram-worker] INTERNAL_APP_URL=${INTERNAL_APP_URL}`);
   console.log(`[telegram-worker] ENABLE_GAME_ALERTS=${ENABLE_GAME_ALERTS}`);
+  console.log(`[telegram-worker] ENABLE_PRELIVE_SEEDER=${ENABLE_PRELIVE_SEEDER}`);
   console.log(
     `[telegram-worker] Interval=${EFFECTIVE_GAME_ALERT_CHECK_INTERVAL_MS}ms | Janela=${EFFECTIVE_GAME_ALERT_WINDOW_START_MINUTES}-${EFFECTIVE_GAME_ALERT_WINDOW_END_MINUTES}min`
+  );
+  console.log(
+    `[telegram-worker] Prelive seed: Interval=${EFFECTIVE_PRELIVE_SEED_INTERVAL_MS}ms | Dias=${EFFECTIVE_PRELIVE_SEED_LOOKAHEAD_DAYS} | Max=${EFFECTIVE_PRELIVE_SEED_MAX_MATCHES}`
   );
 
   try {
@@ -503,6 +634,14 @@ async function main() {
     );
   }
 
+  if (ENABLE_PRELIVE_SEEDER) {
+    await seedPrelivePredictions();
+    preliveIntervalHandle = setInterval(
+      seedPrelivePredictions,
+      EFFECTIVE_PRELIVE_SEED_INTERVAL_MS
+    );
+  }
+
   console.log("[telegram-worker] Pronto. Ouvindo mensagens...");
 }
 
@@ -512,6 +651,10 @@ function shutdown(signal) {
   if (intervalHandle) {
     clearInterval(intervalHandle);
     intervalHandle = null;
+  }
+  if (preliveIntervalHandle) {
+    clearInterval(preliveIntervalHandle);
+    preliveIntervalHandle = null;
   }
 
   bot.stop(signal);
