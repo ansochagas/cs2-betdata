@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     // Inicializar Stripe apenas quando necessário
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-      // Usar versÃ£o suportada pelo Stripe
+      // Usar versão suportada pelo Stripe
       apiVersion: "2022-11-15" as Stripe.LatestApiVersion,
     });
 

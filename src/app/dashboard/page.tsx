@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useSession, signOut } from "next-auth/react";
@@ -75,7 +75,7 @@ function DashboardContent() {
     },
   ];
 
-  // Buscar informaÃ§Ãµes da assinatura
+  // Buscar informações da assinatura
   const fetchSubscriptionInfo = useCallback(async () => {
     try {
       const response = await fetch("/api/user/subscription");
@@ -89,11 +89,11 @@ function DashboardContent() {
         });
       }
     } catch (error) {
-      console.error("Erro ao buscar informaÃ§Ãµes da assinatura:", error);
+      console.error("Erro ao buscar informações da assinatura:", error);
     }
   }, []);
 
-  // Buscar uma vez por sessÃ£o
+  // Buscar uma vez por sessão
   useEffect(() => {
     if (session?.user && !fetchedSubscription.current) {
       fetchedSubscription.current = true;
@@ -101,7 +101,7 @@ function DashboardContent() {
     }
   }, [session, fetchSubscriptionInfo]);
 
-  // PÃ³s-checkout: se voltar com success=true e session_id, forÃ§ar refresh
+  // Pós-checkout: se voltar com success=true e session_id, forçar refresh
   useEffect(() => {
     const success = searchParams.get("success");
     const sessionId = searchParams.get("session_id");
@@ -132,13 +132,13 @@ function DashboardContent() {
             <Link href="/" className="text-2xl font-bold text-white">
               CS2 BETDATA
             </Link>
-            <span className="text-zinc-400">â€¢</span>
+            <span className="text-zinc-400">•</span>
             <span className="text-zinc-400">Dashboard</span>
           </div>
 
           <div className="flex items-center gap-4">
             <span className="text-sm text-zinc-400">
-              OlÃ¡, {session?.user?.name || "UsuÃ¡rio"}
+              Olá, {session?.user?.name || "Usuário"}
             </span>
             <Link
               href="/minha-conta"
@@ -257,12 +257,12 @@ function DashboardContent() {
               {/* Tool Content */}
               {!isAccessAllowed ? (
                 <div className="min-h-[400px] flex flex-col items-center justify-center text-center space-y-4">
-                  <div className="text-4xl">ÃYsÃ¹</div>
+                  <div className="text-4xl">🔒</div>
                   <h2 className="text-2xl font-bold">
                     Seu trial ou plano expirou
                   </h2>
                   <p className="text-gray-400">
-                    Para continuar acessando jogos, estatÃ­sticas e anÃ¡lises,
+                    Para continuar acessando jogos, estatísticas e análises,
                     contrate um plano.
                   </p>
                   <Link
@@ -310,7 +310,7 @@ function AnalysisTool() {
   const fetchMatches = async () => {
     try {
       setLoading(true);
-      console.log("ðŸŽ¯ Buscando jogos futuros via PandaScore...");
+      console.log("🎯 Buscando jogos futuros via PandaScore...");
 
       // Buscar jogos FUTUROS apenas da PandaScore API (plano pago)
       const response = await fetch("/api/pandascore/upcoming-matches?days=2");
@@ -321,7 +321,7 @@ function AnalysisTool() {
         const matchesData = data.data || [];
 
         console.log(
-          `âœ… Recebidos ${matchesData.length} jogos futuros da PandaScore`
+          `✅ Recebidos ${matchesData.length} jogos futuros da PandaScore`
         );
 
         // Converter formato da PandaScore para o formato esperado pelo componente
@@ -387,7 +387,7 @@ function AnalysisTool() {
   };
 
   const formatDate = (dateString: string) => {
-    // Se jÃ¡ Ã© uma data em BRT (vem do agrupamento), converte diretamente
+    // Se já é uma data em BRT (vem do agrupamento), converte diretamente
     const date = toBRTDate(dateString);
     return date.toLocaleDateString("pt-BR", {
       weekday: "long",
@@ -411,7 +411,7 @@ function AnalysisTool() {
       return { text: "Hoje", color: "text-orange-400", bg: "bg-orange-500/20" };
     } else {
       return {
-        text: "PrÃ³ximo",
+        text: "Próximo",
         color: "text-green-400",
         bg: "bg-green-500/20",
       };
@@ -437,14 +437,14 @@ function AnalysisTool() {
       };
     } else if (dateKey === tomorrowStr) {
       return {
-        label: "AMANHÃƒ",
+        label: "AMANHÃ",
         style:
           "bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border-blue-500/50 text-blue-300",
         emoji: "",
       };
     } else if (dateKey === dayAfterTomorrowStr) {
       return {
-        label: "DEPOIS DE AMANHÃƒ",
+        label: "DEPOIS DE AMANHÃ",
         style:
           "bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-purple-500/50 text-purple-300",
         emoji: "",
@@ -464,7 +464,7 @@ function AnalysisTool() {
     );
     const totalTournaments = tournaments.size;
 
-    // Encontrar melhor horÃ¡rio (mais jogos)
+    // Encontrar melhor horário (mais jogos)
     const hourGroups = dateMatches.reduce((groups, match) => {
       const hour = toBRTDate(match.startTime).getHours();
       groups[hour] = (groups[hour] || 0) + 1;
@@ -488,7 +488,7 @@ function AnalysisTool() {
   if (loading) {
     return (
       <div className="text-center py-16">
-        <div className="animate-spin text-4xl mb-4">â³</div>
+        <div className="animate-spin text-4xl mb-4">⏳</div>
         <p className="text-zinc-400">Carregando partidas do dia...</p>
       </div>
     );
@@ -497,7 +497,7 @@ function AnalysisTool() {
   if (error) {
     return (
       <div className="text-center py-16">
-        <div className="text-6xl mb-4">âŒ</div>
+        <div className="text-6xl mb-4">❌</div>
         <h2 className="text-xl font-bold mb-4 text-red-400">
           Erro ao carregar
         </h2>
@@ -517,16 +517,16 @@ function AnalysisTool() {
       {/* Header with stats */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-xl font-bold mb-1">ðŸŽ¯ Jogos dos PrÃ³ximos Dias</h2>
+          <h2 className="text-xl font-bold mb-1">🎯 Jogos dos Próximos Dias</h2>
           <p className="text-sm text-zinc-400">
-            {matches.length} jogos encontrados â€¢ Hoje + 2 dias
+            {matches.length} jogos encontrados • Hoje + 2 dias
           </p>
         </div>
         <button
           onClick={fetchMatches}
           className="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-lg text-sm transition-colors"
         >
-          ðŸ”„ Atualizar
+          🔄 Atualizar
         </button>
       </div>
 
@@ -561,10 +561,10 @@ function AnalysisTool() {
                       {getDayHeaderInfo(dateKey).label}
                     </h3>
                     <div className="text-xs opacity-80">
-                      {getDayStats(dateMatches).totalGames} jogos â€¢{" "}
+                      {getDayStats(dateMatches).totalGames} jogos •{" "}
                       {getDayStats(dateMatches).totalTournaments} torneios
                       {getDayStats(dateMatches).bestHour &&
-                        ` â€¢ Pico Ã s ${getDayStats(dateMatches).bestHour}`}
+                        ` • Pico às ${getDayStats(dateMatches).bestHour}`}
                     </div>
                   </div>
                 </div>
@@ -589,7 +589,7 @@ function AnalysisTool() {
                         {match.tournament && (
                           <div className="bg-gradient-to-r from-zinc-800 via-zinc-700 to-zinc-800 text-white text-center py-3 px-4 border-b border-zinc-600">
                             <h3 className="font-bold text-base uppercase tracking-wider text-zinc-200">
-                              ðŸ† {match.tournament}
+                              🏆 {match.tournament}
                             </h3>
                             <div className="text-xs text-zinc-400 mt-1">
                               TORNEIO OFICIAL
@@ -611,7 +611,7 @@ function AnalysisTool() {
                                       className="w-full h-full object-contain"
                                     />
                                   ) : (
-                                    <span className="text-2xl">ðŸ†</span>
+                                    <span className="text-2xl">🏆</span>
                                   )}
                                 </div>
                                 <div className="text-center min-w-0">
@@ -644,7 +644,7 @@ function AnalysisTool() {
                                       className="w-full h-full object-contain"
                                     />
                                   ) : (
-                                    <span className="text-2xl">ðŸŽ¯</span>
+                                    <span className="text-2xl">🎯</span>
                                   )}
                                 </div>
                                 <div className="text-center min-w-0">
@@ -676,7 +676,7 @@ function AnalysisTool() {
                             <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border border-orange-500/30 rounded-lg p-4 mb-4">
                               <div className="text-center mb-2">
                                 <span className="text-orange-400 font-semibold text-sm uppercase tracking-wide">
-                                  CotaÃ§Ãµes Moneyline
+                                  Cotações Moneyline
                                 </span>
                               </div>
                               <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
@@ -777,7 +777,7 @@ function AnalysisTool() {
                               rel="noreferrer"
                               className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-3 px-4 rounded-lg transition-all text-sm group-hover:shadow-lg group-hover:shadow-orange-500/25 text-center block"
                             >
-                              ðŸŽ¯ ANÃLISE PRÃ‰-LIVE
+                              🎯 ANÁLISE PRÉ-LIVE
                             </a>
                           </div>
                         </div>
@@ -793,9 +793,9 @@ function AnalysisTool() {
   );
 }
 
-// FunÃ§Ã£o auxiliar para gerar estatÃ­sticas mockadas de jogadores
+// Função auxiliar para gerar estatísticas mockadas de jogadores
 function getMockPlayerStats(teamName: string) {
-  // Dados mockados baseados em estatÃ­sticas reais aproximadas
+  // Dados mockados baseados em estatísticas reais aproximadas
   const mockStats = {
     FURIA: [
       {
@@ -1115,7 +1115,7 @@ function getMockPlayerStats(teamName: string) {
   );
 }
 
-// Componente para exibir estatÃ­sticas de jogadores de um time
+// Componente para exibir estatísticas de jogadores de um time
 function PlayerStatsSection({
   teamName,
   teamColor,
@@ -1144,16 +1144,16 @@ function PlayerStatsSection({
 
         if (data.success && data.data) {
           console.log(
-            `âœ… Dados reais encontrados para ${data.data.length} jogadores de ${teamName}`
+            `✅ Dados reais encontrados para ${data.data.length} jogadores de ${teamName}`
           );
           setPlayers(data.data);
         } else {
           // Fallback para dados mockados
-          console.log(`ðŸ“Š Usando dados mockados para ${teamName}`);
+          console.log(`📊 Usando dados mockados para ${teamName}`);
           setPlayers(getMockPlayerStats(teamName));
         }
       } catch (err: any) {
-        console.error(`âŒ Erro ao buscar jogadores de ${teamName}:`, err);
+        console.error(`❌ Erro ao buscar jogadores de ${teamName}:`, err);
         // Fallback para dados mockados
         setPlayers(getMockPlayerStats(teamName));
       } finally {
@@ -1173,7 +1173,7 @@ function PlayerStatsSection({
           }`}
         >
           <span className="text-sm">
-            {teamColor === "orange" ? "ðŸ†" : "ðŸŽ¯"}
+            {teamColor === "orange" ? "🏆" : "🎯"}
           </span>
           {teamName}
         </h4>
@@ -1194,7 +1194,7 @@ function PlayerStatsSection({
           }`}
         >
           <span className="text-sm">
-            {teamColor === "orange" ? "ðŸ†" : "ðŸŽ¯"}
+            {teamColor === "orange" ? "🏆" : "🎯"}
           </span>
           {teamName}
         </h4>
@@ -1212,7 +1212,7 @@ function PlayerStatsSection({
           teamColor === "orange" ? "text-orange-400" : "text-cyan-400"
         }`}
       >
-        <span className="text-sm">{teamColor === "orange" ? "ðŸ†" : "ðŸŽ¯"}</span>
+        <span className="text-sm">{teamColor === "orange" ? "🏆" : "🎯"}</span>
         {teamName}
         {players.some((p) => p.realData) && (
           <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded ml-2">
@@ -1241,7 +1241,7 @@ function PlayerStatsSection({
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <span className="text-lg">ðŸ‘¤</span>
+                  <span className="text-lg">👤</span>
                 )}
               </div>
               <div>
@@ -1447,37 +1447,37 @@ function LiveTool() {
     const leader = home > away ? match.home.name : match.away.name;
     let confidence = "Baixa";
     if (diff >= 6) confidence = "Alta";
-    else if (diff >= 3) confidence = "MÃ©dia";
+    else if (diff >= 3) confidence = "Média";
 
     return {
       team: leader,
       confidence,
-      reason: `DiferenÃ§a de ${diff} round(s)`,
+      reason: `Diferença de ${diff} round(s)`,
     };
   };
 
   const getLineSuggestion = (match: LiveMatch) => {
     const total = (match.scores?.home ?? 0) + (match.scores?.away ?? 0);
 
-    // HeurÃ­stica simples baseada no total de rounds jÃ¡ jogados.
+    // Heurística simples baseada no total de rounds já jogados.
     if (total >= 24) {
       return {
-        label: "TendÃªncia Over 26.5 rounds",
+        label: "Tendência Over 26.5 rounds",
         color: "text-green-400",
         reason: "Jogo longo, times trocando rounds",
       };
     }
     if (total <= 10) {
       return {
-        label: "TendÃªncia Under 26.5 rounds",
+        label: "Tendência Under 26.5 rounds",
         color: "text-yellow-300",
-        reason: "Jogo curto atÃ© agora",
+        reason: "Jogo curto até agora",
       };
     }
     return {
-      label: "EquilÃ­brio â€” aguardar mais dados",
+      label: "Equilíbrio — aguardar mais dados",
       color: "text-zinc-300",
-      reason: "Placar ainda nÃ£o indica linha clara",
+      reason: "Placar ainda não indica linha clara",
     };
   };
 
@@ -1518,7 +1518,7 @@ function LiveTool() {
       {error && (
         <div className="bg-red-900/20 border border-red-500 rounded-lg p-4">
           <div className="flex items-center gap-2 text-red-300 font-semibold mb-2">
-            AtenÃ§Ã£o
+            Atenção
           </div>
           <p className="text-red-200 text-sm">{error}</p>
         </div>
@@ -1539,7 +1539,7 @@ function LiveTool() {
             Nenhum jogo ao vivo agora
           </p>
           <p className="text-zinc-500 text-sm mt-1">
-            Volte em alguns minutos ou durante horÃ¡rios de torneios.
+            Volte em alguns minutos ou durante horários de torneios.
           </p>
         </div>
       )}
@@ -1621,7 +1621,7 @@ function LiveTool() {
                 </div>
               </div>
 
-              {/* Insights rÃ¡pidos */}
+              {/* Insights rápidos */}
               <div className="border-t border-zinc-800 pt-3">
                 <div className="flex flex-col gap-3 text-sm text-zinc-300">
                   {(() => {
@@ -1635,7 +1635,7 @@ function LiveTool() {
                           {fav.team ? fav.team : "Sem favorito claro"}
                         </span>
                         <span className="text-xs text-zinc-500">
-                          ConfianÃ§a: {fav.confidence} ({fav.reason})
+                          Confiança: {fav.confidence} ({fav.reason})
                         </span>
                       </div>
                     );
@@ -1682,8 +1682,8 @@ function LiveTool() {
                   </div>
                 </div>
                 <p className="text-[11px] text-zinc-500 mt-2">
-                  SugestÃµes indicativas baseadas no placar ao vivo. NÃ£o Ã©
-                  recomendaÃ§Ã£o de aposta.
+                  Sugestões indicativas baseadas no placar ao vivo. Não é
+                  recomendação de aposta.
                 </p>
               </div>
             </div>
@@ -1694,7 +1694,7 @@ function LiveTool() {
   );
 }
 
-// AnÃ¡lise PrÃ©-Live Modal Component
+// Análise Pré-Live Modal Component
 function PreLiveAnalysisModal({
   match,
   teamLogos,
@@ -1709,7 +1709,7 @@ function PreLiveAnalysisModal({
   // Removido: const [activeTab, setActiveTab] = useState<"overview" | "teams" | "players" | "predictions">("overview");
   const startTimeBRT = toBRTDate(match.startTime);
 
-  // Impede rolagem de fundo enquanto o modal estÃ¡ aberto
+  // Impede rolagem de fundo enquanto o modal está aberto
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -1723,10 +1723,10 @@ function PreLiveAnalysisModal({
       try {
         setLoading(true);
         console.log(
-          `ðŸŽ¯ Buscando anÃ¡lise para: ${match.homeTeam} vs ${match.awayTeam}`
+          `🎯 Buscando análise para: ${match.homeTeam} vs ${match.awayTeam}`
         );
 
-        // Chamar a API de anÃ¡lise especÃ­fica para este jogo
+        // Chamar a API de análise específica para este jogo
         const response = await fetch(
           `/api/pandascore/match-analysis?team1=${encodeURIComponent(
             match.homeTeam
@@ -1752,7 +1752,7 @@ function PreLiveAnalysisModal({
         }
 
         const data = await response.json();
-        console.log("ðŸ“Š Resposta da anÃ¡lise:", data);
+        console.log("📊 Resposta da análise:", data);
 
         if (data.success && data.data) {
           // Formatar dados para o formato esperado pelo componente
@@ -1770,18 +1770,18 @@ function PreLiveAnalysisModal({
             premiumInsights: data.data.analysis?.insights,
           };
 
-          console.log("âœ… AnÃ¡lise formatada:", formattedMatch);
+          console.log("✅ Análise formatada:", formattedMatch);
           setAnalyzingMatch(formattedMatch);
         } else {
-          throw new Error(data.error || "AnÃ¡lise nÃ£o disponÃ­vel");
+          throw new Error(data.error || "Análise não disponível");
         }
       } catch (err: any) {
-        console.error("âŒ Erro ao buscar anÃ¡lise:", err);
+        console.error("❌ Erro ao buscar análise:", err);
         setAnalyzingMatch({
           homeTeam: match.homeTeam,
           awayTeam: match.awayTeam,
           startTime: match.startTime,
-          insights: [`Erro ao carregar anÃ¡lise: ${err.message}`],
+          insights: [`Erro ao carregar análise: ${err.message}`],
           pandascoreAnalysis: undefined,
         });
       } finally {
@@ -1799,13 +1799,13 @@ function PreLiveAnalysisModal({
         <div className="p-6 border-b border-zinc-700">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-bold text-white bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-              ðŸŽ¯ ANÃLISE PRÃ‰-LIVE
+              🎯 ANÁLISE PRÉ-LIVE
             </h2>
             <button
               onClick={onClose}
               className="text-zinc-400 hover:text-white text-2xl"
             >
-              Ã—
+              ×
             </button>
           </div>
 
@@ -1820,7 +1820,7 @@ function PreLiveAnalysisModal({
                     className="w-full h-full object-contain"
                   />
                 ) : (
-                  <span className="text-2xl">ðŸ†</span>
+                  <span className="text-2xl">🏆</span>
                 )}
               </div>
               <h3 className="font-bold text-white">{match.homeTeam}</h3>
@@ -1854,7 +1854,7 @@ function PreLiveAnalysisModal({
                     className="w-full h-full object-contain"
                   />
                 ) : (
-                  <span className="text-2xl">ðŸŽ¯</span>
+                  <span className="text-2xl">🎯</span>
                 )}
               </div>
               <h3 className="font-bold text-white">{match.awayTeam}</h3>
@@ -1867,13 +1867,13 @@ function PreLiveAnalysisModal({
           {loading ? (
             <div className="text-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
-              <p className="text-gray-400">Carregando anÃ¡lise prÃ©-live...</p>
+              <p className="text-gray-400">Carregando análise pré-live...</p>
             </div>
           ) : analyzingMatch ? (
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-bold mb-4">
-                  VisÃ£o Geral da Partida
+                  Visão Geral da Partida
                 </h3>
                 <MatchCard match={analyzingMatch} />
               </div>
