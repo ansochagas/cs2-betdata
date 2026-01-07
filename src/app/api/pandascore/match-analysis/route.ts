@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
@@ -191,6 +192,12 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const team1 = searchParams.get("team1");
     const team2 = searchParams.get("team2");
+    const matchId = searchParams.get("matchId");
+    const scheduledAt = searchParams.get("scheduledAt");
+    const tournament = searchParams.get("tournament");
+    const source = searchParams.get("source");
+    const homeTeamId = searchParams.get("homeTeamId");
+    const awayTeamId = searchParams.get("awayTeamId");
 
     if (!team1 || !team2) {
       return NextResponse.json(
@@ -210,6 +217,48 @@ export async function GET(request: NextRequest) {
       const pandascoreData = await getPandaScoreTeamAnalysis(team1, team2);
 
       if (pandascoreData) {
+        if (source === "prelive" && matchId) {
+          try {
+            const parsedDate = scheduledAt ? new Date(scheduledAt) : null;
+            const safeDate =
+              parsedDate && !isNaN(parsedDate.getTime()) ? parsedDate : null;
+            const parsedHomeId = homeTeamId ? Number(homeTeamId) : null;
+            const parsedAwayId = awayTeamId ? Number(awayTeamId) : null;
+
+            await prisma.matchPrediction.upsert({
+              where: {
+                matchId_source: {
+                  matchId,
+                  source: "prelive",
+                },
+              },
+              create: {
+                matchId,
+                source: "prelive",
+                homeTeam: pandascoreData.match.team1,
+                awayTeam: pandascoreData.match.team2,
+                homeTeamId: Number.isFinite(parsedHomeId) ? parsedHomeId : null,
+                awayTeamId: Number.isFinite(parsedAwayId) ? parsedAwayId : null,
+                tournament: tournament || null,
+                scheduledAt: safeDate,
+                predictedWinner: pandascoreData.analysis.expectedWinner,
+                confidence: pandascoreData.analysis.confidence,
+              },
+              update: {
+                homeTeam: pandascoreData.match.team1,
+                awayTeam: pandascoreData.match.team2,
+                homeTeamId: Number.isFinite(parsedHomeId) ? parsedHomeId : null,
+                awayTeamId: Number.isFinite(parsedAwayId) ? parsedAwayId : null,
+                tournament: tournament || null,
+                scheduledAt: safeDate,
+                predictedWinner: pandascoreData.analysis.expectedWinner,
+                confidence: pandascoreData.analysis.confidence,
+              },
+            });
+          } catch (dbError) {
+            console.error("Erro ao salvar previsao prelive:", dbError);
+          }
+        }
         console.log("✅ Dados reais encontrados na PandaScore API!");
         return NextResponse.json({
           success: true,

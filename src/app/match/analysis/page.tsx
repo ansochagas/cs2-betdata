@@ -94,6 +94,9 @@ function MatchAnalysisContent() {
 
   const team1 = searchParams.get("team1") || "";
   const team2 = searchParams.get("team2") || "";
+  const matchId = searchParams.get("matchId") || "";
+  const homeTeamId = searchParams.get("homeTeamId") || "";
+  const awayTeamId = searchParams.get("awayTeamId") || "";
   const startTime = searchParams.get("start") || "";
   const tournament = searchParams.get("tournament") || undefined;
   const oddsHome = searchParams.get("oddsHome");
@@ -116,8 +119,19 @@ function MatchAnalysisContent() {
     setLoading(true);
     setError(null);
     try {
+      const params = new URLSearchParams({
+        team1,
+        team2,
+        source: "prelive",
+      });
+      if (matchId) params.set("matchId", matchId);
+      if (homeTeamId) params.set("homeTeamId", homeTeamId);
+      if (awayTeamId) params.set("awayTeamId", awayTeamId);
+      if (startTime) params.set("scheduledAt", startTime);
+      if (tournament) params.set("tournament", tournament);
+
       const response = await fetch(
-        `/api/pandascore/match-analysis?team1=${encodeURIComponent(team1)}&team2=${encodeURIComponent(team2)}`
+        `/api/pandascore/match-analysis?${params.toString()}`
       );
       const result = await response.json();
       if (result.success) {

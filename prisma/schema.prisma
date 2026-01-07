@@ -39,6 +39,31 @@ model Subscription {
   createdAt         DateTime @default(now())
 }
 
+model MatchPrediction {
+  id               String   @id @default(cuid())
+  matchId          String
+  source           String
+  homeTeam         String
+  awayTeam         String
+  homeTeamId       Int?
+  awayTeamId       Int?
+  tournament       String?
+  scheduledAt      DateTime?
+  predictedWinner  String
+  confidence       Float
+  status           String   @default("PENDING") // PENDING, WIN, LOSS, VOID
+  actualWinner     String?
+  scoreHome        Int?
+  scoreAway        Int?
+  resolvedAt       DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([matchId, source], name: "matchId_source")
+  @@index([status])
+  @@map("match_predictions")
+}
+
 model CSGOMatch {
   id                String   @id @default(cuid())
   externalId        String   @unique // ID da SofaSport API
