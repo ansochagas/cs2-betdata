@@ -21,8 +21,32 @@ function safeLower(value: string | null | undefined) {
   return (value || "").toLowerCase();
 }
 
-function normalizeTeamName(value: string | null | undefined) {
-  return safeLower(value).replace(/[^a-z0-9]+/g, "");
+const TEAM_STOP_WORDS = new Set([
+  "esports",
+  "esport",
+  "gaming",
+  "club",
+  "team",
+  "academy",
+  "sport",
+]);
+
+function normalizeTeamName(
+  value: string | null | undefined,
+  mode: "strict" | "loose" = "strict"
+) {
+  const raw = safeLower(value);
+  if (mode === "strict") {
+    return raw.replace(/[^a-z0-9]+/g, "");
+  }
+
+  const tokens = raw
+    .replace(/[^a-z0-9]+/g, " ")
+    .split(" ")
+    .filter(Boolean)
+    .filter((token) => !TEAM_STOP_WORDS.has(token));
+
+  return tokens.join("");
 }
 
 function formatDayUTC(date: Date) {
@@ -43,7 +67,11 @@ type BetsApiEvent = {
   scores?: Record<string, { home?: string; away?: string }>;
 };
 
-const endedEventsCache = new Map<string, BetsApiEvent[]>();
+const ENDED_EVENTS_TTL_MS = 10 * 60 * 1000;
+const endedEventsCache = new Map<
+  string,
+  { updatedAt: number; events: BetsApiEvent[] }
+>();
 
 function parseEventScore(event: BetsApiEvent) {
   const raw =
@@ -67,8 +95,9 @@ function parseEventScore(event: BetsApiEvent) {
 }
 
 async function fetchEndedEvents(day: string) {
-  if (endedEventsCache.has(day)) {
-    return endedEventsCache.get(day) ?? [];
+  const cached = endedEventsCache.get(day);
+  if (cached && Date.now() - cached.updatedAt < ENDED_EVENTS_TTL_MS) {
+    return cached.events;
   }
 
   if (!BETSAPI_TOKEN) {
@@ -105,7 +134,7 @@ async function fetchEndedEvents(day: string) {
     page += 1;
   }
 
-  endedEventsCache.set(day, results);
+  endedEventsCache.set(day, { updatedAt: Date.now(), events: results });
   return results;
 }
 
@@ -122,8 +151,10 @@ async function fetchBetsApiResult(prediction: {
   const day = formatDayUTC(scheduledAt);
   const endedEvents = await fetchEndedEvents(day);
 
-  const targetHome = normalizeTeamName(prediction.homeTeam);
-  const targetAway = normalizeTeamName(prediction.awayTeam);
+  const targetHomeStrict = normalizeTeamName(prediction.homeTeam, "strict");
+  const targetAwayStrict = normalizeTeamName(prediction.awayTeam, "strict");
+  const targetHomeLoose = normalizeTeamName(prediction.homeTeam, "loose");
+  const targetAwayLoose = normalizeTeamName(prediction.awayTeam, "loose");
 
   const match = endedEvents.find((event) => {
     if (event.time_status !== "3") return false;
@@ -139,15 +170,24 @@ async function fetchBetsApiResult(prediction: {
       return false;
     }
 
-    const homeName = normalizeTeamName(event.home?.name);
-    const awayName = normalizeTeamName(event.away?.name);
+    const homeNameStrict = normalizeTeamName(event.home?.name, "strict");
+    const awayNameStrict = normalizeTeamName(event.away?.name, "strict");
+    const homeNameLoose = normalizeTeamName(event.home?.name, "loose");
+    const awayNameLoose = normalizeTeamName(event.away?.name, "loose");
 
-    const directMatch =
-      homeName === targetHome && awayName === targetAway;
-    const swappedMatch =
-      homeName === targetAway && awayName === targetHome;
+    const directStrict =
+      homeNameStrict === targetHomeStrict &&
+      awayNameStrict === targetAwayStrict;
+    const swappedStrict =
+      homeNameStrict === targetAwayStrict &&
+      awayNameStrict === targetHomeStrict;
 
-    return directMatch || swappedMatch;
+    const directLoose =
+      homeNameLoose === targetHomeLoose && awayNameLoose === targetAwayLoose;
+    const swappedLoose =
+      homeNameLoose === targetAwayLoose && awayNameLoose === targetHomeLoose;
+
+    return directStrict || swappedStrict || directLoose || swappedLoose;
   });
 
   if (!match) {
