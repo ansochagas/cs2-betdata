@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
@@ -11,6 +11,7 @@ import {
   User,
   Bell,
   Settings,
+  Lock,
 } from "lucide-react";
 
 export default function MinhaContaPage() {
@@ -19,6 +20,13 @@ export default function MinhaContaPage() {
   const [telegramLinked, setTelegramLinked] = useState(false);
   const [loading, setLoading] = useState(true);
   const [unlinkingTelegram, setUnlinkingTelegram] = useState(false);
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [passwordResult, setPasswordResult] = useState<string | null>(null);
 
   useEffect(() => {
     fetchAccountData();
@@ -26,7 +34,7 @@ export default function MinhaContaPage() {
 
   const fetchAccountData = async () => {
     try {
-      // Buscar dados da assinatura com validação robusta
+      // Buscar dados da assinatura com validaÃ§Ã£o robusta
       const subResponse = await fetch("/api/user/subscription");
       if (subResponse.ok) {
         const subData = await subResponse.json();
@@ -35,7 +43,7 @@ export default function MinhaContaPage() {
         }
       }
 
-      // Verificar se Telegram está vinculado
+      // Verificar se Telegram estÃ¡ vinculado
       const telegramResponse = await fetch("/api/telegram/status");
       if (telegramResponse.ok) {
         const telegramData = await telegramResponse.json();
@@ -92,19 +100,19 @@ export default function MinhaContaPage() {
       const data = await response.json();
 
       if (!data.success) {
-        alert("Erro ao gerar código: " + data.error);
+        alert("Erro ao gerar cÃ³digo: " + data.error);
         return;
       }
 
       const linkCode = data.data.linkCode as string;
 
-      const instructions = `🚀 Vincular ao Telegram
+      const instructions = `ðŸš€ Vincular ao Telegram
 
 Passo 1: Abra o bot @CSGOScoutbot (https://t.me/CSGOScoutbot)
-Passo 2: Copie o código abaixo e envie no chat do bot
-Código: ${linkCode}
+Passo 2: Copie o cÃ³digo abaixo e envie no chat do bot
+CÃ³digo: ${linkCode}
 
-Depois de enviar, aguarde a confirmação no bot.`;
+Depois de enviar, aguarde a confirmaÃ§Ã£o no bot.`;
 
       let copied = false;
       if (
@@ -116,28 +124,28 @@ Depois de enviar, aguarde a confirmação no bot.`;
           await navigator.clipboard.writeText(linkCode);
           copied = true;
         } catch (error) {
-          console.warn("Falha ao copiar código para clipboard:", error);
+          console.warn("Falha ao copiar cÃ³digo para clipboard:", error);
         }
       }
 
       if (copied) {
-        alert(`${instructions}\n\n✅ Código copiado automaticamente.`);
+        alert(`${instructions}\n\nâœ… CÃ³digo copiado automaticamente.`);
       } else {
         alert(
-          `${instructions}\n\n⚠️ Se não copiou automaticamente, selecione o código acima e copie.`
+          `${instructions}\n\nâš ï¸ Se nÃ£o copiou automaticamente, selecione o cÃ³digo acima e copie.`
         );
       }
 
       fetchAccountData();
     } catch (error) {
       console.error("Erro:", error);
-      alert("Erro ao gerar código de vinculação");
+      alert("Erro ao gerar cÃ³digo de vinculaÃ§Ã£o");
     }
   };
 
   const handleTelegramUnlink = async () => {
     const confirmed = window.confirm(
-      "Tem certeza que deseja desvincular seu Telegram?\n\nVocê vai parar de receber alertas até vincular novamente."
+      "Tem certeza que deseja desvincular seu Telegram?\n\nVocÃª vai parar de receber alertas atÃ© vincular novamente."
     );
 
     if (!confirmed) return;
@@ -168,6 +176,64 @@ Depois de enviar, aguarde a confirmação no bot.`;
     }
   };
 
+  const handlePasswordChange = async () => {
+    setPasswordResult(null);
+
+    if (
+      !passwordForm.currentPassword ||
+      !passwordForm.newPassword ||
+      !passwordForm.confirmPassword
+    ) {
+      setPasswordResult("Preencha todos os campos");
+      return;
+    }
+
+    if (passwordForm.newPassword.length < 8) {
+      setPasswordResult("A nova senha deve ter pelo menos 8 caracteres");
+      return;
+    }
+
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setPasswordResult("As senhas nao conferem");
+      return;
+    }
+
+    try {
+      setPasswordLoading(true);
+      const response = await fetch("/api/user/change-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          currentPassword: passwordForm.currentPassword,
+          newPassword: passwordForm.newPassword,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setPasswordResult(
+          "Senha alterada. Voce sera desconectado para entrar novamente."
+        );
+        setPasswordForm({
+          currentPassword: "",
+          newPassword: "",
+          confirmPassword: "",
+        });
+        setTimeout(() => {
+          signOut({ callbackUrl: "/login" });
+        }, 1200);
+      } else {
+        setPasswordResult(data.error || "Erro ao alterar senha");
+      }
+    } catch (error) {
+      setPasswordResult("Erro ao alterar senha");
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
+
   const handleSignOut = () => {
     signOut({ callbackUrl: "/" });
   };
@@ -192,13 +258,13 @@ Depois de enviar, aguarde a confirmação no bot.`;
             <Link href="/dashboard" className="text-2xl font-bold text-white">
                 CS2 BETDATA
             </Link>
-            <span className="text-zinc-400">•</span>
+            <span className="text-zinc-400">â€¢</span>
             <span className="text-zinc-400">Minha Conta</span>
           </div>
 
           <div className="flex items-center gap-4">
             <span className="text-sm text-zinc-400">
-              Olá, {session?.user?.name || "Usuário"}
+              OlÃ¡, {session?.user?.name || "UsuÃ¡rio"}
             </span>
             <button
               onClick={handleSignOut}
@@ -230,6 +296,14 @@ Depois de enviar, aguarde a confirmação no bot.`;
                 </Link>
 
                 <Link
+                  href="#senha"
+                  className="w-full p-3 rounded-lg border border-zinc-700 hover:border-yellow-500/50 hover:bg-yellow-500/10 transition-all text-left flex items-center gap-3"
+                >
+                  <Lock size={16} className="text-yellow-400" />
+                  <span className="text-sm">Alterar Senha</span>
+                </Link>
+
+                <Link
                   href="#telegram"
                   className="w-full p-3 rounded-lg border border-zinc-700 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all text-left flex items-center gap-3"
                 >
@@ -242,7 +316,7 @@ Depois de enviar, aguarde a confirmação no bot.`;
                   className="w-full p-3 rounded-lg border border-zinc-700 hover:border-green-500/50 hover:bg-green-500/10 transition-all text-left flex items-center gap-3"
                 >
                   <Bell size={16} className="text-green-400" />
-                  <span className="text-sm">Configurações</span>
+                  <span className="text-sm">ConfiguraÃ§Ãµes</span>
                 </Link>
 
                 <Link
@@ -282,9 +356,9 @@ Depois de enviar, aguarde a confirmação no bot.`;
             </div>
           </div>
 
-          {/* Conteúdo Principal */}
+          {/* ConteÃºdo Principal */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Seção do Plano */}
+            {/* SeÃ§Ã£o do Plano */}
             <div
               id="plano"
               className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-8"
@@ -312,7 +386,7 @@ Depois de enviar, aguarde a confirmação no bot.`;
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-zinc-400">Próxima cobrança:</span>
+                      <span className="text-zinc-400">PrÃ³xima cobranÃ§a:</span>
                       <span className="text-white">
                         {subscription?.currentPeriodEnd
                           ? new Date(
@@ -340,7 +414,7 @@ Depois de enviar, aguarde a confirmação no bot.`;
                     {daysRemaining <= 7 && (
                       <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 mb-4">
                         <p className="text-red-400 text-sm">
-                          ⚠️ Seu plano expira em breve! Renove para continuar
+                          âš ï¸ Seu plano expira em breve! Renove para continuar
                           aproveitando todos os recursos.
                         </p>
                       </div>
@@ -357,7 +431,100 @@ Depois de enviar, aguarde a confirmação no bot.`;
               </div>
             </div>
 
-            {/* Seção Telegram */}
+            {/* Secao Alterar Senha */}
+            <div
+              id="senha"
+              className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-8"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <Lock size={24} className="text-yellow-400" />
+                <h2 className="text-2xl font-bold">Alterar Senha</h2>
+              </div>
+
+              <div className="bg-zinc-800/50 rounded-lg p-6 space-y-4">
+                <div>
+                  <label className="block text-sm text-zinc-300 mb-2">
+                    Senha atual
+                  </label>
+                  <input
+                    type="password"
+                    value={passwordForm.currentPassword}
+                    onChange={(e) =>
+                      setPasswordForm((prev) => ({
+                        ...prev,
+                        currentPassword: e.target.value,
+                      }))
+                    }
+                    className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    placeholder="Digite sua senha atual"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm text-zinc-300 mb-2">
+                      Nova senha
+                    </label>
+                    <input
+                      type="password"
+                      value={passwordForm.newPassword}
+                      onChange={(e) =>
+                        setPasswordForm((prev) => ({
+                          ...prev,
+                          newPassword: e.target.value,
+                        }))
+                      }
+                      className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                      placeholder="Minimo 8 caracteres"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-zinc-300 mb-2">
+                      Confirmar nova senha
+                    </label>
+                    <input
+                      type="password"
+                      value={passwordForm.confirmPassword}
+                      onChange={(e) =>
+                        setPasswordForm((prev) => ({
+                          ...prev,
+                          confirmPassword: e.target.value,
+                        }))
+                      }
+                      className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                      placeholder="Repita a nova senha"
+                    />
+                  </div>
+                </div>
+
+                {passwordResult && (
+                  <div
+                    className={`p-3 rounded-lg text-sm ${
+                      passwordResult.toLowerCase().includes("erro") ||
+                      passwordResult.toLowerCase().includes("incorreta")
+                        ? "bg-red-500/20 border border-red-500/50 text-red-300"
+                        : "bg-green-500/20 border border-green-500/50 text-green-300"
+                    }`}
+                  >
+                    {passwordResult}
+                  </div>
+                )}
+
+                <button
+                  onClick={handlePasswordChange}
+                  disabled={passwordLoading}
+                  className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-3 px-6 rounded-lg transition-all disabled:opacity-50"
+                >
+                  {passwordLoading ? "Salvando..." : "Alterar senha"}
+                </button>
+
+                <p className="text-xs text-zinc-400">
+                  Por seguranca, voce sera desconectado apos alterar a senha.
+                </p>
+              </div>
+            </div>
+
+            {/* SeÃ§Ã£o Telegram */}
             <div
               id="telegram"
               className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-8"
@@ -372,12 +539,12 @@ Depois de enviar, aguarde a confirmação no bot.`;
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <h3 className="text-lg font-semibold mb-1">
-                        Status da Vinculação
+                        Status da VinculaÃ§Ã£o
                       </h3>
                       <p className="text-zinc-400 text-sm">
                         {telegramLinked
-                          ? "Sua conta está vinculada ao Telegram Bot"
-                          : "Vincule sua conta para receber alertas automáticos"}
+                          ? "Sua conta estÃ¡ vinculada ao Telegram Bot"
+                          : "Vincule sua conta para receber alertas automÃ¡ticos"}
                       </p>
                     </div>
                     <div
@@ -391,8 +558,8 @@ Depois de enviar, aguarde a confirmação no bot.`;
                     <>
                       <div className="bg-green-500/20 border border-green-500/50 rounded-lg p-4">
                       <p className="text-green-400 text-sm">
-                        ✅ Conta vinculada! Você receberá alertas automáticos
-                        quando jogos começarem.
+                        âœ… Conta vinculada! VocÃª receberÃ¡ alertas automÃ¡ticos
+                        quando jogos comeÃ§arem.
                       </p>
                     </div>
 
@@ -407,8 +574,8 @@ Depois de enviar, aguarde a confirmação no bot.`;
                           : "Desvincular Telegram"}
                       </button>
                       <p className="text-xs text-zinc-400">
-                        Use isso caso vocÇ¦ tenha trocado de conta no Telegram ou
-                        precise refazer o vÇðnculo.
+                        Use isso caso vocÃ‡Â¦ tenha trocado de conta no Telegram ou
+                        precise refazer o vÃ‡Ã°nculo.
                       </p>
                     </div>
                     </>
@@ -416,13 +583,13 @@ Depois de enviar, aguarde a confirmação no bot.`;
                     <div className="space-y-4">
                       <div className="bg-blue-500/20 border border-blue-500/50 rounded-lg p-4">
                         <p className="text-blue-400 text-sm mb-3">
-                          📱 Vincule seu Telegram para receber alertas
-                          automáticos de jogos!
+                          ðŸ“± Vincule seu Telegram para receber alertas
+                          automÃ¡ticos de jogos!
                         </p>
                         <ul className="text-xs text-zinc-300 space-y-1">
-                          <li>• Alertas quando jogos começam em 10 minutos</li>
-                          <li>• Notificações de mudanças de odds</li>
-                          <li>• Análises automáticas por Telegram</li>
+                          <li>â€¢ Alertas quando jogos comeÃ§am em 10 minutos</li>
+                          <li>â€¢ NotificaÃ§Ãµes de mudanÃ§as de odds</li>
+                          <li>â€¢ AnÃ¡lises automÃ¡ticas por Telegram</li>
                         </ul>
                       </div>
 
@@ -439,20 +606,20 @@ Depois de enviar, aguarde a confirmação no bot.`;
               </div>
             </div>
 
-            {/* Seção Configurações */}
+            {/* SeÃ§Ã£o ConfiguraÃ§Ãµes */}
             <div
               id="alertas"
               className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-8"
             >
               <div className="flex items-center gap-4 mb-6">
                 <Settings size={24} className="text-green-400" />
-                <h2 className="text-2xl font-bold">Configurações</h2>
+                <h2 className="text-2xl font-bold">ConfiguraÃ§Ãµes</h2>
               </div>
 
               <div className="space-y-6">
                 <div className="bg-zinc-800/50 rounded-lg p-6">
                   <h3 className="text-lg font-semibold mb-4">
-                    Preferências de Alertas
+                    PreferÃªncias de Alertas
                   </h3>
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
@@ -461,7 +628,7 @@ Depois de enviar, aguarde a confirmação no bot.`;
                           Alertas de Jogos
                         </span>
                         <p className="text-zinc-400 text-sm">
-                          Notificações quando jogos começam
+                          NotificaÃ§Ãµes quando jogos comeÃ§am
                         </p>
                       </div>
                       <div className="w-12 h-6 bg-green-500 rounded-full relative">
@@ -472,7 +639,7 @@ Depois de enviar, aguarde a confirmação no bot.`;
                     <div className="flex items-center justify-between">
                       <div>
                         <span className="text-white font-medium">
-                          Mudanças de Odds
+                          MudanÃ§as de Odds
                         </span>
                         <p className="text-zinc-400 text-sm">
                           Alertas quando odds mudam significativamente
@@ -486,10 +653,10 @@ Depois de enviar, aguarde a confirmação no bot.`;
                     <div className="flex items-center justify-between">
                       <div>
                         <span className="text-white font-medium">
-                          Análises Automáticas
+                          AnÃ¡lises AutomÃ¡ticas
                         </span>
                         <p className="text-zinc-400 text-sm">
-                          Relatórios automáticos de performance
+                          RelatÃ³rios automÃ¡ticos de performance
                         </p>
                       </div>
                       <div className="w-12 h-6 bg-zinc-600 rounded-full relative">
@@ -501,7 +668,7 @@ Depois de enviar, aguarde a confirmação no bot.`;
               </div>
             </div>
 
-            {/* Seção Suporte */}
+            {/* SeÃ§Ã£o Suporte */}
             <div
               id="suporte"
               className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-8"
@@ -519,7 +686,7 @@ Depois de enviar, aguarde a confirmação no bot.`;
                       href="mailto:suporte@csgoscout.com"
                       className="flex items-center gap-3 text-zinc-300 hover:text-white transition-colors"
                     >
-                      <span className="text-lg">📧</span>
+                      <span className="text-lg">ðŸ“§</span>
                       <span>suporte@csgoscout.com</span>
                     </a>
                     <a
@@ -528,7 +695,7 @@ Depois de enviar, aguarde a confirmação no bot.`;
                       rel="noopener noreferrer"
                       className="flex items-center gap-3 text-zinc-300 hover:text-white transition-colors"
                     >
-                      <span className="text-lg">💬</span>
+                      <span className="text-lg">ðŸ’¬</span>
                       <span>WhatsApp</span>
                     </a>
                   </div>
@@ -541,14 +708,14 @@ Depois de enviar, aguarde a confirmação no bot.`;
                       href="/faq"
                       className="flex items-center gap-3 text-zinc-300 hover:text-white transition-colors"
                     >
-                      <span className="text-lg">❓</span>
+                      <span className="text-lg">â“</span>
                       <span>Perguntas Frequentes</span>
                     </Link>
                     <Link
                       href="/tutorial"
                       className="flex items-center gap-3 text-zinc-300 hover:text-white transition-colors"
                     >
-                      <span className="text-lg">📚</span>
+                      <span className="text-lg">ðŸ“š</span>
                       <span>Tutoriais</span>
                     </Link>
                   </div>
