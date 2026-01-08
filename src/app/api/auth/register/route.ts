@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { normalizeBrazilPhone } from "@/lib/phone-utils";
+import { notifyAdminTelegram } from "@/lib/admin-notify";
 
 const MAX_OTP_ATTEMPTS = 5;
 
@@ -166,6 +167,20 @@ export async function POST(request: NextRequest) {
         trialEndsAt: trialEndDate,
       },
     });
+
+    try {
+      await notifyAdminTelegram(
+        [
+          "NOVO CADASTRO",
+          `Email: ${email}`,
+          `Nome: ${name}`,
+          `Telefone: ${normalizedPhone}`,
+          `Trial ate: ${trialEndDate.toISOString()}`,
+        ].join("\n")
+      );
+    } catch (notifyError) {
+      console.warn("Falha ao notificar admin:", notifyError);
+    }
 
     return NextResponse.json(
       { message: "Usuário criado com sucesso", userId: user.id },

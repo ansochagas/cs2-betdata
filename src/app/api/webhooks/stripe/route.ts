@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import Stripe from "stripe";
 import { prisma } from "@/lib/prisma";
+import { notifyAdminTelegram } from "@/lib/admin-notify";
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -31,6 +32,73 @@ function getPlanDurationDays(planId: string | null): number {
       return 180;
     default:
       return 0;
+  }
+}
+
+function getPlanLabel(planId: string | null): string {
+  switch (planId) {
+    case "plan_monthly":
+      return "Mensal";
+    case "plan_quarterly":
+      return "Trimestral";
+    case "plan_semestral":
+      return "Semestral";
+    default:
+      return "Desconhecido";
+  }
+}
+
+function formatAmount(amount?: number | null, currency?: string | null): string {
+  if (!amount || !currency) return "";
+  const value = (amount / 100).toFixed(2);
+  return `${value} ${currency.toUpperCase()}`;
+}
+
+async function resolveUserEmail(
+  session: Stripe.Checkout.Session,
+  customerId?: string | null
+): Promise<string> {
+  let email =
+    session.customer_details?.email ||
+    session.customer_email ||
+    "";
+  if (!email && session.metadata?.userId) {
+    const user = await prisma.user.findUnique({
+      where: { id: session.metadata.userId },
+    });
+    email = user?.email || "";
+  }
+  if (!email && customerId) {
+    const sub = await prisma.subscription.findFirst({
+      where: { stripeCustomerId: customerId },
+      include: { user: true },
+    });
+    email = sub?.user?.email || "";
+  }
+  return email || "N/A";
+}
+
+async function notifyAdminPurchase(
+  session: Stripe.Checkout.Session,
+  planId?: string | null
+) {
+  const customerId = (session.customer as string | undefined) || null;
+  const email = await resolveUserEmail(session, customerId);
+  const planLabel = planId ? `${getPlanLabel(planId)} (${planId})` : "N/A";
+  const amountInfo = formatAmount(session.amount_total, session.currency);
+  const lines = [
+    "NOVA COMPRA CONFIRMADA",
+    `Email: ${email}`,
+    `Plano: ${planLabel}`,
+    amountInfo ? `Valor: ${amountInfo}` : "",
+    `Modo: ${session.mode || "N/A"}`,
+    `Data: ${new Date().toISOString()}`,
+  ].filter(Boolean);
+
+  try {
+    await notifyAdminTelegram(lines.join("\n"));
+  } catch (notifyError) {
+    console.warn("Falha ao notificar admin (compra):", notifyError);
   }
 }
 
@@ -323,6 +391,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     );
 
     await handleSubscriptionChange(stripeSub);
+    await notifyAdminPurchase(session, getPlanFromSubscription(stripeSub));
 
     console.log(
       `Checkout completed for customer ${customerId} - subscription synced via Stripe data`
@@ -376,6 +445,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
           : {}),
       },
     });
+    await notifyAdminPurchase(session, planId);
 
     console.log(
       `Checkout PIX completed for user ${userId} - plan ${planId} ativo até ${end.toISOString()}`
