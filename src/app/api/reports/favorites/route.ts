@@ -6,6 +6,9 @@ export const dynamic = "force-dynamic";
 const PANDASCORE_BASE_URL =
   process.env.PANDASCORE_BASE_URL ?? "https://api.pandascore.co";
 const PANDASCORE_API_KEY = process.env.PANDASCORE_API_KEY || "";
+const BETSAPI_BASE_URL = "https://api.b365api.com/v3";
+const BETSAPI_TOKEN = process.env.API_KEY_1 || "";
+const BETSAPI_CS2_SPORT_ID = "151";
 
 type MatchResult = {
   finished: boolean;
@@ -18,92 +21,265 @@ function safeLower(value: string | null | undefined) {
   return (value || "").toLowerCase();
 }
 
+function normalizeTeamName(value: string | null | undefined) {
+  return safeLower(value).replace(/[^a-z0-9]+/g, "");
+}
+
+function formatDayUTC(date: Date) {
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(date.getUTCDate()).padStart(2, "0");
+  return `${year}${month}${day}`;
+}
+
+type BetsApiEvent = {
+  id: string;
+  time: string;
+  time_status: string;
+  league?: { id?: string; name?: string };
+  home?: { name?: string };
+  away?: { name?: string };
+  ss?: string | null;
+  scores?: Record<string, { home?: string; away?: string }>;
+};
+
+const endedEventsCache = new Map<string, BetsApiEvent[]>();
+
+function parseEventScore(event: BetsApiEvent) {
+  const raw =
+    typeof event.ss === "string" && event.ss.includes("-")
+      ? event.ss
+      : event.scores?.["4"]
+        ? `${event.scores?.["4"].home}-${event.scores?.["4"].away}`
+        : null;
+
+  if (!raw) return null;
+
+  const [homeStr, awayStr] = raw.split("-");
+  const scoreHome = Number(homeStr);
+  const scoreAway = Number(awayStr);
+
+  if (Number.isNaN(scoreHome) || Number.isNaN(scoreAway)) {
+    return null;
+  }
+
+  return { scoreHome, scoreAway };
+}
+
+async function fetchEndedEvents(day: string) {
+  if (endedEventsCache.has(day)) {
+    return endedEventsCache.get(day) ?? [];
+  }
+
+  if (!BETSAPI_TOKEN) {
+    console.error("API_KEY_1 nao configurada para BetsAPI");
+    return [];
+  }
+
+  const results: BetsApiEvent[] = [];
+  let page = 1;
+  let totalPages = 1;
+
+  while (page <= totalPages && page <= 5) {
+    const response = await fetch(
+      `${BETSAPI_BASE_URL}/events/ended?token=${BETSAPI_TOKEN}&sport_id=${BETSAPI_CS2_SPORT_ID}&day=${day}&page=${page}`,
+      { headers: { Accept: "application/json" } }
+    );
+
+    if (!response.ok) {
+      console.error(`BetsAPI error: ${response.status}`);
+      break;
+    }
+
+    const payload = await response.json();
+    const pageResults = Array.isArray(payload?.results) ? payload.results : [];
+    results.push(...pageResults);
+
+    const pager = payload?.pager;
+    if (pager?.total && pager?.per_page) {
+      totalPages = Math.ceil(pager.total / pager.per_page);
+    } else {
+      totalPages = 1;
+    }
+
+    page += 1;
+  }
+
+  endedEventsCache.set(day, results);
+  return results;
+}
+
+async function fetchBetsApiResult(prediction: {
+  homeTeam: string;
+  awayTeam: string;
+  scheduledAt: Date | null;
+}): Promise<MatchResult | null> {
+  if (!BETSAPI_TOKEN) {
+    return null;
+  }
+
+  const scheduledAt = prediction.scheduledAt ?? new Date();
+  const day = formatDayUTC(scheduledAt);
+  const endedEvents = await fetchEndedEvents(day);
+
+  const targetHome = normalizeTeamName(prediction.homeTeam);
+  const targetAway = normalizeTeamName(prediction.awayTeam);
+
+  const match = endedEvents.find((event) => {
+    if (event.time_status !== "3") return false;
+    const leagueName = safeLower(event.league?.name);
+    if (
+      leagueName &&
+      !(
+        leagueName.includes("cs2") ||
+        leagueName.includes("cs:go") ||
+        leagueName.includes("csgo")
+      )
+    ) {
+      return false;
+    }
+
+    const homeName = normalizeTeamName(event.home?.name);
+    const awayName = normalizeTeamName(event.away?.name);
+
+    const directMatch =
+      homeName === targetHome && awayName === targetAway;
+    const swappedMatch =
+      homeName === targetAway && awayName === targetHome;
+
+    return directMatch || swappedMatch;
+  });
+
+  if (!match) {
+    return null;
+  }
+
+  const scores = parseEventScore(match);
+  if (!scores) {
+    return null;
+  }
+
+  let winnerName: string | null = null;
+  if (scores.scoreHome > scores.scoreAway) {
+    winnerName = match.home?.name || prediction.homeTeam;
+  } else if (scores.scoreAway > scores.scoreHome) {
+    winnerName = match.away?.name || prediction.awayTeam;
+  }
+
+  return {
+    finished: true,
+    winnerName,
+    scoreHome: scores.scoreHome,
+    scoreAway: scores.scoreAway,
+  };
+}
+
 async function fetchMatchResult(prediction: {
   matchId: string;
   homeTeam: string;
   awayTeam: string;
   homeTeamId: number | null;
   awayTeamId: number | null;
+  scheduledAt: Date | null;
 }): Promise<MatchResult | null> {
-  if (!PANDASCORE_API_KEY) {
-    console.error("PANDASCORE_API_KEY nao configurada");
-    return null;
-  }
+  let pandaResult: MatchResult | null = null;
 
-  const response = await fetch(
-    `${PANDASCORE_BASE_URL}/csgo/matches/${prediction.matchId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${PANDASCORE_API_KEY}`,
-        Accept: "application/json",
-      },
+  if (PANDASCORE_API_KEY) {
+    const response = await fetch(
+      `${PANDASCORE_BASE_URL}/csgo/matches/${prediction.matchId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${PANDASCORE_API_KEY}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.error(`PandaScore error: ${response.status}`);
+    } else {
+      const match = await response.json();
+      const isFinished = match.status === "finished";
+
+      if (!isFinished) {
+        pandaResult = {
+          finished: false,
+          winnerName: null,
+          scoreHome: null,
+          scoreAway: null,
+        };
+      } else {
+        const opponents = Array.isArray(match.opponents) ? match.opponents : [];
+        const results = Array.isArray(match.results) ? match.results : [];
+
+        const nameById = new Map<number, string>();
+        opponents.forEach((opponent: any) => {
+          if (opponent?.opponent?.id && opponent?.opponent?.name) {
+            nameById.set(opponent.opponent.id, opponent.opponent.name);
+          }
+        });
+
+        const scoreById = new Map<number, number>();
+        results.forEach((result: any) => {
+          if (typeof result?.team_id === "number") {
+            scoreById.set(result.team_id, result.score ?? 0);
+          }
+        });
+
+        const winnerId = match.winner?.id || null;
+        let winnerName = winnerId ? nameById.get(winnerId) || null : null;
+
+        let scoreHome: number | null = null;
+        let scoreAway: number | null = null;
+
+        if (prediction.homeTeamId) {
+          scoreHome = scoreById.get(prediction.homeTeamId) ?? null;
+        }
+        if (prediction.awayTeamId) {
+          scoreAway = scoreById.get(prediction.awayTeamId) ?? null;
+        }
+
+        if (scoreHome === null || scoreAway === null) {
+          for (const [teamId, name] of nameById.entries()) {
+            if (safeLower(name) === safeLower(prediction.homeTeam)) {
+              scoreHome = scoreById.get(teamId) ?? scoreHome;
+            }
+            if (safeLower(name) === safeLower(prediction.awayTeam)) {
+              scoreAway = scoreById.get(teamId) ?? scoreAway;
+            }
+          }
+        }
+
+        if (!winnerName && scoreHome !== null && scoreAway !== null) {
+          if (scoreHome > scoreAway) winnerName = prediction.homeTeam;
+          if (scoreAway > scoreHome) winnerName = prediction.awayTeam;
+        }
+
+        pandaResult = {
+          finished: true,
+          winnerName: winnerName || null,
+          scoreHome,
+          scoreAway,
+        };
+      }
     }
-  );
-
-  if (!response.ok) {
-    console.error(`PandaScore error: ${response.status}`);
-    return null;
   }
 
-  const match = await response.json();
-  const isFinished = match.status === "finished";
-
-  if (!isFinished) {
-    return { finished: false, winnerName: null, scoreHome: null, scoreAway: null };
+  if (pandaResult?.finished) {
+    return pandaResult;
   }
 
-  const opponents = Array.isArray(match.opponents) ? match.opponents : [];
-  const results = Array.isArray(match.results) ? match.results : [];
-
-  const nameById = new Map<number, string>();
-  opponents.forEach((opponent: any) => {
-    if (opponent?.opponent?.id && opponent?.opponent?.name) {
-      nameById.set(opponent.opponent.id, opponent.opponent.name);
-    }
+  const betsResult = await fetchBetsApiResult({
+    homeTeam: prediction.homeTeam,
+    awayTeam: prediction.awayTeam,
+    scheduledAt: prediction.scheduledAt,
   });
 
-  const scoreById = new Map<number, number>();
-  results.forEach((result: any) => {
-    if (typeof result?.team_id === "number") {
-      scoreById.set(result.team_id, result.score ?? 0);
-    }
-  });
-
-  const winnerId = match.winner?.id || null;
-  let winnerName = winnerId ? nameById.get(winnerId) || null : null;
-
-  let scoreHome: number | null = null;
-  let scoreAway: number | null = null;
-
-  if (prediction.homeTeamId) {
-    scoreHome = scoreById.get(prediction.homeTeamId) ?? null;
-  }
-  if (prediction.awayTeamId) {
-    scoreAway = scoreById.get(prediction.awayTeamId) ?? null;
+  if (betsResult) {
+    return betsResult;
   }
 
-  if (scoreHome === null || scoreAway === null) {
-    for (const [teamId, name] of nameById.entries()) {
-      if (safeLower(name) === safeLower(prediction.homeTeam)) {
-        scoreHome = scoreById.get(teamId) ?? scoreHome;
-      }
-      if (safeLower(name) === safeLower(prediction.awayTeam)) {
-        scoreAway = scoreById.get(teamId) ?? scoreAway;
-      }
-    }
-  }
-
-  if (!winnerName && scoreHome !== null && scoreAway !== null) {
-    if (scoreHome > scoreAway) winnerName = prediction.homeTeam;
-    if (scoreAway > scoreHome) winnerName = prediction.awayTeam;
-  }
-
-  return {
-    finished: true,
-    winnerName: winnerName || null,
-    scoreHome,
-    scoreAway,
-  };
+  return pandaResult;
 }
 
 async function refreshPending(limit: number) {
@@ -130,6 +306,7 @@ async function refreshPending(limit: number) {
         awayTeam: prediction.awayTeam,
         homeTeamId: prediction.homeTeamId ?? null,
         awayTeamId: prediction.awayTeamId ?? null,
+        scheduledAt: prediction.scheduledAt ?? null,
       });
 
       if (!result || !result.finished) {
