@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
   const skip = (page - 1) * limit;
 
   const where = emailFilter
-    ? { email: { contains: emailFilter, mode: "insensitive" } }
+    ? { email: { contains: emailFilter, mode: "insensitive" as const } }
     : undefined;
 
   const [total, users] = await prisma.$transaction([
