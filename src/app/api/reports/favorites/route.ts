@@ -384,6 +384,52 @@ async function refreshPending(limit: number) {
   }
 }
 
+async function reconcileResolved(limit: number) {
+  const resolved = await prisma.matchPrediction.findMany({
+    where: {
+      status: {
+        in: ["WIN", "LOSS", "VOID"],
+      },
+      actualWinner: {
+        not: null,
+      },
+      resolvedAt: {
+        not: null,
+      },
+    },
+    orderBy: {
+      resolvedAt: "desc",
+    },
+    take: limit,
+  });
+
+  for (const prediction of resolved) {
+    const winnerNormalized = normalizeTeamName(
+      prediction.actualWinner,
+      "loose"
+    );
+    const predictedNormalized = normalizeTeamName(
+      prediction.predictedWinner,
+      "loose"
+    );
+
+    let desiredStatus = "VOID";
+    if (winnerNormalized && predictedNormalized) {
+      desiredStatus =
+        winnerNormalized === predictedNormalized ? "WIN" : "LOSS";
+    }
+
+    if (desiredStatus !== prediction.status) {
+      await prisma.matchPrediction.update({
+        where: { id: prediction.id },
+        data: {
+          status: desiredStatus,
+        },
+      });
+    }
+  }
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -402,6 +448,7 @@ export async function GET(request: NextRequest) {
 
     if (refresh) {
       await refreshPending(refreshLimit);
+      await reconcileResolved(refreshLimit);
     }
 
     const since = new Date(Date.now() - days * 86400000);
