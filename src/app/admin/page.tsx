@@ -78,6 +78,8 @@ export default function AdminDashboard() {
   });
   const [subResult, setSubResult] = useState<string | null>(null);
   const [resetEmail, setResetEmail] = useState("");
+  const [resetPassword, setResetPassword] = useState("");
+  const [resetPasswordConfirm, setResetPasswordConfirm] = useState("");
   const [resetResult, setResetResult] = useState<string | null>(null);
   const [resetLoading, setResetLoading] = useState(false);
   const subTotalPages = Math.max(1, Math.ceil(subTotal / subPageSize));
@@ -388,24 +390,45 @@ export default function AdminDashboard() {
 
   const handleResetPassword = async (emailOverride?: string) => {
     const email = (emailOverride || resetEmail).trim();
+    const customPassword = resetPassword.trim();
+    const confirmPassword = resetPasswordConfirm.trim();
+    const hasCustomPassword = customPassword.length > 0;
     if (!email) {
       setResetResult("Informe o email");
       return;
     }
-    const confirmed = window.confirm("Gerar senha temporaria para " + email + "?");
+    if (hasCustomPassword && customPassword.length < 6) {
+      setResetResult("A senha deve ter pelo menos 6 caracteres");
+      return;
+    }
+    if (hasCustomPassword && customPassword !== confirmPassword) {
+      setResetResult("As senhas nao conferem");
+      return;
+    }
+    const confirmText = hasCustomPassword
+      ? "Definir senha manual para " + email + "?"
+      : "Gerar senha temporaria para " + email + "?";
+    const confirmed = window.confirm(confirmText);
     if (!confirmed) return;
     try {
       setResetLoading(true);
       setResetResult(null);
       setResetEmail(email);
+      const payload: any = { email };
+      if (hasCustomPassword) payload.password = customPassword;
       const response = await fetch("/api/admin/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify(payload),
       });
       const data = await response.json();
       if (data.success) {
-        setResetResult("Senha temporaria para " + email + ": " + data.tempPassword);
+        const label = data.customPasswordUsed
+          ? "Senha definida"
+          : "Senha temporaria";
+        setResetResult(label + " para " + email + ": " + data.tempPassword);
+        setResetPassword("");
+        setResetPasswordConfirm("");
       } else {
         setResetResult(data.error || "Erro ao resetar");
       }
@@ -1241,8 +1264,41 @@ export default function AdminDashboard() {
                   disabled={resetLoading || !resetEmail}
                   className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg disabled:opacity-50"
                 >
-                  {resetLoading ? "Gerando..." : "Gerar senha temporÃ¡ria"}
+                  {resetLoading
+                    ? "Salvando..."
+                    : resetPassword.trim()
+                    ? "Definir senha"
+                    : "Gerar senha temporaria"}
                 </button>
+              </div>
+              <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-sm text-zinc-300 mb-1">
+                    Nova senha (opcional)
+                  </label>
+                  <input
+                    type="password"
+                    value={resetPassword}
+                    onChange={(e) => setResetPassword(e.target.value)}
+                    className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:border-orange-500 focus:outline-none"
+                    placeholder="Minimo 6 caracteres"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-zinc-300 mb-1">
+                    Confirmar senha
+                  </label>
+                  <input
+                    type="password"
+                    value={resetPasswordConfirm}
+                    onChange={(e) => setResetPasswordConfirm(e.target.value)}
+                    className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:border-orange-500 focus:outline-none"
+                    placeholder="Repita a senha"
+                  />
+                </div>
+                <div className="text-xs text-zinc-500 flex items-end">
+                  Se deixar vazio, o sistema gera uma senha temporaria.
+                </div>
               </div>
               {resetResult && (
                 <div className="mt-3 p-3 rounded-lg bg-zinc-800 border border-zinc-700 text-sm text-zinc-200">
@@ -1250,7 +1306,7 @@ export default function AdminDashboard() {
                 </div>
               )}
               <p className="text-xs text-zinc-500 mt-2">
-                A senha temporÃ¡ria Ã© exibida aqui para vocÃª entregar ao cliente. Recomende que ele altere imediatamente apÃ³s o login.
+                A senha definida (ou temporaria) aparece aqui para voce enviar ao cliente. Recomende que ele altere apos o login.
               </p>
             </div>
           </div>

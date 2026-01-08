@@ -30,10 +30,20 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: false, error: "Acesso negado" }, { status: 403 });
   }
 
-  const { email } = await request.json();
+  const body = await request.json();
+  const email =
+    typeof body?.email === "string" ? body.email.trim() : "";
+  const customPassword =
+    typeof body?.password === "string" ? body.password : "";
   if (!email) {
     return NextResponse.json(
-      { success: false, error: "Informe o email do usuário" },
+      { success: false, error: "Informe o email do usuario" },
+      { status: 400 }
+    );
+  }
+  if (customPassword && customPassword.length < 6) {
+    return NextResponse.json(
+      { success: false, error: "A senha deve ter pelo menos 6 caracteres" },
       { status: 400 }
     );
   }
@@ -41,12 +51,12 @@ export async function POST(request: NextRequest) {
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user) {
     return NextResponse.json(
-      { success: false, error: "Usuário não encontrado" },
+      { success: false, error: "Usuario nao encontrado" },
       { status: 404 }
     );
   }
 
-  const tempPassword = generateTempPassword();
+  const tempPassword = customPassword || generateTempPassword();
   const hashed = await bcrypt.hash(tempPassword, 12);
 
   await prisma.user.update({
@@ -57,5 +67,6 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     success: true,
     tempPassword,
+    customPasswordUsed: !!customPassword,
   });
 }
