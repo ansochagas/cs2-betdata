@@ -353,11 +353,20 @@ async function refreshPending(limit: number) {
         continue;
       }
 
-      const status = result.winnerName
-        ? safeLower(result.winnerName) === safeLower(prediction.predictedWinner)
-          ? "WIN"
-          : "LOSS"
-        : "VOID";
+      let status = "VOID";
+      if (result.winnerName) {
+        const winnerNormalized = normalizeTeamName(result.winnerName, "loose");
+        const predictedNormalized = normalizeTeamName(
+          prediction.predictedWinner,
+          "loose"
+        );
+        status =
+          winnerNormalized &&
+          predictedNormalized &&
+          winnerNormalized === predictedNormalized
+            ? "WIN"
+            : "LOSS";
+      }
 
       await prisma.matchPrediction.update({
         where: { id: prediction.id },
