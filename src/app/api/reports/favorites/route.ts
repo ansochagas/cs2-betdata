@@ -371,6 +371,28 @@ export async function GET(request: NextRequest) {
       take: limit,
     });
 
+    // Mostrar primeiro jogos resolvidos (WIN/LOSS/VOID).
+    const statusPriority: Record<string, number> = {
+      WIN: 0,
+      LOSS: 0,
+      VOID: 0,
+      PENDING: 1,
+    };
+
+    items.sort((a, b) => {
+      const statusDiff =
+        (statusPriority[a.status] ?? 1) - (statusPriority[b.status] ?? 1);
+      if (statusDiff !== 0) return statusDiff;
+
+      const aTime = a.scheduledAt ? new Date(a.scheduledAt).getTime() : 0;
+      const bTime = b.scheduledAt ? new Date(b.scheduledAt).getTime() : 0;
+      if (bTime !== aTime) return bTime - aTime;
+
+      const aCreated = new Date(a.createdAt).getTime();
+      const bCreated = new Date(b.createdAt).getTime();
+      return bCreated - aCreated;
+    });
+
     const wins = items.filter((item) => item.status === "WIN").length;
     const losses = items.filter((item) => item.status === "LOSS").length;
     const pending = items.filter((item) => item.status === "PENDING").length;
