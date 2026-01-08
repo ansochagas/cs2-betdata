@@ -341,7 +341,12 @@ export async function GET(request: NextRequest) {
     const refresh = searchParams.get("refresh") === "true";
     const daysParam = Number(searchParams.get("days") || "30");
     const limitParam = Number(searchParams.get("limit") || "200");
-    const refreshLimit = Number(searchParams.get("refreshLimit") || "30");
+    const refreshLimitParam = Number(
+      searchParams.get("refreshLimit") || "30"
+    );
+    const refreshLimit = Number.isFinite(refreshLimitParam)
+      ? Math.min(Math.max(Math.floor(refreshLimitParam), 1), 200)
+      : 30;
 
     const days = Number.isFinite(daysParam) ? Math.min(daysParam, 120) : 30;
     const limit = Number.isFinite(limitParam) ? Math.min(limitParam, 500) : 200;
