@@ -27,24 +27,40 @@ export async function GET(request: NextRequest) {
 
   const { searchParams } = new URL(request.url);
   const emailFilter = searchParams.get("email")?.trim() || undefined;
+  const page = Math.max(1, Number(searchParams.get("page") || 1));
+  const limit = Math.min(50, Math.max(1, Number(searchParams.get("limit") || 20)));
+  const skip = (page - 1) * limit;
 
-  const users = await prisma.user.findMany({
-    where: emailFilter
-      ? { email: { contains: emailFilter, mode: "insensitive" } }
-      : undefined,
-    take: 20,
-    orderBy: { createdAt: "desc" },
-    include: {
-      subscription: true,
-    },
-  });
+  const where = emailFilter
+    ? { email: { contains: emailFilter, mode: "insensitive" } }
+    : undefined;
+
+  const [total, users] = await prisma.$transaction([
+    prisma.user.count({ where }),
+    prisma.user.findMany({
+      where,
+      skip,
+      take: limit,
+      orderBy: { createdAt: "desc" },
+      include: {
+        subscription: true,
+      },
+    }),
+  ]);
 
   return NextResponse.json({
     success: true,
+    page,
+    limit,
+    total,
+    totalPages: Math.max(1, Math.ceil(total / limit)),
     data: users.map((u) => ({
       id: u.id,
       email: u.email,
       name: u.name,
+      phone: u.phone,
+      telegramId: u.telegramId,
+      createdAt: u.createdAt,
       subscription: u.subscription,
     })),
   });

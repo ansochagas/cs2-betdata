@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
@@ -65,8 +65,11 @@ export default function AdminDashboard() {
   );
   const [subSearchEmail, setSubSearchEmail] = useState("");
   const [subsList, setSubsList] = useState<any[]>([]);
+  const [subPage, setSubPage] = useState(1);
+  const [subTotal, setSubTotal] = useState(0);
   const [loadingSubs, setLoadingSubs] = useState(false);
   const [updatingSub, setUpdatingSub] = useState(false);
+  const subPageSize = 20;
   const [subForm, setSubForm] = useState({
     email: "",
     planId: "",
@@ -77,15 +80,17 @@ export default function AdminDashboard() {
   const [resetEmail, setResetEmail] = useState("");
   const [resetResult, setResetResult] = useState<string | null>(null);
   const [resetLoading, setResetLoading] = useState(false);
+  const subTotalPages = Math.max(1, Math.ceil(subTotal / subPageSize));
 
   useEffect(() => {
-    // Verificar se usuário é admin
+    // Verificar se usuÃ¡rio Ã© admin
     if (session?.user?.email && !isAdmin(session.user.email)) {
       window.location.href = "/dashboard";
       return;
     }
 
     fetchAdminStats();
+    handleLoadSubscriptions(1);
   }, [session]);
 
   const isAdmin = (email: string) => {
@@ -93,10 +98,10 @@ export default function AdminDashboard() {
     const adminEmails = [
       "admin@csgoscout.com",
       "andersonchagas45@gmail.com", // Conta admin criada
-      // Adicionar mais emails conforme necessário
+      // Adicionar mais emails conforme necessÃ¡rio
     ];
 
-    // Verificar se é admin
+    // Verificar se Ã© admin
     return adminEmails.includes(email);
   };
 
@@ -111,7 +116,7 @@ export default function AdminDashboard() {
         }
       }
     } catch (error) {
-      console.error("Erro ao buscar estatísticas:", error);
+      console.error("Erro ao buscar estatÃ­sticas:", error);
     } finally {
       setLoading(false);
     }
@@ -119,7 +124,7 @@ export default function AdminDashboard() {
 
   const handleBroadcast = async () => {
     if (!broadcastMessage.title || !broadcastMessage.message) {
-      alert("Preencha título e mensagem");
+      alert("Preencha tÃ­tulo e mensagem");
       return;
     }
 
@@ -139,14 +144,14 @@ export default function AdminDashboard() {
 
       if (data.success) {
         setBroadcastResult(
-          `✅ Mensagem enviada para ${data.sentCount} usuários!`
+          `âœ… Mensagem enviada para ${data.sentCount} usuÃ¡rios!`
         );
         setBroadcastMessage({ title: "", message: "", target: "all" });
       } else {
-        setBroadcastResult(`❌ Erro: ${data.error}`);
+        setBroadcastResult(`âŒ Erro: ${data.error}`);
       }
     } catch (error) {
-      setBroadcastResult("❌ Erro ao enviar mensagem");
+      setBroadcastResult("âŒ Erro ao enviar mensagem");
     } finally {
       setSendingBroadcast(false);
     }
@@ -156,12 +161,12 @@ export default function AdminDashboard() {
     const email = telegramUnlinkEmail.trim();
 
     if (!email) {
-      alert("Informe o email do usuÇ­rio");
+      alert("Informe o email do usuÃ‡Â­rio");
       return;
     }
 
     const confirmed = window.confirm(
-      `Desvincular Telegram do usuÇ­rio ${email}?\n\nEssa aÇõÇœo remove o vÇðnculo e o usuÇ­rio precisarÇ­ vincular novamente.`
+      `Desvincular Telegram do usuÃ‡Â­rio ${email}?\n\nEssa aÃ‡ÃµÃ‡Å“o remove o vÃ‡Ã°nculo e o usuÃ‡Â­rio precisarÃ‡Â­ vincular novamente.`
     );
 
     if (!confirmed) return;
@@ -182,15 +187,15 @@ export default function AdminDashboard() {
 
       if (data.success) {
         setTelegramUnlinkResult(
-          `ƒo. Telegram desvinculado: ${data.data?.email || email}`
+          `Æ’o. Telegram desvinculado: ${data.data?.email || email}`
         );
         setTelegramUnlinkEmail("");
         fetchAdminStats();
       } else {
-        setTelegramUnlinkResult(`ƒ?O Erro: ${data.error || "Erro"}`);
+        setTelegramUnlinkResult(`Æ’?O Erro: ${data.error || "Erro"}`);
       }
     } catch (error) {
-      setTelegramUnlinkResult("ƒ?O Erro ao desvincular Telegram");
+      setTelegramUnlinkResult("Æ’?O Erro ao desvincular Telegram");
     } finally {
       setTelegramUnlinking(false);
     }
@@ -211,7 +216,7 @@ export default function AdminDashboard() {
         }
       }
     } catch (error) {
-      console.error("Erro na verificação de integridade:", error);
+      console.error("Erro na verificaÃ§Ã£o de integridade:", error);
     } finally {
       setCheckingIntegrity(false);
     }
@@ -250,14 +255,14 @@ export default function AdminDashboard() {
       const data = await response.json();
 
       if (data.success) {
-        setAlertResult(`✅ ${data.result.sent} alertas enviados com sucesso!`);
+        setAlertResult(`âœ… ${data.result.sent} alertas enviados com sucesso!`);
         // Recarregar dados
         handleLoadAlerts();
       } else {
-        setAlertResult(`❌ Erro: ${data.error}`);
+        setAlertResult(`âŒ Erro: ${data.error}`);
       }
     } catch (error) {
-      setAlertResult("❌ Erro ao enviar alertas");
+      setAlertResult("âŒ Erro ao enviar alertas");
     } finally {
       setSendingAlerts(false);
     }
@@ -279,14 +284,14 @@ export default function AdminDashboard() {
       const data = await response.json();
 
       if (data.success) {
-        setGameAlertResult(`✅ ${data.message}`);
+        setGameAlertResult(`âœ… ${data.message}`);
         // Recarregar status
         handleLoadGameAlertsStatus();
       } else {
-        setGameAlertResult(`❌ Erro: ${data.error}`);
+        setGameAlertResult(`âŒ Erro: ${data.error}`);
       }
     } catch (error) {
-      setGameAlertResult("❌ Erro ao verificar alertas de jogos");
+      setGameAlertResult("âŒ Erro ao verificar alertas de jogos");
     } finally {
       setCheckingGameAlerts(false);
     }
@@ -306,20 +311,32 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleLoadSubscriptions = async () => {
+  const handleLoadSubscriptions = async (page = 1) => {
     try {
       setLoadingSubs(true);
       setSubResult(null);
-      const query = subSearchEmail ? `?email=${encodeURIComponent(subSearchEmail)}` : "";
-      const response = await fetch(`/api/admin/subscriptions${query}`);
+      const emailFilter = subSearchEmail.trim();
+      const params = new URLSearchParams();
+      if (emailFilter) {
+        params.set("email", emailFilter);
+      }
+      params.set("page", String(page));
+      params.set("limit", String(subPageSize));
+      const response = await fetch(`/api/admin/subscriptions?${params.toString()}`);
       const data = await response.json();
       if (data.success) {
         setSubsList(data.data || []);
+        setSubTotal(data.total || 0);
+        setSubPage(data.page || page);
       } else {
         setSubResult(data.error || "Erro ao carregar assinaturas");
+        setSubsList([]);
+        setSubTotal(0);
       }
     } catch (error) {
       setSubResult("Erro ao carregar assinaturas");
+      setSubsList([]);
+      setSubTotal(0);
     } finally {
       setLoadingSubs(false);
     }
@@ -334,6 +351,7 @@ export default function AdminDashboard() {
         ? new Date(sub.subscription.currentPeriodEnd).toISOString().slice(0, 10)
         : "",
     });
+    setResetEmail(sub.email);
   };
 
   const handleUpdateSub = async () => {
@@ -357,7 +375,7 @@ export default function AdminDashboard() {
       const data = await response.json();
       if (data.success) {
         setSubResult("Assinatura atualizada");
-        handleLoadSubscriptions();
+        handleLoadSubscriptions(subPage);
       } else {
         setSubResult(data.error || "Erro ao atualizar");
       }
@@ -368,22 +386,26 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleResetPassword = async () => {
-    if (!resetEmail) {
+  const handleResetPassword = async (emailOverride?: string) => {
+    const email = (emailOverride || resetEmail).trim();
+    if (!email) {
       setResetResult("Informe o email");
       return;
     }
+    const confirmed = window.confirm("Gerar senha temporaria para " + email + "?");
+    if (!confirmed) return;
     try {
       setResetLoading(true);
       setResetResult(null);
+      setResetEmail(email);
       const response = await fetch("/api/admin/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: resetEmail }),
+        body: JSON.stringify({ email }),
       });
       const data = await response.json();
       if (data.success) {
-        setResetResult(`Senha temporária: ${data.tempPassword}`);
+        setResetResult("Senha temporaria para " + email + ": " + data.tempPassword);
       } else {
         setResetResult(data.error || "Erro ao resetar");
       }
@@ -401,7 +423,7 @@ export default function AdminDashboard() {
           <AlertTriangle size={64} className="text-red-500 mx-auto mb-4" />
           <h1 className="text-2xl font-bold mb-4">Acesso Negado</h1>
           <p className="text-zinc-400 mb-8">
-            Você não tem permissão para acessar esta página.
+            VocÃª nÃ£o tem permissÃ£o para acessar esta pÃ¡gina.
           </p>
           <button
             onClick={() => (window.location.href = "/dashboard")}
@@ -431,7 +453,7 @@ export default function AdminDashboard() {
             <div className="text-2xl font-bold bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
               ADMIN PANEL
             </div>
-            <span className="text-zinc-400">•</span>
+            <span className="text-zinc-400">â€¢</span>
             <span className="text-zinc-400">Dashboard Administrativo</span>
           </div>
 
@@ -451,9 +473,9 @@ export default function AdminDashboard() {
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Métricas Principais */}
+          {/* MÃ©tricas Principais */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Cards de Estatísticas */}
+            {/* Cards de EstatÃ­sticas */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
                 <div className="flex items-center gap-4">
@@ -462,7 +484,7 @@ export default function AdminDashboard() {
                     <p className="text-2xl font-bold">
                       {stats?.totalUsers || 0}
                     </p>
-                    <p className="text-zinc-400 text-sm">Total de Usuários</p>
+                    <p className="text-zinc-400 text-sm">Total de UsuÃ¡rios</p>
                   </div>
                 </div>
               </div>
@@ -504,7 +526,7 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Receita e Novos Usuários */}
+            {/* Receita e Novos UsuÃ¡rios */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
                 <div className="flex items-center gap-4 mb-4">
@@ -516,7 +538,7 @@ export default function AdminDashboard() {
                 </p>
                 <p className="text-zinc-400 text-sm mt-2">
                   <TrendingUp size={14} className="inline mr-1" />
-                  +12% em relação ao mês passado
+                  +12% em relaÃ§Ã£o ao mÃªs passado
                 </p>
               </div>
 
@@ -529,12 +551,12 @@ export default function AdminDashboard() {
                   {stats?.recentSignups || 0}
                 </p>
                 <p className="text-zinc-400 text-sm mt-2">
-                  Nos últimos 30 dias
+                  Nos Ãºltimos 30 dias
                 </p>
               </div>
             </div>
 
-            {/* Verificação de Integridade */}
+            {/* VerificaÃ§Ã£o de Integridade */}
             <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4">
@@ -544,7 +566,7 @@ export default function AdminDashboard() {
                       Integridade das Subscriptions
                     </h3>
                     <p className="text-zinc-400 text-sm">
-                      Verifique a saúde dos planos dos usuários
+                      Verifique a saÃºde dos planos dos usuÃ¡rios
                     </p>
                   </div>
                 </div>
@@ -580,13 +602,13 @@ export default function AdminDashboard() {
                       <p className="text-2xl font-bold text-green-400">
                         {integrityCheck.validSubscriptions}
                       </p>
-                      <p className="text-xs text-zinc-400">Válidas</p>
+                      <p className="text-xs text-zinc-400">VÃ¡lidas</p>
                     </div>
                     <div className="text-center">
                       <p className="text-2xl font-bold text-red-400">
                         {integrityCheck.invalidSubscriptions}
                       </p>
-                      <p className="text-xs text-zinc-400">Inválidas</p>
+                      <p className="text-xs text-zinc-400">InvÃ¡lidas</p>
                     </div>
                     <div className="text-center">
                       <p className="text-2xl font-bold text-orange-400">
@@ -599,7 +621,7 @@ export default function AdminDashboard() {
                   {integrityCheck.issues.length > 0 && (
                     <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4">
                       <h4 className="text-red-400 font-semibold mb-2">
-                        ⚠️ Problemas Encontrados ({integrityCheck.issues.length}
+                        âš ï¸ Problemas Encontrados ({integrityCheck.issues.length}
                         )
                       </h4>
                       <div className="space-y-1 max-h-32 overflow-y-auto">
@@ -607,7 +629,7 @@ export default function AdminDashboard() {
                           .slice(0, 5)
                           .map((issue: string, index: number) => (
                             <p key={index} className="text-red-300 text-sm">
-                              • {issue}
+                              â€¢ {issue}
                             </p>
                           ))}
                         {integrityCheck.issues.length > 5 && (
@@ -623,7 +645,7 @@ export default function AdminDashboard() {
                   {integrityCheck.issues.length === 0 && (
                     <div className="bg-green-500/20 border border-green-500/50 rounded-lg p-4">
                       <p className="text-green-400 text-sm">
-                        ✅ Todas as subscriptions estão íntegras!
+                        âœ… Todas as subscriptions estÃ£o Ã­ntegras!
                       </p>
                     </div>
                   )}
@@ -631,17 +653,17 @@ export default function AdminDashboard() {
               )}
             </div>
 
-            {/* Alertas de Expiração */}
+            {/* Alertas de ExpiraÃ§Ã£o */}
             <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4">
                   <AlertTriangle className="text-red-400" size={24} />
                   <div>
                     <h3 className="text-lg font-semibold">
-                      Alertas de Expiração
+                      Alertas de ExpiraÃ§Ã£o
                     </h3>
                     <p className="text-zinc-400 text-sm">
-                      Usuários próximos da expiração do plano
+                      UsuÃ¡rios prÃ³ximos da expiraÃ§Ã£o do plano
                     </p>
                   </div>
                 </div>
@@ -686,7 +708,7 @@ export default function AdminDashboard() {
               {alertResult && (
                 <div
                   className={`mb-4 p-3 rounded-lg text-sm ${
-                    alertResult.includes("✅")
+                    alertResult.includes("âœ…")
                       ? "bg-green-500/20 border border-green-500/50 text-green-400"
                       : "bg-red-500/20 border border-red-500/50 text-red-400"
                   }`}
@@ -704,14 +726,14 @@ export default function AdminDashboard() {
                         {alertsData.summary?.critical || 0}
                       </p>
                       <p className="text-xs text-zinc-400">
-                        Críticos (≤3 dias)
+                        CrÃ­ticos (â‰¤3 dias)
                       </p>
                     </div>
                     <div className="text-center">
                       <p className="text-2xl font-bold text-orange-400">
                         {alertsData.summary?.warning || 0}
                       </p>
-                      <p className="text-xs text-zinc-400">Avisos (≤7 dias)</p>
+                      <p className="text-xs text-zinc-400">Avisos (â‰¤7 dias)</p>
                     </div>
                     <div className="text-center">
                       <p className="text-2xl font-bold text-gray-400">
@@ -731,7 +753,7 @@ export default function AdminDashboard() {
                   {alertsData.alerts?.length > 0 ? (
                     <div className="space-y-3">
                       <h4 className="text-sm font-semibold text-zinc-300">
-                        Usuários que precisam de alertas:
+                        UsuÃ¡rios que precisam de alertas:
                       </h4>
                       {alertsData.alerts
                         .slice(0, 10)
@@ -771,17 +793,17 @@ export default function AdminDashboard() {
                         ))}
                       {alertsData.alerts.length > 10 && (
                         <p className="text-xs text-zinc-400 text-center">
-                          ... e mais {alertsData.alerts.length - 10} usuários
+                          ... e mais {alertsData.alerts.length - 10} usuÃ¡rios
                         </p>
                       )}
                     </div>
                   ) : (
                     <div className="text-center py-8">
                       <p className="text-zinc-400">
-                        🎉 Nenhum alerta necessário no momento!
+                        ðŸŽ‰ Nenhum alerta necessÃ¡rio no momento!
                       </p>
                       <p className="text-xs text-zinc-500 mt-1">
-                        Todos os usuários estão com planos em dia
+                        Todos os usuÃ¡rios estÃ£o com planos em dia
                       </p>
                     </div>
                   )}
@@ -797,7 +819,7 @@ export default function AdminDashboard() {
                   <div>
                     <h3 className="text-lg font-semibold">Alertas de Jogos</h3>
                     <p className="text-zinc-400 text-sm">
-                      Notificações automáticas de jogos próximos
+                      NotificaÃ§Ãµes automÃ¡ticas de jogos prÃ³ximos
                     </p>
                   </div>
                 </div>
@@ -823,7 +845,7 @@ export default function AdminDashboard() {
               {gameAlertResult && (
                 <div
                   className={`mb-4 p-3 rounded-lg text-sm ${
-                    gameAlertResult.includes("✅")
+                    gameAlertResult.includes("âœ…")
                       ? "bg-green-500/20 border border-green-500/50 text-green-400"
                       : "bg-red-500/20 border border-red-500/50 text-red-400"
                   }`}
@@ -853,7 +875,7 @@ export default function AdminDashboard() {
                     <div className="bg-zinc-800/50 rounded-lg p-4 text-center">
                       <Clock size={20} className="mx-auto mb-2 text-blue-400" />
                       <p className="text-sm text-zinc-400">
-                        Última Verificação
+                        Ãšltima VerificaÃ§Ã£o
                       </p>
                       <p className="text-white font-medium">
                         {new Date(
@@ -874,11 +896,11 @@ export default function AdminDashboard() {
                     </div>
                   </div>
 
-                  {/* Informações do Sistema */}
+                  {/* InformaÃ§Ãµes do Sistema */}
                   <div className="bg-zinc-800/50 rounded-lg p-4">
                     <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
                       <Info size={16} className="text-blue-400" />
-                      Informações do Sistema
+                      InformaÃ§Ãµes do Sistema
                     </h4>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
@@ -892,7 +914,7 @@ export default function AdminDashboard() {
                               : "text-red-400"
                           }`}
                         >
-                          {gameAlertsStatus.alertsEnabled ? "Sim" : "Não"}
+                          {gameAlertsStatus.alertsEnabled ? "Sim" : "NÃ£o"}
                         </span>
                       </div>
                       <div className="flex justify-between">
@@ -911,30 +933,30 @@ export default function AdminDashboard() {
                       Como Funciona
                     </h4>
                     <ul className="text-sm text-zinc-300 space-y-1">
-                      <li>• ✅ Verifica jogos a cada 1 minuto</li>
-                      <li>• 🎯 Alerta 10min, 5min e no início do jogo</li>
+                      <li>â€¢ âœ… Verifica jogos a cada 1 minuto</li>
+                      <li>â€¢ ðŸŽ¯ Alerta 10min, 5min e no inÃ­cio do jogo</li>
                       <li>
-                        • 📱 Envia via Telegram para usuários configurados
+                        â€¢ ðŸ“± Envia via Telegram para usuÃ¡rios configurados
                       </li>
-                      <li>• 🚫 Evita alertas duplicados (1h de bloqueio)</li>
-                      <li>• ⚡ Funciona 24/7 em background</li>
+                      <li>â€¢ ðŸš« Evita alertas duplicados (1h de bloqueio)</li>
+                      <li>â€¢ âš¡ Funciona 24/7 em background</li>
                     </ul>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Gestão de Assinaturas */}
+            {/* Gestao de Usuarios */}
             <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-xl p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                   <Shield className="text-green-400" size={24} />
                   <h3 className="text-lg font-semibold">
-                    Gestão de Assinaturas (Admin)
+                    Gestao de Usuarios (Admin)
                   </h3>
                 </div>
                 <button
-                  onClick={handleLoadSubscriptions}
+                  onClick={() => handleLoadSubscriptions(1)}
                   disabled={loadingSubs}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-50"
                 >
@@ -957,7 +979,7 @@ export default function AdminDashboard() {
                       placeholder="cliente@email.com"
                     />
                     <button
-                      onClick={handleLoadSubscriptions}
+                      onClick={() => handleLoadSubscriptions(1)}
                       disabled={loadingSubs}
                       className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg disabled:opacity-50"
                     >
@@ -965,6 +987,29 @@ export default function AdminDashboard() {
                     </button>
                   </div>
                 </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 text-sm text-zinc-400 mb-4">
+                <span>Total: {subTotal}</span>
+                <span>
+                  Pagina {subPage} de {subTotalPages}
+                </span>
+                <button
+                  onClick={() => handleLoadSubscriptions(Math.max(1, subPage - 1))}
+                  disabled={loadingSubs || subPage <= 1}
+                  className="px-3 py-1 rounded border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-50"
+                >
+                  Anterior
+                </button>
+                <button
+                  onClick={() =>
+                    handleLoadSubscriptions(Math.min(subTotalPages, subPage + 1))
+                  }
+                  disabled={loadingSubs || subPage >= subTotalPages}
+                  className="px-3 py-1 rounded border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-50"
+                >
+                  Proxima
+                </button>
               </div>
 
               {subResult && (
@@ -980,33 +1025,115 @@ export default function AdminDashboard() {
               )}
 
               {subsList.length > 0 && (
-                <div className="space-y-3 mb-4 max-h-64 overflow-y-auto">
-                  {subsList.map((u) => (
-                    <button
-                      key={u.id}
-                      onClick={() => handleSelectSub(u)}
-                      className="w-full text-left p-3 rounded-lg border border-zinc-800 bg-zinc-900 hover:border-orange-500/50 transition-colors"
-                    >
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <p className="font-semibold text-white">{u.email}</p>
-                          <p className="text-xs text-zinc-400">{u.name || ""}</p>
-                        </div>
-                        <div className="text-right text-xs text-zinc-400">
-                          <div>{u.subscription?.planId || "sem plano"}</div>
-                          <div>{u.subscription?.status || "N/A"}</div>
-                          {u.subscription?.currentPeriodEnd && (
-                            <div>
-                              até{" "}
-                              {new Date(
-                                u.subscription.currentPeriodEnd
-                              ).toLocaleDateString("pt-BR")}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </button>
-                  ))}
+                <div className="mb-4 overflow-x-auto border border-zinc-800 rounded-lg">
+                  <table className="min-w-full text-sm">
+                    <thead className="bg-zinc-900/80">
+                      <tr className="text-left text-zinc-400">
+                        <th className="p-3">Usuario</th>
+                        <th className="p-3">Contato</th>
+                        <th className="p-3">Plano / Status</th>
+                        <th className="p-3">Periodo</th>
+                        <th className="p-3">Criado</th>
+                        <th className="p-3">Acoes</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-zinc-800">
+                      {subsList.map((u) => {
+                        const periodEnd = u.subscription?.currentPeriodEnd
+                          ? new Date(u.subscription.currentPeriodEnd)
+                          : null;
+                        const trialEnds = u.subscription?.trialEndsAt
+                          ? new Date(u.subscription.trialEndsAt)
+                          : null;
+                        const createdAt = u.createdAt
+                          ? new Date(u.createdAt)
+                          : null;
+                        const daysLeft = periodEnd
+                          ? Math.max(
+                              0,
+                              Math.ceil(
+                                (periodEnd.getTime() - Date.now()) /
+                                  (1000 * 60 * 60 * 24)
+                              )
+                            )
+                          : null;
+                        const stripeId = u.subscription?.stripeCustomerId || "";
+                        const stripeLabel = stripeId
+                          ? `${stripeId.slice(0, 6)}...${stripeId.slice(-4)}`
+                          : "N/A";
+
+                        return (
+                          <tr key={u.id} className="bg-zinc-950/40">
+                            <td className="p-3 align-top">
+                              <div className="text-white font-semibold">
+                                {u.email}
+                              </div>
+                              <div className="text-xs text-zinc-400">
+                                {u.name || "Sem nome"}
+                              </div>
+                              <div className="text-[11px] text-zinc-500">
+                                ID: {u.id}
+                              </div>
+                            </td>
+                            <td className="p-3 align-top text-zinc-300">
+                              <div>{u.phone || "Sem telefone"}</div>
+                              <div className="text-xs text-zinc-400">
+                                Telegram: {u.telegramId || "Nao vinculado"}
+                              </div>
+                            </td>
+                            <td className="p-3 align-top text-zinc-300">
+                              <div>{u.subscription?.planId || "Sem plano"}</div>
+                              <div className="text-xs text-zinc-400">
+                                {u.subscription?.status || "N/A"}
+                              </div>
+                              <div className="text-[11px] text-zinc-500">
+                                Stripe: {stripeLabel}
+                              </div>
+                            </td>
+                            <td className="p-3 align-top text-zinc-300">
+                              <div>
+                                Fim:{" "}
+                                {periodEnd
+                                  ? periodEnd.toLocaleDateString("pt-BR")
+                                  : "N/A"}
+                              </div>
+                              <div className="text-xs text-zinc-400">
+                                Dias: {daysLeft !== null ? daysLeft : "N/A"}
+                              </div>
+                              <div className="text-[11px] text-zinc-500">
+                                Trial:{" "}
+                                {trialEnds
+                                  ? trialEnds.toLocaleDateString("pt-BR")
+                                  : "N/A"}
+                              </div>
+                            </td>
+                            <td className="p-3 align-top text-zinc-300">
+                              {createdAt
+                                ? createdAt.toLocaleDateString("pt-BR")
+                                : "N/A"}
+                            </td>
+                            <td className="p-3 align-top">
+                              <div className="flex flex-col gap-2">
+                                <button
+                                  onClick={() => handleSelectSub(u)}
+                                  className="px-3 py-1 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg"
+                                >
+                                  Selecionar
+                                </button>
+                                <button
+                                  onClick={() => handleResetPassword(u.email)}
+                                  className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded-lg"
+                                  disabled={resetLoading}
+                                >
+                                  Resetar senha
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
               )}
 
@@ -1063,7 +1190,7 @@ export default function AdminDashboard() {
                 </div>
                 <div>
                   <label className="block text-sm text-zinc-300 mb-1">
-                    Fim do período
+                    Fim do perÃ­odo
                   </label>
                   <input
                     type="date"
@@ -1085,7 +1212,7 @@ export default function AdminDashboard() {
                   disabled={updatingSub || !subForm.email}
                   className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg disabled:opacity-50"
                 >
-                  {updatingSub ? "Salvando..." : "Salvar alterações"}
+                  {updatingSub ? "Salvando..." : "Salvar alteraÃ§Ãµes"}
                 </button>
               </div>
             </div>
@@ -1099,7 +1226,7 @@ export default function AdminDashboard() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
                 <div className="md:col-span-2">
                   <label className="block text-sm text-zinc-300 mb-1">
-                    Email do usuário
+                    Email do usuÃ¡rio
                   </label>
                   <input
                     type="email"
@@ -1114,7 +1241,7 @@ export default function AdminDashboard() {
                   disabled={resetLoading || !resetEmail}
                   className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg disabled:opacity-50"
                 >
-                  {resetLoading ? "Gerando..." : "Gerar senha temporária"}
+                  {resetLoading ? "Gerando..." : "Gerar senha temporÃ¡ria"}
                 </button>
               </div>
               {resetResult && (
@@ -1123,7 +1250,7 @@ export default function AdminDashboard() {
                 </div>
               )}
               <p className="text-xs text-zinc-500 mt-2">
-                A senha temporária é exibida aqui para você entregar ao cliente. Recomende que ele altere imediatamente após o login.
+                A senha temporÃ¡ria Ã© exibida aqui para vocÃª entregar ao cliente. Recomende que ele altere imediatamente apÃ³s o login.
               </p>
             </div>
           </div>
@@ -1139,7 +1266,7 @@ export default function AdminDashboard() {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-zinc-300 mb-2">
-                    Título da Mensagem
+                    TÃ­tulo da Mensagem
                   </label>
                   <input
                     type="text"
@@ -1151,7 +1278,7 @@ export default function AdminDashboard() {
                       }))
                     }
                     className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:border-orange-500 focus:outline-none"
-                    placeholder="Ex: Manutenção Programada"
+                    placeholder="Ex: ManutenÃ§Ã£o Programada"
                   />
                 </div>
 
@@ -1175,7 +1302,7 @@ export default function AdminDashboard() {
 
                 <div>
                   <label className="block text-sm font-medium text-zinc-300 mb-2">
-                    Público Alvo
+                    PÃºblico Alvo
                   </label>
                   <select
                     value={broadcastMessage.target}
@@ -1187,16 +1314,16 @@ export default function AdminDashboard() {
                     }
                     className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:border-orange-500 focus:outline-none"
                   >
-                    <option value="all">Todos os usuários vinculados</option>
+                    <option value="all">Todos os usuÃ¡rios vinculados</option>
                     <option value="active">Apenas assinantes ativos</option>
-                    <option value="trial">Apenas usuários em trial</option>
+                    <option value="trial">Apenas usuÃ¡rios em trial</option>
                   </select>
                 </div>
 
                 {broadcastResult && (
                   <div
                     className={`p-3 rounded-lg text-sm ${
-                      broadcastResult.includes("✅")
+                      broadcastResult.includes("âœ…")
                         ? "bg-green-500/20 border border-green-500/50 text-green-400"
                         : "bg-red-500/20 border border-red-500/50 text-red-400"
                     }`}
@@ -1229,14 +1356,14 @@ export default function AdminDashboard() {
               </div>
 
               <div className="mt-6 pt-6 border-t border-zinc-800">
-                <h3 className="text-sm font-medium mb-3">Informações</h3>
+                <h3 className="text-sm font-medium mb-3">InformaÃ§Ãµes</h3>
                 <div className="text-xs text-zinc-400 space-y-2">
                   <p>
-                    • Apenas usuários com Telegram vinculado recebem as
+                    â€¢ Apenas usuÃ¡rios com Telegram vinculado recebem as
                     mensagens
                   </p>
-                  <p>• Mensagens são enviadas em lote para evitar sobrecarga</p>
-                  <p>• Use com responsabilidade</p>
+                  <p>â€¢ Mensagens sÃ£o enviadas em lote para evitar sobrecarga</p>
+                  <p>â€¢ Use com responsabilidade</p>
                 </div>
               </div>
 
@@ -1251,13 +1378,13 @@ export default function AdminDashboard() {
                     value={telegramUnlinkEmail}
                     onChange={(e) => setTelegramUnlinkEmail(e.target.value)}
                     className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:border-orange-500 focus:outline-none"
-                    placeholder="Email do usuário (ex: cliente@email.com)"
+                    placeholder="Email do usuÃ¡rio (ex: cliente@email.com)"
                   />
 
                   {telegramUnlinkResult && (
                     <div
                       className={`p-3 rounded-lg text-sm ${
-                        telegramUnlinkResult.includes("ƒo.")
+                        telegramUnlinkResult.includes("Æ’o.")
                           ? "bg-green-500/20 border border-green-500/50 text-green-400"
                           : "bg-red-500/20 border border-red-500/50 text-red-400"
                       }`}
@@ -1277,8 +1404,8 @@ export default function AdminDashboard() {
                   </button>
 
                   <p className="text-xs text-zinc-400">
-                    Remove o vínculo atual (telegramId/config/códigos) para o
-                    usuário poder vincular novamente.
+                    Remove o vÃ­nculo atual (telegramId/config/cÃ³digos) para o
+                    usuÃ¡rio poder vincular novamente.
                   </p>
                 </div>
               </div>
