@@ -10,7 +10,7 @@ const BETSAPI_BASE_URL = "https://api.b365api.com/v3";
 const BETSAPI_TOKEN = process.env.API_KEY_1 || "";
 const BETSAPI_CS2_SPORT_ID = "151";
 const BETSAPI_ENDED_MAX_PAGES = Math.min(
-  Math.max(Number(process.env.BETSAPI_ENDED_MAX_PAGES || "10"), 1),
+  Math.max(Number(process.env.BETSAPI_ENDED_MAX_PAGES || "20"), 1),
   20
 );
 
@@ -157,71 +157,82 @@ async function fetchBetsApiResult(prediction: {
     return null;
   }
 
-  const scheduledAt = prediction.scheduledAt ?? new Date();
-  const day = formatDayUTC(scheduledAt);
-  const endedEvents = await fetchEndedEvents(day);
-
   const targetHomeStrict = normalizeTeamName(prediction.homeTeam, "strict");
   const targetAwayStrict = normalizeTeamName(prediction.awayTeam, "strict");
   const targetHomeLoose = normalizeTeamName(prediction.homeTeam, "loose");
   const targetAwayLoose = normalizeTeamName(prediction.awayTeam, "loose");
 
-  const match = endedEvents.find((event) => {
-    if (event.time_status !== "3") return false;
-    const leagueName = safeLower(event.league?.name);
-    if (
-      leagueName &&
-      !(
-        leagueName.includes("cs2") ||
-        leagueName.includes("cs:go") ||
-        leagueName.includes("csgo")
-      )
-    ) {
-      return false;
+  const scheduledAt = prediction.scheduledAt ?? new Date();
+  const dayCandidates = [
+    scheduledAt,
+    new Date(scheduledAt.getTime() + 24 * 60 * 60 * 1000),
+    new Date(scheduledAt.getTime() - 24 * 60 * 60 * 1000),
+  ];
+  const daysToCheck = Array.from(
+    new Set(dayCandidates.map((date) => formatDayUTC(date)))
+  );
+
+  for (const day of daysToCheck) {
+    const endedEvents = await fetchEndedEvents(day);
+    const match = endedEvents.find((event) => {
+      if (event.time_status !== "3") return false;
+      const leagueName = safeLower(event.league?.name);
+      if (
+        leagueName &&
+        !(
+          leagueName.includes("cs2") ||
+          leagueName.includes("cs:go") ||
+          leagueName.includes("csgo")
+        )
+      ) {
+        return false;
+      }
+
+      const homeNameStrict = normalizeTeamName(event.home?.name, "strict");
+      const awayNameStrict = normalizeTeamName(event.away?.name, "strict");
+      const homeNameLoose = normalizeTeamName(event.home?.name, "loose");
+      const awayNameLoose = normalizeTeamName(event.away?.name, "loose");
+
+      const directStrict =
+        homeNameStrict === targetHomeStrict &&
+        awayNameStrict === targetAwayStrict;
+      const swappedStrict =
+        homeNameStrict === targetAwayStrict &&
+        awayNameStrict === targetHomeStrict;
+
+      const directLoose =
+        homeNameLoose === targetHomeLoose && awayNameLoose === targetAwayLoose;
+      const swappedLoose =
+        homeNameLoose === targetAwayLoose && awayNameLoose === targetHomeLoose;
+
+      return directStrict || swappedStrict || directLoose || swappedLoose;
+    });
+
+    if (!match) {
+      continue;
     }
 
-    const homeNameStrict = normalizeTeamName(event.home?.name, "strict");
-    const awayNameStrict = normalizeTeamName(event.away?.name, "strict");
-    const homeNameLoose = normalizeTeamName(event.home?.name, "loose");
-    const awayNameLoose = normalizeTeamName(event.away?.name, "loose");
+    const scores = parseEventScore(match);
+    if (!scores) {
+      continue;
+    }
 
-    const directStrict =
-      homeNameStrict === targetHomeStrict &&
-      awayNameStrict === targetAwayStrict;
-    const swappedStrict =
-      homeNameStrict === targetAwayStrict &&
-      awayNameStrict === targetHomeStrict;
+    let winnerName: string | null = null;
+    if (scores.scoreHome > scores.scoreAway) {
+      winnerName = match.home?.name || prediction.homeTeam;
+    } else if (scores.scoreAway > scores.scoreHome) {
+      winnerName = match.away?.name || prediction.awayTeam;
+    }
 
-    const directLoose =
-      homeNameLoose === targetHomeLoose && awayNameLoose === targetAwayLoose;
-    const swappedLoose =
-      homeNameLoose === targetAwayLoose && awayNameLoose === targetHomeLoose;
-
-    return directStrict || swappedStrict || directLoose || swappedLoose;
-  });
-
-  if (!match) {
-    return null;
+    return {
+      finished: true,
+      winnerName,
+      scoreHome: scores.scoreHome,
+      scoreAway: scores.scoreAway,
+    };
   }
 
-  const scores = parseEventScore(match);
-  if (!scores) {
-    return null;
-  }
-
-  let winnerName: string | null = null;
-  if (scores.scoreHome > scores.scoreAway) {
-    winnerName = match.home?.name || prediction.homeTeam;
-  } else if (scores.scoreAway > scores.scoreHome) {
-    winnerName = match.away?.name || prediction.awayTeam;
-  }
-
-  return {
-    finished: true,
-    winnerName,
-    scoreHome: scores.scoreHome,
-    scoreAway: scores.scoreAway,
-  };
+  return null;
 }
 
 async function fetchMatchResult(prediction: {
