@@ -9,6 +9,10 @@ const PANDASCORE_API_KEY = process.env.PANDASCORE_API_KEY || "";
 const BETSAPI_BASE_URL = "https://api.b365api.com/v3";
 const BETSAPI_TOKEN = process.env.API_KEY_1 || "";
 const BETSAPI_CS2_SPORT_ID = "151";
+const BETSAPI_ENDED_MAX_PAGES = Math.min(
+  Math.max(Number(process.env.BETSAPI_ENDED_MAX_PAGES || "10"), 1),
+  20
+);
 
 type MatchResult = {
   finished: boolean;
@@ -109,7 +113,7 @@ async function fetchEndedEvents(day: string) {
   let page = 1;
   let totalPages = 1;
 
-  while (page <= totalPages && page <= 5) {
+  while (page <= totalPages && page <= BETSAPI_ENDED_MAX_PAGES) {
     const response = await fetch(
       `${BETSAPI_BASE_URL}/events/ended?token=${BETSAPI_TOKEN}&sport_id=${BETSAPI_CS2_SPORT_ID}&day=${day}&page=${page}`,
       { headers: { Accept: "application/json" } }
@@ -132,6 +136,12 @@ async function fetchEndedEvents(day: string) {
     }
 
     page += 1;
+  }
+
+  if (totalPages > BETSAPI_ENDED_MAX_PAGES) {
+    console.warn(
+      `BetsAPI ended: totalPages=${totalPages} acima do limite ${BETSAPI_ENDED_MAX_PAGES} para o dia ${day}`
+    );
   }
 
   endedEventsCache.set(day, { updatedAt: Date.now(), events: results });
