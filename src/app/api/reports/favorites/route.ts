@@ -116,7 +116,7 @@ async function fetchEndedEvents(day: string) {
   while (page <= totalPages && page <= BETSAPI_ENDED_MAX_PAGES) {
     const response = await fetch(
       `${BETSAPI_BASE_URL}/events/ended?token=${BETSAPI_TOKEN}&sport_id=${BETSAPI_CS2_SPORT_ID}&day=${day}&page=${page}`,
-      { headers: { Accept: "application/json" } }
+      { headers: { Accept: "application/json" }, cache: "no-store" }
     );
 
     if (!response.ok) {
@@ -253,6 +253,7 @@ async function fetchMatchResult(prediction: {
           Authorization: `Bearer ${PANDASCORE_API_KEY}`,
           Accept: "application/json",
         },
+        cache: "no-store",
       }
     );
 
